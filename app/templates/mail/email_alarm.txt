@@ -1,0 +1,12 @@
+Dear {{ user_name }},
+
+Welcome to AIWCY!
+
+
+{{ alarm_msg }}
+
+Sincerely,
+
+The AIWCY Team
+
+Note: replies to this email address are not monitored.
