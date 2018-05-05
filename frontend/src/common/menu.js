@@ -99,6 +99,7 @@ const menuData = [
     name: '结果页',
     icon: 'check-circle-o',
     path: 'result',
+    hideInMenu: true,
     children: [
       {
         name: '成功',
@@ -114,6 +115,7 @@ const menuData = [
     name: '异常页',
     icon: 'warning',
     path: 'exception',
+    hideInMenu: true,
     children: [
       {
         name: '403',
