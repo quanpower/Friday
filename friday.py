@@ -6,6 +6,8 @@ if os.path.exists(dotenv_path):
     load_dotenv(dotenv_path)
 
 print(os.environ.get('FLASK_APP'))
+print(os.environ.get('DATABASE_URL'))
+
 
 COV = None
 if os.environ.get('FLASK_COVERAGE'):
@@ -20,6 +22,8 @@ from app import create_app, db
 from app.models import User, Follow, Role, Permission, Post, Comment
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+
+print(os.environ.get('FLASK_CONFIG'))
 
 migrate = Migrate(app, db)
 

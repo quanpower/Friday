@@ -35,6 +35,13 @@ $ python manage.py db upgrade
 $ python manage.py db migrate
 ```
 
+flask db init
+flask db migrate
+flask db upgrade
+flask run
+
+
+
 To update database after creating new migrations, use:
 
 ```sh
