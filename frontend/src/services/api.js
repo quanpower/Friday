@@ -77,3 +77,11 @@ export async function fakeRegister(params) {
 export async function queryNotices() {
   return request('/api/notices');
 }
+
+export async function getCurrentPowerData() {
+  return request('/api/power/current');
+}
+
+export async function getHistoryPowerData() {
+  return request('/api/power/history');
+}

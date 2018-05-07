@@ -4,7 +4,7 @@ import time
 import datetime
 import json
 from app.models import User
-from ... import db
+from app import db
 
 
 
@@ -140,7 +140,7 @@ class GetUser(Resource):
     def get(self):
 
         return jsonify({
-                      'name': 'Serati Ma',
+                      'name': 'Jiajia Wen',
                       'avatar': 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
                       'userid': '00000001',
                       'notifyCount': 12,
