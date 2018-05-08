@@ -61,8 +61,7 @@ class AutoInit(Resource):
             gt.project = daq_projects[0]
             gt.worker = daq_workers[0]
             gt.datetime = datetime.datetime.now()
-            # gt.value = json.dumps(map(lambda x:[x,random.randrange(250,300)],[x for x in range(20)]))
-            gt.value = json.dumps([[x,random.uniform(250,300)] for x in range(20)])
+            gt.value = json.dumps([[x,round(random.uniform(250,300),2)] for x in range(20)])
 
             db.session.add(gt)
             try:
@@ -79,8 +78,8 @@ class AutoInit(Resource):
             power.worker = daq_workers[0]
             power.datetime = datetime.datetime.now()
 
-            powerValue1 = [random.uniform(0, 30) for x in range(0,8)]
-            powerValue2 = [random.uniform(0, 30) for x in range(0,8)]
+            powerValue1 = [round(random.uniform(0, 30),2) for x in range(0,8)]
+            powerValue2 = [round(random.uniform(0, 30),2) for x in range(0,8)]
             powerMoudle1 = [1, powerValue1]
             powerMoudle2 = [2, powerValue2]
 

@@ -17,7 +17,8 @@ api_resource.add_resource(GetUser, '/currentUser', endpoint='getUser')
 api_resource.add_resource(Users, '/users', endpoint='users')
 
 
-api_resource.add_resource(TemperatureRealtime, '/temperatures', endpoint='temperatures')
+api_resource.add_resource(TemperatureRealtime, '/temperature/realtime', endpoint='temperature_realtime')
+api_resource.add_resource(TemperatureHistory, '/temperature/history', endpoint='temperature_history')
 api_resource.add_resource(CurrentPower, '/power/current', endpoint='current_power')
 api_resource.add_resource(HistoryPower, '/power/history', endpoint='history_power')
 

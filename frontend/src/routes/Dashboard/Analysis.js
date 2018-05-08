@@ -28,6 +28,7 @@ import {
 import Trend from 'components/Trend';
 import NumberInfo from 'components/NumberInfo';
 import { getTimeDistance } from '../../utils/utils';
+import {LineChart, Line, XAxis, YAxis, CartesianGrid, Legend} from 'recharts';
 
 import styles from './Analysis.less';
 
@@ -46,9 +47,12 @@ const Yuan = ({ children }) => (
   <span dangerouslySetInnerHTML={{ __html: yuan(children) }} /> /* eslint-disable-line react/no-danger */
 );
 
-@connect(({ power, loading }) => ({
-  power,
-  loading: loading.effects['power/fetch'],
+
+
+
+@connect(({ survey, loading }) => ({
+  survey,
+  loading: loading.effects['survey/fetch'],
 }))
 
 export default class Analysis extends Component {
@@ -60,7 +64,15 @@ export default class Analysis extends Component {
 
   componentDidMount() {
     this.props.dispatch({
-      type: 'power/fetch',
+      type: 'survey/fetchCurrentPowerData',
+    });
+
+    this.props.dispatch({
+      type: 'survey/fetchTemperatureData',
+    });
+
+    this.props.dispatch({
+      type: 'survey/fetchTemperatureHistory',
     });
 
     console.log('component did mount!')
@@ -69,7 +81,7 @@ export default class Analysis extends Component {
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'power/clear',
+      type: 'survey/clear',
     });
   }
 
@@ -91,7 +103,7 @@ export default class Analysis extends Component {
     });
 
     this.props.dispatch({
-      type: 'power/fetchSalesData',
+      type: 'survey/fetchTemperatureHistory',
     });
   };
 
@@ -101,7 +113,7 @@ export default class Analysis extends Component {
     });
 
     this.props.dispatch({
-      type: 'power/fetchSalesData',
+      type: 'survey/fetchTemperatureHistory',
     });
   };
 
@@ -121,9 +133,9 @@ export default class Analysis extends Component {
 
   render() {
     const { rangePickerValue, salesType, currentTabKey } = this.state;
-    const { power, loading } = this.props;
+    const { survey, loading } = this.props;
 
-    const {currentPower, temperatureData} = power;
+    const {currentPower, temperatureData} = survey;
 
 
     const salesExtra = (
@@ -160,6 +172,16 @@ export default class Analysis extends Component {
       style: { marginBottom: 24 },
     };
 
+    const data = [
+                  {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
+                  {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
+                  {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
+                  {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
+                  {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
+                  {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
+                  {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
+            ];
+
     return (
       <Fragment>
         <Row gutter={24}>
@@ -183,7 +205,6 @@ export default class Analysis extends Component {
             </Col>
             )
           )}
-
         </Row>
 
 
@@ -241,6 +262,17 @@ export default class Analysis extends Component {
             </Tabs>
           </div>
         </Card>
+
+
+        <LineChart width={600} height={300} data={data}
+                margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+               <XAxis dataKey="name"/>
+               <YAxis/>
+               <CartesianGrid strokeDasharray="3 3"/>
+               <Legend />
+               <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
+               <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+        </LineChart>
 
 
       </Fragment>

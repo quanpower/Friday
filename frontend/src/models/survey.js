@@ -4,7 +4,7 @@ import { getTemperatureData } from '../services/api';
 import { getTemperatureHistory } from '../services/api';
 
 export default {
-  namespace: 'power',
+  namespace: 'survey',
 
   state: {
     currentPower: [],
@@ -21,6 +21,7 @@ export default {
         payload: response,
       });
     },
+
     *fetchTemperatureData(_, { call, put }) {
       const response = yield call(getTemperatureData);
       yield put({
@@ -30,6 +31,27 @@ export default {
         },
       });
     },
+
+    *fetchTemperatureHistory(_, { call, put }) {
+      const response = yield call(getTemperatureHistory);
+      yield put({
+        type: 'save',
+        payload: {
+          temperatureHistory: response.temperatureHistory,
+        },
+      });
+    },
+
+    *fetchCurrentPowerData(_, { call, put }) {
+      const response = yield call(getCurrentPowerData);
+      yield put({
+        type: 'save',
+        payload: {
+          currentPower: response.currentPower,
+        },
+      });
+    },
+
   },
 
   reducers: {

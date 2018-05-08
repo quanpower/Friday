@@ -26,20 +26,18 @@ class TemperatureRealtime(Resource):
 
     def get(self):
 
-        temp_records = db.session.query(Temperature.datetime, Temperature.channel, Temperature.value).order_by(
-            Temperature.datetime.desc()).limit(100).all()
+        temp_realtime = db.session.query(Temperature.datetime, Temperature.value).order_by(
+            Temperature.datetime.desc()).first()
 
-        temp_log = []
-        for i in range(len(temp_records)):
-            temp_log.append({"datetime": temp_records[i][0].strftime("%Y-%m-%d %H:%M:%S"), "channel": temp_records[i][1],
-                             "value": temp_records[i][2]})
+        temp_values = json.loads(temp_realtime[1])
 
-        temps_reverse = temp_log[::-1]
-        print('------------temps_reverse--------------')
-        print(temps_reverse)
+        temp_dict_list = []
+        for temp_value in temp_values:
+            temp_dict = {'x':temp_value[0], 'y':temp_value[1]}
+            temp_dict_list.append(temp_dict)
 
-        temps_dict = {"Temps": temps_reverse}
-        return temps_dict
+
+        return jsonify({'temperatureData': temp_dict_list}) 
 
     def post(self):
         pass
@@ -58,31 +56,20 @@ class TemperatureHistory(Resource):
     '''
 
     def get(self):
-        # parser = reqparse.RequestParser()
-        # parser.add_argument('gatewayAddr', type=str)
-        # parser.add_argument('nodeAddr', type=str)
-
-        # args = parser.parse_args()
-
-        # print('-------aircontemps args---------', args)
-
-        # gatewayAddr = args['gatewayAddr']
-        # nodeAddr = args['nodeAddr']
-
-        temp_records = db.session.query(Temperature.datetime, Temperature.channel, Temperature.value).order_by(
+        temp_history = db.session.query(Temperature.datetime, Temperature.value).order_by(
             Temperature.datetime.desc()).limit(100).all()
 
-        temp_log = []
-        for i in range(len(temp_records)):
-            temp_log.append({"datetime": temp_records[i][0].strftime("%Y-%m-%d %H:%M:%S"), "channel": temp_records[i][1],
-                             "value": temp_records[i][2]})
+        temp_dict_lists = []
+        for temperatures in temp_history:
+            temp_values = json.loads(temperatures[1])
 
-        temps_reverse = temp_log[::-1]
-        print('------------temps_reverse--------------')
-        print(temps_reverse)
+            temp_dict_list = []
+            for temp_value in temp_values:
+                temp_dict_list.append(temp_value[1])
+            temp_dict_lists.append(temp_dict_list)
 
-        temps_dict = {"Temps": temps_reverse}
-        return temps_dict
+
+        return jsonify({'temperatureHistory': temp_dict_lists}) 
 
     def post(self):
         pass
@@ -158,40 +145,77 @@ class CurrentPower(Resource):
 
     def get(self):
 
-        current_power = db.session.query(Power.datetime, Power.voltage1, Power.current1, Power.voltage2, Power.current2, Power.voltage3, Power.current3, Power.voltage4, Power.current4).order_by(
-            Power.datetime.desc()).first()
+        current_power = db.session.query(Power.datetime, Power.value).order_by(Power.datetime.desc()).first()
+        # current_power = db.session.query(Power.datetime, Power.value).filter(
+        #     and_(Power.project == 1, Power.worker == 1)).order_by(Power.datetime.desc()).first()
 
-        history_power = db.session.query(Power.datetime, Power.voltage1, Power.current1, Power.voltage2, Power.current2, Power.voltage3, Power.current3, Power.voltage4, Power.current4).order_by(
+        history_power = db.session.query(Power.datetime, Power.value).order_by(
             Power.datetime.desc()).limit(10).all()
+
+        # history_power = db.session.query(Power.datetime, Power.value).filter(
+        #     and_(Power.project == 1, Power.worker == 1)).order_by(
+        #     Power.datetime.desc()).limit(10).all()
+
+        powerValues = json.loads(current_power[1])
+
+        # first power
+        powerValues1 = powerValues[0]
+        print('-----------powerValues1------------')
+        print(powerValues1)
+
 
         mini_area_data1 = []
         mini_area_data2 = []
         mini_area_data3 = []
         mini_area_data4 = []
 
-        for i in range(len(history_power[0])):
-            voltage_dict1 = {'x': history_power[i][0].strftime("%Y-%m-%d %H:%M:%S"),
-                            'y': history_power[i][1]}
+
+
+        for i in range(0,len(history_power)):
+            historyPowerValues = history_power[i]
+            datetime = historyPowerValues[0].strftime("%H:%M:%S")
+
+            print(datetime)
+
+            # first power
+            historyPowerValue = json.loads(historyPowerValues[1])[0]
+
+
+            print('-----------historyPowerValue-------------')
+            print(historyPowerValue)
+
+            
+            voltage_dict1 = {'x': datetime,
+                            'y': historyPowerValue[1][1]}
             mini_area_data1.append(voltage_dict1)
 
-            voltage_dict2= {'x': history_power[i][0].strftime("%Y-%m-%d %H:%M:%S"),
-                            'y': history_power[i][3]}
+            voltage_dict2= {'x': datetime,
+                            'y': historyPowerValue[1][3]}
             mini_area_data2.append(voltage_dict2)
 
-            voltage_dict3 = {'x': history_power[i][0].strftime("%Y-%m-%d %H:%M:%S"),
-                            'y': history_power[i][5]}
+            voltage_dict3 = {'x': datetime,
+                            'y': historyPowerValue[1][5]}
             mini_area_data3.append(voltage_dict3)
 
-            voltage_dict4 = {'x': history_power[i][0].strftime("%Y-%m-%d %H:%M:%S"),
-                            'y': history_power[i][7]}
+            voltage_dict4 = {'x': datetime,
+                            'y': historyPowerValue[1][7]}
             mini_area_data4.append(voltage_dict4)
+
+        print('------mini_area_data1-----')
+        print(mini_area_data1)
+        print(mini_area_data2)
+        print(mini_area_data3)
+        print(mini_area_data4)
+
+
+        print(current_power[0])
 
         current_time = current_power[0].strftime("%Y-%m-%d %H:%M:%S")
         
         channel1_dict ={'bordered':True,
         'title':'电压1',
         'tooltip_title':'通道1',
-        'voltage':current_power[1],
+        'voltage':powerValues1[1][1],
         'footer_label':'时间',
         'footer_value':current_time,
         'contentHeight':46,
@@ -203,7 +227,7 @@ class CurrentPower(Resource):
         channel2_dict ={'bordered':True,
         'title':'电压2',
         'tooltip_title':'通道2',
-        'voltage':current_power[3],
+        'voltage':powerValues1[1][3],
         'footer_label':'时间',
         'footer_value':current_time,
         'contentHeight':46,
@@ -215,7 +239,7 @@ class CurrentPower(Resource):
         channel3_dict ={'bordered':False,
         'title':'电压3',
         'tooltip_title':'通道3',
-        'voltage':current_power[5],
+        'voltage':powerValues1[1][5],
         'footer_label':'时间',
         'footer_value':current_time,
         'contentHeight':46,
@@ -227,7 +251,7 @@ class CurrentPower(Resource):
         channel4_dict ={'bordered':False,
         'title':'电压4',
         'tooltip_title':'通道4',
-        'voltage':current_power[7],
+        'voltage':powerValues1[1][7],
         'footer_label':'时间',
         'footer_value':current_time,
         'contentHeight':46,
@@ -253,15 +277,12 @@ class CurrentPower(Resource):
         pass
 
 
- 
 class HistoryPower(Resource):
     '''
         get the power voltage and current value history records.  
     '''
 
     def get(self):
-
-
         current_power = db.session.query(Power.datetime, Power.voltage1, Power.current1, Power.voltage2, Power.current2, Power.voltage3, Power.current3, Power.voltage4, Power.current4).order_by(
             Power.datetime.desc()).first()
 
