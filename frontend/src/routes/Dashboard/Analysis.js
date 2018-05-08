@@ -29,6 +29,7 @@ import Trend from 'components/Trend';
 import NumberInfo from 'components/NumberInfo';
 import { getTimeDistance } from '../../utils/utils';
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Legend} from 'recharts';
+import ReactEcharts from 'echarts-for-react';
 
 import styles from './Analysis.less';
 
