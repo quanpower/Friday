@@ -1,12 +1,37 @@
 from app import db, login_manager
 
 
-class Temperature(db.Model):
-    __tablename__ = 'daq_temp'
+class Project(db.Model):
+    __tablename__ = 'daq_project'
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+
+    def __repr__(self):
+        return str(self.name)
+
+
+class Worker(db.Model):
+    __tablename__ = 'daq_worker'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    project_id = db.Column(db.Integer, db.ForeignKey('daq_project.id'))
+    project = db.relationship("Project")
+
+    def __repr__(self):
+        return str(self.name)        
+
+
+class Temperature(db.Model):
+    __tablename__ = 'daq_temperature'
+    id = db.Column(db.Integer, primary_key=True)
+    project_id = db.Column(db.Integer, db.ForeignKey('daq_project.id'))
+    project = db.relationship("Project")
+
+    worker_id = db.Column(db.Integer, db.ForeignKey('daq_worker.id'))
+    worker = db.relationship("Worker")
+
     datetime = db.Column(db.DateTime)
-    channel = db.Column(db.String(5))
-    value = db.Column(db.Float)
+    value = db.Column(db.Text)
 
     def __repr__(self):
         return str(self.datetime)
@@ -15,15 +40,15 @@ class Temperature(db.Model):
 class Power(db.Model):
     __tablename__ = 'daq_power'
     id = db.Column(db.Integer, primary_key=True)
+
+    project_id = db.Column(db.Integer, db.ForeignKey('daq_project.id'))
+    project = db.relationship("Project")
+
+    worker_id = db.Column(db.Integer, db.ForeignKey('daq_worker.id'))
+    worker = db.relationship("Worker")
+
     datetime = db.Column(db.DateTime)
-    voltage1 = db.Column(db.Float)
-    current1 = db.Column(db.Float)
-    voltage2 = db.Column(db.Float)
-    current2 = db.Column(db.Float)
-    voltage3 = db.Column(db.Float)
-    current3 = db.Column(db.Float)
-    voltage4 = db.Column(db.Float)
-    current4 = db.Column(db.Float)
+    value = db.Column(db.Text)
 
     def __repr__(self):
         return str(self.datetime)

@@ -85,3 +85,11 @@ export async function getCurrentPowerData() {
 export async function getHistoryPowerData() {
   return request('/api/power/history');
 }
+
+export async function getTemperatureData() {
+  return request('/api/temperature/realtime');
+}
+
+export async function getTemperatureHistory() {
+  return request('/api/temperature/history');
+}

@@ -1,5 +1,5 @@
 from .user import Login, Logout, GetUser, Register, Users
-from .daq import Temperatures, CurrentPower, HistoryPower
+from .daq import TemperatureRealtime, TemperatureHistory, CurrentPower, HistoryPower
 
 from .auto_init import AutoInit
 from .fake import FakeNotices
@@ -10,7 +10,8 @@ __all__ = [
     'Logout',
     'GetUser',
     'Users',
-    'Temperatures',
+    'TemperatureRealtime',
+    'TemperatureHistory',
     'CurrentPower',
     'HistoryPower',
     'AutoInit',

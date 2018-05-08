@@ -1,13 +1,15 @@
 import { getCurrentPowerData } from '../services/api';
 import { getHistoryPowerData } from '../services/api';
-import { fakeChartData } from '../services/api';
+import { getTemperatureData } from '../services/api';
+import { getTemperatureHistory } from '../services/api';
 
 export default {
   namespace: 'power',
 
   state: {
     currentPower: [],
-    historyPower: [],
+    temperatureData: [],
+    temperatureHistory:[],
     loading: false,
   },
 
@@ -19,12 +21,12 @@ export default {
         payload: response,
       });
     },
-    *fetchSalesData(_, { call, put }) {
-      const response = yield call(fakeChartData);
+    *fetchTemperatureData(_, { call, put }) {
+      const response = yield call(getTemperatureData);
       yield put({
         type: 'save',
         payload: {
-          salesData: response.salesData,
+          temperatureData: response.temperatureData,
         },
       });
     },
@@ -40,7 +42,8 @@ export default {
     clear() {
       return {
         currentPower: [],
-        historyPower: [],
+        temperatureData: [],
+        temperatureHistory:[],
       };
     },
   },

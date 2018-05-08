@@ -19,7 +19,40 @@ from app.email import send_email
 # swagger = Swagger(app)
 
 
-class Temperatures(Resource):
+class TemperatureRealtime(Resource):
+    '''
+        get the lates temp.
+    '''
+
+    def get(self):
+
+        temp_records = db.session.query(Temperature.datetime, Temperature.channel, Temperature.value).order_by(
+            Temperature.datetime.desc()).limit(100).all()
+
+        temp_log = []
+        for i in range(len(temp_records)):
+            temp_log.append({"datetime": temp_records[i][0].strftime("%Y-%m-%d %H:%M:%S"), "channel": temp_records[i][1],
+                             "value": temp_records[i][2]})
+
+        temps_reverse = temp_log[::-1]
+        print('------------temps_reverse--------------')
+        print(temps_reverse)
+
+        temps_dict = {"Temps": temps_reverse}
+        return temps_dict
+
+    def post(self):
+        pass
+
+
+    def delete(self):
+        pass
+
+    def put(self):
+        pass
+
+
+class TemperatureHistory(Resource):
     '''
         get the lates 10 temps.
     '''
@@ -129,7 +162,7 @@ class CurrentPower(Resource):
             Power.datetime.desc()).first()
 
         history_power = db.session.query(Power.datetime, Power.voltage1, Power.current1, Power.voltage2, Power.current2, Power.voltage3, Power.current3, Power.voltage4, Power.current4).order_by(
-            Power.datetime.desc()).all()
+            Power.datetime.desc()).limit(10).all()
 
         mini_area_data1 = []
         mini_area_data2 = []
@@ -155,7 +188,7 @@ class CurrentPower(Resource):
 
         current_time = current_power[0].strftime("%Y-%m-%d %H:%M:%S")
         
-        channel1_dict ={'bordered':False,
+        channel1_dict ={'bordered':True,
         'title':'电压1',
         'tooltip_title':'通道1',
         'voltage':current_power[1],
@@ -167,7 +200,7 @@ class CurrentPower(Resource):
         }
         
 
-        channel2_dict ={'bordered':False,
+        channel2_dict ={'bordered':True,
         'title':'电压2',
         'tooltip_title':'通道2',
         'voltage':current_power[3],

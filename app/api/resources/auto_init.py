@@ -8,7 +8,7 @@ import random
 import datetime, time
 import bitstring
 
-from app.models import Temperature, Power
+from app.models import Project, Worker, Temperature, Power
 
 
 class AutoInit(Resource):
@@ -18,35 +18,74 @@ class AutoInit(Resource):
 
         time_now = datetime.datetime.now()
 
+
+        try:
+            daq_projects = list()
+            daq_projects.append(Project(name='project1'))
+            daq_projects.append(Project(name='project2'))
+            daq_projects.append(Project(name='project3'))
+            db.session.add(daq_projects[0])
+            db.session.add(daq_projects[1])
+            db.session.add(daq_projects[2])
+            db.session.commit()
+        except Exception as e:
+            log.error("Creating daq_projects: %s", e)
+            db.session.rollback()
+
+
+        try:
+            daq_workers = list()
+            daq_workers.append(Worker(name='worker1', project=daq_projects[0]))
+            daq_workers.append(Worker(name='worker2', project=daq_projects[0]))
+            daq_workers.append(Worker(name='worker1', project=daq_projects[1]))
+            daq_workers.append(Worker(name='worker2', project=daq_projects[1]))
+            daq_workers.append(Worker(name='worker1', project=daq_projects[2]))
+            daq_workers.append(Worker(name='worker2', project=daq_projects[2]))
+
+            db.session.add(daq_workers[0])
+            db.session.add(daq_workers[1])
+            db.session.add(daq_workers[2])
+            db.session.add(daq_workers[3])
+            db.session.add(daq_workers[4])
+            db.session.add(daq_workers[5])
+            db.session.commit()
+        except Exception as e:
+            log.error("Creating daq_workers: %s", e)
+            db.session.rollback()
+
+
+
         for i in range(1, 100):
             gt = Temperature()
 
-
+            gt.project = daq_projects[0]
+            gt.worker = daq_workers[0]
             gt.datetime = datetime.datetime.now()
-            gt.channel = str(random.randrange(0,20))
-            gt.value = random.randrange(250, 300)
+            # gt.value = json.dumps(map(lambda x:[x,random.randrange(250,300)],[x for x in range(20)]))
+            gt.value = json.dumps([[x,random.uniform(250,300)] for x in range(20)])
 
             db.session.add(gt)
             try:
                 db.session.commit()
                 print("inserted", gt)
             except Exception as e:
-                log.error("Creating GrainTemp: %s", e)
+                log.error("Creating Temperature: %s", e)
                 db.session.rollback()
 
 
         for i in range(1, 10):
             power = Power()
-
+            power.project = daq_projects[0]
+            power.worker = daq_workers[0]
             power.datetime = datetime.datetime.now()
-            power.voltage1 = random.randrange(0, 30)
-            power.current1 = random.randrange(0, 5)
-            power.voltage2 = random.randrange(0, 30)
-            power.current2 = random.randrange(0, 5)
-            power.voltage3 = random.randrange(0, 30)
-            power.current3 = random.randrange(0, 5)
-            power.voltage4 = random.randrange(0, 30)
-            power.current4 = random.randrange(0, 5)
+
+            powerValue1 = [random.uniform(0, 30) for x in range(0,8)]
+            powerValue2 = [random.uniform(0, 30) for x in range(0,8)]
+            powerMoudle1 = [1, powerValue1]
+            powerMoudle2 = [2, powerValue2]
+
+            power.value = json.dumps([powerMoudle1,powerMoudle2])
+
 
             db.session.add(power)
             try:

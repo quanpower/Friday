@@ -123,10 +123,7 @@ export default class Analysis extends Component {
     const { rangePickerValue, salesType, currentTabKey } = this.state;
     const { power, loading } = this.props;
 
-    console.log('power:',power)
-    const {currentPower, historyPower} = power;
-
-   
+    const {currentPower, temperatureData} = power;
 
 
     const salesExtra = (
@@ -188,6 +185,62 @@ export default class Analysis extends Component {
           )}
 
         </Row>
+
+
+        <Card loading={loading} bordered={false} bodyStyle={{ padding: 0 }}>
+          <div className={styles.salesCard}>
+            <Tabs tabBarExtraContent={salesExtra} size="large" tabBarStyle={{ marginBottom: 24 }}>
+              <TabPane tab="实时温度" key="sales">
+                <Row>
+                  <Col xl={16} lg={12} md={12} sm={24} xs={24}>
+                    <div className={styles.salesBar}>
+                      <Bar height={295} title="实时温度" data={temperatureData} />
+                    </div>
+                  </Col>
+                  <Col xl={8} lg={12} md={12} sm={24} xs={24}>
+                    <div className={styles.salesRank}>
+                      <h4 className={styles.rankingTitle}>实时温度</h4>
+                      <ul className={styles.rankingList}>
+                        {rankingListData.map((item, i) => (
+                          <li key={item.title}>
+                            <span className={i < 3 ? styles.active : ''}>{i + 1}</span>
+                            <span>{item.title}</span>
+                            <span>{numeral(item.total).format('0,0')}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </Col>
+                </Row>
+              </TabPane>
+
+              <TabPane tab="历史温度" key="views">
+                <Row>
+                  <Col xl={16} lg={12} md={12} sm={24} xs={24}>
+                    <div className={styles.salesBar}>
+                      <Bar height={292} title="历史温度" data={temperatureData} />
+                    </div>
+                  </Col>
+                  <Col xl={8} lg={12} md={12} sm={24} xs={24}>
+                    <div className={styles.salesRank}>
+                      <h4 className={styles.rankingTitle}>历史温度</h4>
+                      <ul className={styles.rankingList}>
+                        {rankingListData.map((item, i) => (
+                          <li key={item.title}>
+                            <span className={i < 3 ? styles.active : ''}>{i + 1}</span>
+                            <span>{item.title}</span>
+                            <span>{numeral(item.total).format('0,0')}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </Col>
+                </Row>
+              </TabPane>
+
+            </Tabs>
+          </div>
+        </Card>
 
 
       </Fragment>
