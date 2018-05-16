@@ -7,7 +7,7 @@ const menuData = [
     path: 'dashboard',
     children: [
       {
-        name: 'gaikuang页',
+        name: '分析页',
         path: 'analysis',
       },
       {

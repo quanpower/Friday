@@ -71,8 +71,6 @@ const proxy = {
   'GET /api/fake_chart_data': getFakeChartData,
   'GET /api/profile/basic': getProfileBasicData,
   'GET /api/profile/advanced': getProfileAdvancedData,
-
-
   'POST /api/login/account': (req, res) => {
     const { password, userName, type } = req.body;
     if (password === '888888' && userName === 'admin') {

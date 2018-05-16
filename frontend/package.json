@@ -31,8 +31,6 @@
     "classnames": "^2.2.5",
     "dva": "^2.2.3",
     "dva-loading": "^1.0.4",
-    "echarts": "^4.1.0",
-    "echarts-for-react": "^2.0.8",
     "enquire-js": "^0.2.1",
     "less": "2.7.2",
     "lodash": "^4.17.4",
@@ -89,7 +87,7 @@
   },
   "lint-staged": {
     "**/*.{js,jsx,less}": [
-      "prettier --wirter",
+      "prettier --write",
       "git add"
     ],
     "**/*.{js,jsx}": "lint-staged:js",
