@@ -1,7 +1,6 @@
-import { getCurrentPowerData } from '../services/api';
-import { getHistoryPowerData } from '../services/api';
-import { getTemperatureData } from '../services/api';
-import { getTemperatureHistory } from '../services/api';
+import { queryTemperatureData } from '../services/api';
+import { queryTemperatureHistory } from '../services/api';
+import { queryTemperatureRecord } from '../services/api';
 
 export default {
   namespace: 'survey',
@@ -10,40 +9,77 @@ export default {
     currentPower: [],
     temperatureData: [],
     temperatureHistory:[],
+    temperatureRecord:[],
+    realtimeBars:[],
+    historyLines:[],
+    recordColumns:[],
     loading: false,
   },
 
   effects: {
-    *fetch(_, { call, put }) {
-      const response = yield call(getCurrentPowerData);
+    *fetch({ payload }, { call, put }) {
+      const response = yield call(queryCurrentPowerData, payload);
       yield put({
         type: 'save',
         payload: response,
       });
     },
 
-    *fetchTemperatureData(_, { call, put }) {
-      const response = yield call(getTemperatureData);
+    *fetchTemperatureData({ payload }, { call, put }) {
+      const response = yield call(queryTemperatureData, payload);
       yield put({
         type: 'save',
         payload: {
           temperatureData: response.temperatureData,
         },
       });
+
+      yield put({
+        type: 'save',
+        payload: {
+          realtimeBars: response.realtimeBars,
+        },
+      });
     },
 
-    *fetchTemperatureHistory(_, { call, put }) {
-      const response = yield call(getTemperatureHistory);
+    *fetchTemperatureHistory({ payload }, { call, put }) {
+      const response = yield call(queryTemperatureHistory, payload);
       yield put({
         type: 'save',
         payload: {
           temperatureHistory: response.temperatureHistory,
         },
       });
+
+      yield put({
+        type: 'save',
+        payload: {
+          historyLines: response.historyLines,
+        },
+      });
+
+
     },
 
-    *fetchCurrentPowerData(_, { call, put }) {
-      const response = yield call(getCurrentPowerData);
+    *fetchTemperatureRecord({ payload }, { call, put }) {
+      const response = yield call(queryTemperatureRecord, payload);
+      yield put({
+        type: 'save',
+        payload: {
+          temperatureRecord: response.temperatureRecord,
+        },
+      });
+
+      yield put({
+        type: 'save',
+        payload: {
+          recordColumns: response.recordColumns,
+        },
+      });
+    },
+
+    *fetchCurrentPowerData({ payload }, { call, put }) {
+      const response = yield call(queryCurrentPowerData, payload);
       yield put({
         type: 'save',
         payload: {
@@ -66,6 +102,10 @@ export default {
         currentPower: [],
         temperatureData: [],
         temperatureHistory:[],
+        temperatureRecord:[],
+        realtimeBars:[],
+        historyLines:[],
+        recordColumns:[],
       };
     },
   },

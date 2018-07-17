@@ -72,11 +72,14 @@ export const getRouterData = app => {
     '/': {
       component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/BasicLayout')),
     },
-    '/dashboard/analysis': {
+    '/dashboard/analysis/:worker_name': {
       component: dynamicWrapper(app, ['survey'], () => import('../routes/Dashboard/Analysis')),
     },
-    '/dashboard/monitor': {
+    '/dashboard/monitor/:worker_name': {
       component: dynamicWrapper(app, ['survey'], () => import('../routes/Dashboard/Monitor')),
+    },
+    '/dashboard/alarm/:worker_name': {
+      component: dynamicWrapper(app, ['alarm'], () => import('../routes/Dashboard/Alarm')),
     },
     '/dashboard/workplace': {
       component: dynamicWrapper(app, ['project', 'activities', 'chart'], () =>
@@ -85,6 +88,12 @@ export const getRouterData = app => {
       // hideInBreadcrumb: true,
       // name: '工作台',
       // authority: 'admin',
+    },
+    '/project/project': {
+      component: dynamicWrapper(app, ['projects'], () => import('../routes/Project/ProjectList')),
+    },
+    '/project/worker/:project_name': {
+      component: dynamicWrapper(app, ['workers'], () => import('../routes/Project/WorkerList')),
     },
     '/form/basic-form': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/BasicForm')),

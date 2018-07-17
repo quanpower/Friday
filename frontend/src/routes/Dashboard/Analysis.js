@@ -9,7 +9,6 @@ import {
   Table,
   Radio,
   DatePicker,
-  Tooltip,
   Menu,
   Dropdown,
 } from 'antd';
@@ -21,14 +20,13 @@ import {
   MiniBar,
   MiniProgress,
   Field,
-  Bar,
   Pie,
   TimelineChart,
 } from 'components/Charts';
 import Trend from 'components/Trend';
 import NumberInfo from 'components/NumberInfo';
 import { getTimeDistance } from '../../utils/utils';
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Legend} from 'recharts';
+import {BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 import ReactEcharts from 'echarts-for-react';
 
 import styles from './Analysis.less';
@@ -37,9 +35,9 @@ const { TabPane } = Tabs;
 const { RangePicker } = DatePicker;
 
 const rankingListData = [];
-for (let i = 0; i < 7; i += 1) {
+for (let i = 0; i < 10; i += 1) {
   rankingListData.push({
-    title: `工专路 ${i} 号店`,
+    title: `${i} 通道`,
     total: 323234,
   });
 }
@@ -53,7 +51,7 @@ const Yuan = ({ children }) => (
 
 @connect(({ survey, loading }) => ({
   survey,
-  loading: loading.effects['survey/fetch'],
+  loading: loading.effects['survey/fetchTemperatureData'],
 }))
 
 export default class Analysis extends Component {
@@ -64,17 +62,49 @@ export default class Analysis extends Component {
   };
 
   componentDidMount() {
-    this.props.dispatch({
-      type: 'survey/fetchCurrentPowerData',
-    });
+    // this.props.dispatch({
+    //   type: 'survey/fetchCurrentPowerData',
+    //   payload: {
+    //     worker_name: '20180704',
+    //   },
+    // });
+    console.log('this.props')
+    console.log(this.props);
+    const worker_name = this.props.match.params.worker_name;
+
+    console.log(worker_name);
 
     this.props.dispatch({
       type: 'survey/fetchTemperatureData',
+      payload: {
+        worker_name: worker_name,
+      },
     });
 
     this.props.dispatch({
       type: 'survey/fetchTemperatureHistory',
+      payload: {
+        worker_name: worker_name,
+      },
     });
+
+    this.timer = setInterval(() => {
+
+      this.props.dispatch({
+        type: 'survey/fetchTemperatureData',
+        payload: {
+          worker_name: worker_name,
+        },
+      });
+
+      this.props.dispatch({
+        type: 'survey/fetchTemperatureHistory',
+        payload: {
+          worker_name: worker_name,
+        },
+      });
+
+    }, 3000);
 
     console.log('component did mount!')
   }
@@ -97,6 +127,7 @@ export default class Analysis extends Component {
       currentTabKey: key,
     });
   };
+
 
   handleRangePickerChange = rangePickerValue => {
     this.setState({
@@ -135,8 +166,10 @@ export default class Analysis extends Component {
   render() {
     const { rangePickerValue, salesType, currentTabKey } = this.state;
     const { survey, loading } = this.props;
-
-    const {currentPower, temperatureData} = survey;
+    console.log('--survey,loading--')
+    console.log(survey)
+    console.log(loading)
+    const {currentPower, temperatureData, realtimeBars, temperatureHistory, historyLines } = survey;
 
 
     const salesExtra = (
@@ -173,20 +206,13 @@ export default class Analysis extends Component {
       style: { marginBottom: 24 },
     };
 
-    const data = [
-                  {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-                  {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
-                  {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
-                  {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
-                  {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
-                  {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
-                  {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
-            ];
+
 
     return (
       <Fragment>
         <Row gutter={24}>
           {console.log('currentPower:', currentPower)}
+
           {currentPower.map((item, i) => (
             <Col {...topColResponsiveProps}>
               <ChartCard
@@ -216,7 +242,22 @@ export default class Analysis extends Component {
                 <Row>
                   <Col xl={16} lg={12} md={12} sm={24} xs={24}>
                     <div className={styles.salesBar}>
-                      <Bar height={295} title="实时温度" data={temperatureData} />
+                          {console.log('temperatureData:', temperatureData)}
+                          {console.log('realtimeBars:', realtimeBars)}
+
+                          <BarChart width={600} height={300} data={temperatureData}
+                                margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                           <CartesianGrid strokeDasharray="3 3"/>
+                           <XAxis dataKey="name"/>
+                           <YAxis/>
+                           <Tooltip/>
+                           <Legend />
+
+                          {realtimeBars.map((item, i) => (
+                            <Bar dataKey={item.dataKey} fill={item.fill} />
+                          ))}
+
+                          </BarChart>
                     </div>
                   </Col>
                   <Col xl={8} lg={12} md={12} sm={24} xs={24}>
@@ -240,7 +281,19 @@ export default class Analysis extends Component {
                 <Row>
                   <Col xl={16} lg={12} md={12} sm={24} xs={24}>
                     <div className={styles.salesBar}>
-                      <Bar height={292} title="历史温度" data={temperatureData} />
+                      <LineChart width={600} height={300} data={temperatureHistory}
+                              margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                         <XAxis dataKey="time"/>
+                         <YAxis/>
+                         <CartesianGrid strokeDasharray="3 3"/>
+                         <Tooltip/>
+                         <Legend />
+
+                          {historyLines.map((item, i) => (
+                            <Line type={item.type} dataKey={item.dataKey} stroke={item.stroke} />
+                          ))}
+
+                      </LineChart>
                     </div>
                   </Col>
                   <Col xl={8} lg={12} md={12} sm={24} xs={24}>
@@ -263,18 +316,6 @@ export default class Analysis extends Component {
             </Tabs>
           </div>
         </Card>
-
-
-        <LineChart width={600} height={300} data={data}
-                margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-               <XAxis dataKey="name"/>
-               <YAxis/>
-               <CartesianGrid strokeDasharray="3 3"/>
-               <Legend />
-               <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
-               <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-        </LineChart>
-
 
       </Fragment>
     );

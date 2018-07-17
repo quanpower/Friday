@@ -8,7 +8,7 @@ import random
 import datetime, time
 import bitstring
 
-from app.models import Project, Worker, Temperature, Power
+from app.models import Project, Worker, DAQ, Alarm
 
 
 class AutoInit(Resource):
@@ -56,7 +56,7 @@ class AutoInit(Resource):
 
 
         for i in range(1, 100):
-            gt = Temperature()
+            gt = DAQ()
 
             gt.project = daq_projects[0]
             gt.worker = daq_workers[0]
@@ -73,25 +73,22 @@ class AutoInit(Resource):
 
 
         for i in range(1, 10):
-            power = Power()
-            power.project = daq_projects[0]
-            power.worker = daq_workers[0]
-            power.datetime = datetime.datetime.now()
+            gt = Alarm()
 
-            powerValue1 = [round(random.uniform(0, 30),2) for x in range(0,8)]
-            powerValue2 = [round(random.uniform(0, 30),2) for x in range(0,8)]
-            powerMoudle1 = [1, powerValue1]
-            powerMoudle2 = [2, powerValue2]
+            gt.project = daq_projects[0]
+            gt.worker = daq_workers[0]
+            gt.datetime = datetime.datetime.now()
+            gt.value = json.dumps([[x,round(random.uniform(250,300),2)] for x in range(20)])
 
-            power.value = json.dumps([powerMoudle1,powerMoudle2])
-
-
-            db.session.add(power)
+            db.session.add(gt)
             try:
                 db.session.commit()
-                print("inserted", power)
+                print("inserted", gt)
             except Exception as e:
-                log.error("Creating Power: %s", e)
+                log.error("Creating Temperature: %s", e)
                 db.session.rollback()
+
+
+
 
         return jsonify({'success': 'auto insert init datas!'})

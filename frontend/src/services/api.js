@@ -78,18 +78,27 @@ export async function queryNotices() {
   return request('/api/notices');
 }
 
-export async function getCurrentPowerData() {
-  return request('/api/power/current');
+
+export async function queryDAQData(params) {
+  return request(`/api/daq/realtime?${stringify(params)}`);
 }
 
-export async function getHistoryPowerData() {
-  return request('/api/power/history');
+export async function queryDAQAlarm(params) {
+  return request(`/api/daq/alarm?${stringify(params)}`);
 }
 
-export async function getTemperatureData() {
-  return request('/api/temperature/realtime');
+export async function queryDAQHistory(params) {
+  return request(`/api/daq/history?${stringify(params)}`);
 }
 
-export async function getTemperatureHistory() {
-  return request('/api/temperature/history');
+export async function queryDAQRecord(params) {
+  return request(`/api/daq/record?${stringify(params)}`);
+}
+
+export async function queryProjects() {
+  return request('/api/projects');
+}
+
+export async function queryWorkers(params) {
+  return request(`/api/workers?${stringify(params)}`);
 }

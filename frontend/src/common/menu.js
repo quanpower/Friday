@@ -1,22 +1,42 @@
 import { isUrl } from '../utils/utils';
 
 const menuData = [
+{
+    name: '项目页',
+    icon: 'table',
+    path: 'project',
+    children: [
+      {
+        name: '项目',
+        path: 'project',
+      },
+      {
+        name: '工况',
+        path: 'worker/20180704',
+      },
+    ],
+  },
   {
     name: 'dashboard',
     icon: 'dashboard',
     path: 'dashboard',
     children: [
       {
-        name: '分析页',
-        path: 'analysis',
-      },
-      {
         name: '监控页',
-        path: 'monitor',
+        path: 'analysis/20180704',
       },
       {
-        name: '工作台',
+        name: '记录页',
+        path: 'monitor/20180704',
+      },
+      {
+        name: '报警页',
+        path: 'alarm/20180704',
+      },
+      {
+        name: '分析工作台监控',
         path: 'workplace',
+        hideInMenu: true,
         // hideInBreadcrumb: true,
         // hideInMenu: true,
       },
@@ -26,6 +46,7 @@ const menuData = [
     name: '表单页',
     icon: 'form',
     path: 'form',
+    hideInMenu: true,
     children: [
       {
         name: '基础表单',
@@ -46,6 +67,7 @@ const menuData = [
     name: '列表页',
     icon: 'table',
     path: 'list',
+    hideInMenu: true,
     children: [
       {
         name: '查询表格',
@@ -83,6 +105,7 @@ const menuData = [
     name: '详情页',
     icon: 'profile',
     path: 'profile',
+    hideInMenu: true,
     children: [
       {
         name: '基础详情页',
