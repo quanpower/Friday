@@ -41,7 +41,7 @@ export default class Monitor extends PureComponent {
           worker_name: worker_name,
         },
       });
-    }, 3000);
+    }, 10000);
   }
 
 

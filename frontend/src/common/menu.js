@@ -12,7 +12,7 @@ const menuData = [
       },
       {
         name: '工况',
-        path: 'worker/20180704',
+        path: 'worker/20180719_01',
       },
     ],
   },
@@ -23,15 +23,15 @@ const menuData = [
     children: [
       {
         name: '监控页',
-        path: 'analysis/20180704',
+        path: 'analysis/20180719_01',
       },
       {
         name: '记录页',
-        path: 'monitor/20180704',
+        path: 'monitor/20180719_01',
       },
       {
         name: '报警页',
-        path: 'alarm/20180704',
+        path: 'alarm/20180719_01',
       },
       {
         name: '分析工作台监控',

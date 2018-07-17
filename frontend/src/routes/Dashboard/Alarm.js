@@ -49,7 +49,7 @@ export default class Alarm extends Component {
         },
       });
 
-    }, 3000);
+    }, 10000);
 
     console.log('component did mount!')
   }

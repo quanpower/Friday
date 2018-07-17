@@ -219,8 +219,7 @@ class DAQRealtime(Resource):
 
         temp_dict_list = []
         for temp_value in temp_values:
-            print('----temp_value----')
-            print(temp_value)
+
             temp_dict[temp_value[0]] = temp_value[1]
         temp_dict_list.append(temp_dict)
 
