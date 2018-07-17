@@ -35,6 +35,7 @@ $ python manage.py db upgrade
 $ python manage.py db migrate
 ```
 
+
 flask db init
 flask db migrate
 flask db upgrade
