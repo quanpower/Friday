@@ -233,7 +233,7 @@ class DAQRealtime(Resource):
             temp_value = temp_values[i]
             realtimeBars.append({'dataKey': temp_value[0], 'fill':index_color(i)})
 
-        return jsonify({'DAQData': temp_dict_list, 'realtimeBars': realtimeBars}) 
+        return jsonify({'temperatureData': temp_dict_list, 'realtimeBars': realtimeBars}) 
 
     def post(self):
         pass
@@ -278,7 +278,7 @@ class DAQAlarm(Resource):
             alarm_dict_list.append(alarm_dict)
 
 
-        return jsonify({'DAQAlarm': alarm_dict_list}) 
+        return jsonify({'temperatureAlarm': alarm_dict_list}) 
 
     def post(self):
         pass
