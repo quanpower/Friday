@@ -61,7 +61,7 @@ class AutoInit(Resource):
             gt.project = daq_projects[0]
             gt.worker = daq_workers[0]
             gt.datetime = datetime.datetime.now()
-            gt.value = json.dumps([[x,round(random.uniform(250,300),2)] for x in range(20)])
+            gt.value = json.dumps([{str(x):round(random.uniform(25,30),2)} for x in range(16)])
 
             db.session.add(gt)
             try:
@@ -78,7 +78,7 @@ class AutoInit(Resource):
             gt.project = daq_projects[0]
             gt.worker = daq_workers[0]
             gt.datetime = datetime.datetime.now()
-            gt.value = json.dumps([[x,round(random.uniform(250,300),2)] for x in range(20)])
+            gt.value = json.dumps([{str(x): '1'} for x in range(16)])
 
             db.session.add(gt)
             try:
