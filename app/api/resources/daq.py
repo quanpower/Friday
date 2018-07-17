@@ -214,8 +214,13 @@ class DAQRealtime(Resource):
         temp_datetime_str = datetime.datetime.strftime(temp_datetime, "%H-%M-%S")
         temp_dict = {'name':temp_datetime_str}
 
+        print('---------temp_values--------')
+        print(temp_values)
+
         temp_dict_list = []
         for temp_value in temp_values:
+            print('----temp_value----')
+            print(temp_value)
             temp_dict[temp_value[0]] = temp_value[1]
         temp_dict_list.append(temp_dict)
 
