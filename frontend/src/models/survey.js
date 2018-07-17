@@ -1,6 +1,6 @@
-import { queryTemperatureData } from '../services/api';
-import { queryTemperatureHistory } from '../services/api';
-import { queryTemperatureRecord } from '../services/api';
+import { queryDAQData } from '../services/api';
+import { queryDAQHistory } from '../services/api';
+import { queryDAQRecord } from '../services/api';
 
 export default {
   namespace: 'survey',
@@ -26,7 +26,7 @@ export default {
     },
 
     *fetchTemperatureData({ payload }, { call, put }) {
-      const response = yield call(queryTemperatureData, payload);
+      const response = yield call(queryDAQData, payload);
       yield put({
         type: 'save',
         payload: {
@@ -43,7 +43,7 @@ export default {
     },
 
     *fetchTemperatureHistory({ payload }, { call, put }) {
-      const response = yield call(queryTemperatureHistory, payload);
+      const response = yield call(queryDAQHistory, payload);
       yield put({
         type: 'save',
         payload: {
@@ -62,7 +62,7 @@ export default {
     },
 
     *fetchTemperatureRecord({ payload }, { call, put }) {
-      const response = yield call(queryTemperatureRecord, payload);
+      const response = yield call(queryDAQRecord, payload);
       yield put({
         type: 'save',
         payload: {
@@ -78,15 +78,6 @@ export default {
       });
     },
 
-    *fetchCurrentPowerData({ payload }, { call, put }) {
-      const response = yield call(queryCurrentPowerData, payload);
-      yield put({
-        type: 'save',
-        payload: {
-          currentPower: response.currentPower,
-        },
-      });
-    },
 
   },
 

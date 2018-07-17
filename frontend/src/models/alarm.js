@@ -1,4 +1,4 @@
-import { queryTemperatureAlarm } from '../services/api';
+import { queryDAQAlarm } from '../services/api';
 
 export default {
   namespace: 'alarm',
@@ -11,7 +11,7 @@ export default {
   effects: {
 
     *fetchTemperatureAlarm({ payload }, { call, put }) {
-      const response = yield call(queryTemperatureAlarm, payload);
+      const response = yield call(queryDAQAlarm, payload);
       yield put({
         type: 'save',
         payload: {
