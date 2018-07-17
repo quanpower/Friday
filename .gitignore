@@ -131,7 +131,6 @@ frontend/src/utils/request-temp.js
 frontend/_roadhog-api-doc
 
 # production
-frontend/dist
 frontend/vscode
 
 # misc
