@@ -4,7 +4,7 @@ api = Blueprint('api', __name__)
 # from . import authentication, posts, users, comments, errors
 
 from flask_restful import Api
-from app.api.resources import Login, Logout, GetUser, Register, Users, DAQRealtime, DAQAlarm, DAQHistory, DAQRecord, AutoInit, FakeNotices
+from app.api.resources import Login, Logout, GetUser, Register, Users, Projects, Workers, DAQRealtime, DAQAlarm, DAQHistory, DAQRecord, AutoInit, FakeNotices
 
 
 api_resource = Api(api)
