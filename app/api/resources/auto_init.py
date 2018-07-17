@@ -21,9 +21,9 @@ class AutoInit(Resource):
 
         try:
             daq_projects = list()
-            daq_projects.append(Project(name='20180716'))
-            daq_projects.append(Project(name='20180717'))
-            daq_projects.append(Project(name='20180718'))
+            daq_projects.append(Project(name='20180719'))
+            daq_projects.append(Project(name='20180720'))
+            daq_projects.append(Project(name='20180721'))
             db.session.add(daq_projects[0])
             db.session.add(daq_projects[1])
             db.session.add(daq_projects[2])
@@ -35,12 +35,12 @@ class AutoInit(Resource):
 
         try:
             daq_workers = list()
-            daq_workers.append(Worker(name='20180716_01', project=daq_projects[0]))
-            daq_workers.append(Worker(name='20180716_02', project=daq_projects[0]))
-            daq_workers.append(Worker(name='20180717_01', project=daq_projects[1]))
-            daq_workers.append(Worker(name='20180717_01', project=daq_projects[1]))
-            daq_workers.append(Worker(name='20180717_01', project=daq_projects[2]))
-            daq_workers.append(Worker(name='20180717_01', project=daq_projects[2]))
+            daq_workers.append(Worker(name='20180719_01', project=daq_projects[0]))
+            daq_workers.append(Worker(name='20180719_02', project=daq_projects[0]))
+            daq_workers.append(Worker(name='20180720_01', project=daq_projects[1]))
+            daq_workers.append(Worker(name='20180720_02', project=daq_projects[1]))
+            daq_workers.append(Worker(name='20180721_01', project=daq_projects[2]))
+            daq_workers.append(Worker(name='20180721_02', project=daq_projects[2]))
 
             db.session.add(daq_workers[0])
             db.session.add(daq_workers[1])
