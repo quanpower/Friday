@@ -216,7 +216,7 @@ class DAQRealtime(Resource):
 
         temp_dict_list = []
         for temp_value in temp_values:
-            temp_dict[temp_value[0]] = float(temp_value[1])
+            temp_dict[temp_value[0]] = temp_value[1]
         temp_dict_list.append(temp_dict)
 
         print('--------temp_dict_list---- \n' *3)
@@ -316,7 +316,7 @@ class DAQHistory(Resource):
 
             temp_dict = {'time':temp_datetime_str}
             for temp_value in temp_values:
-                temp_dict[temp_value[0]] = float(temp_value[1])
+                temp_dict[temp_value[0]] = temp_value[1]
             temp_dict_lists.append(temp_dict)
 
         print(temp_dict_lists)
@@ -377,7 +377,7 @@ class DAQRecord(Resource):
             temp_dict = {'key':i, 'datetime':temp_datetime_str}
 
             for temp_value in temp_values:
-                temp_dict[temp_value[0]] = float(temp_value[1])
+                temp_dict[temp_value[0]] = temp_value[1]
 
             temp_dict_lists.append(temp_dict)
 
