@@ -21,9 +21,9 @@ class AutoInit(Resource):
 
         try:
             daq_projects = list()
-            daq_projects.append(Project(name='project1'))
-            daq_projects.append(Project(name='project2'))
-            daq_projects.append(Project(name='project3'))
+            daq_projects.append(Project(name='20180716'))
+            daq_projects.append(Project(name='20180717'))
+            daq_projects.append(Project(name='20180718'))
             db.session.add(daq_projects[0])
             db.session.add(daq_projects[1])
             db.session.add(daq_projects[2])
@@ -35,12 +35,12 @@ class AutoInit(Resource):
 
         try:
             daq_workers = list()
-            daq_workers.append(Worker(name='worker1', project=daq_projects[0]))
-            daq_workers.append(Worker(name='worker2', project=daq_projects[0]))
-            daq_workers.append(Worker(name='worker1', project=daq_projects[1]))
-            daq_workers.append(Worker(name='worker2', project=daq_projects[1]))
-            daq_workers.append(Worker(name='worker1', project=daq_projects[2]))
-            daq_workers.append(Worker(name='worker2', project=daq_projects[2]))
+            daq_workers.append(Worker(name='20180716_01', project=daq_projects[0]))
+            daq_workers.append(Worker(name='20180716_02', project=daq_projects[0]))
+            daq_workers.append(Worker(name='20180717_01', project=daq_projects[1]))
+            daq_workers.append(Worker(name='20180717_01', project=daq_projects[1]))
+            daq_workers.append(Worker(name='20180717_01', project=daq_projects[2]))
+            daq_workers.append(Worker(name='20180717_01', project=daq_projects[2]))
 
             db.session.add(daq_workers[0])
             db.session.add(daq_workers[1])
@@ -61,7 +61,7 @@ class AutoInit(Resource):
             gt.project = daq_projects[0]
             gt.worker = daq_workers[0]
             gt.datetime = datetime.datetime.now()
-            gt.value = json.dumps([{str(x):round(random.uniform(25,30),2)} for x in range(16)])
+            gt.value = json.dumps([[str(x), round(random.uniform(25,30),2)] for x in range(16)])
 
             db.session.add(gt)
             try:
@@ -78,7 +78,7 @@ class AutoInit(Resource):
             gt.project = daq_projects[0]
             gt.worker = daq_workers[0]
             gt.datetime = datetime.datetime.now()
-            gt.value = json.dumps([{str(x): '1'} for x in range(16)])
+            gt.value = json.dumps([[str(x), random.choice(['0', '1'])] for x in range(16)])
 
             db.session.add(gt)
             try:
