@@ -39,6 +39,13 @@ export default class Alarm extends Component {
 
     console.log(worker_name);
 
+    this.props.dispatch({
+        type: 'alarm/fetchTemperatureAlarm',
+        payload: {
+          worker_name: worker_name,
+        },
+      });
+
 
     this.timer = setInterval(() => {
 

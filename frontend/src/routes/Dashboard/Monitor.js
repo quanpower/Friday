@@ -33,6 +33,13 @@ export default class Monitor extends PureComponent {
     const worker_name = this.props.match.params.worker_name
     console.log(worker_name);
 
+    this.props.dispatch({
+        type: 'survey/fetchTemperatureRecord',
+        payload: {
+          worker_name: worker_name,
+        },
+      });
+
     this.timer = setInterval(() => {
 
       this.props.dispatch({
