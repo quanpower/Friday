@@ -1,6 +1,6 @@
 from sqlalchemy.dialects.mysql import JSON
 from app import db, login_manager
-from user import User
+from .user import User
 
 
 class Project(db.Model):
