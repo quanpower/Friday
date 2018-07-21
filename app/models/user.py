@@ -8,7 +8,7 @@ from flask import current_app, request, url_for
 from flask_login import UserMixin, AnonymousUserMixin
 from app.exceptions import ValidationError
 from app import db, login_manager
-from device import Project, Product, Device
+from .device import Project, Product, Device
 
 class Permission:
     FOLLOW = 1
