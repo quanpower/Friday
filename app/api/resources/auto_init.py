@@ -8,7 +8,7 @@ import random
 import datetime, time
 import bitstring
 
-from app.models import Project, Worker, DAQ, Alarm
+from app.models import Project, Product, Device, Daq, Alarm
 
 
 class AutoInit(Resource):

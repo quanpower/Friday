@@ -1,5 +1,5 @@
 from .user import Login, Logout, GetUser, Register, Users
-from .daq import Projects, Workers, DAQRealtime, DAQAlarm, DAQHistory, DAQRecord
+from .daq import Projects, Products, Devices, DeviceDaqRealtime, DeviceDaqAlarm, DeviceDaqHistory, DeviceDaqRecord
 
 from .auto_init import AutoInit
 from .fake import FakeNotices
@@ -11,11 +11,12 @@ __all__ = [
     'GetUser',
     'Users',
     'Projects',
-    'Workers',
-    'DAQRealtime',
-    'DAQAlarm',
-    'DAQHistory',
-    'DAQRecord',
+    'Products',
+    'Devices',
+    'DeviceDaqRealtime',
+    'DeviceDaqAlarm',
+    'DeviceDaqHistory',
+    'DeviceDaqRecord',
     'AutoInit',
     'FakeNotices',
 ]

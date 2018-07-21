@@ -4,7 +4,7 @@ api = Blueprint('api', __name__)
 # from . import authentication, posts, users, comments, errors
 
 from flask_restful import Api
-from app.api.resources import Login, Logout, GetUser, Register, Users, Projects, Workers, DAQRealtime, DAQAlarm, DAQHistory, DAQRecord, AutoInit, FakeNotices
+from app.api.resources import Login, Logout, GetUser, Register, Users, Projects, Products, Devices, DeviceDaqRealtime, DeviceDaqAlarm, DeviceDaqHistory, DeviceDaqRecord, AutoInit, FakeNotices
 
 
 api_resource = Api(api)
@@ -18,11 +18,12 @@ api_resource.add_resource(Users, '/users', endpoint='users')
 
 
 api_resource.add_resource(Projects, '/projects', endpoint='projects')
-api_resource.add_resource(Workers, '/workers', endpoint='workers')
-api_resource.add_resource(DAQRealtime, '/daq/realtime', endpoint='daq_realtime')
-api_resource.add_resource(DAQHistory, '/daq/history', endpoint='daq_history')
-api_resource.add_resource(DAQRecord, '/daq/record', endpoint='daq_record')
-api_resource.add_resource(DAQAlarm, '/daq/alarm', endpoint='daq_alarm')
+api_resource.add_resource(Products, '/products', endpoint='products')
+api_resource.add_resource(Devices, '/devices', endpoint='devices')
+api_resource.add_resource(DeviceDaqRealtime, '/daq/realtime', endpoint='daq_realtime')
+api_resource.add_resource(DeviceDaqHistory, '/daq/history', endpoint='daq_history')
+api_resource.add_resource(DeviceDaqRecord, '/daq/record', endpoint='daq_record')
+api_resource.add_resource(DeviceDaqAlarm, '/daq/alarm', endpoint='daq_alarm')
 
 
 api_resource.add_resource(AutoInit, '/auto_init', endpoint='autoInit')
