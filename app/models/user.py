@@ -8,7 +8,7 @@ from flask import current_app, request, url_for
 from flask_login import UserMixin, AnonymousUserMixin
 from app.exceptions import ValidationError
 from app import db, login_manager
-
+from device import Project, Product, Device
 
 class Permission:
     FOLLOW = 1
@@ -106,7 +106,9 @@ class User(UserMixin, db.Model):
                                 lazy='dynamic',
                                 cascade='all, delete-orphan')
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
-    owned_barns = db.Column(db.Text())
+    projects = db.relationship('Project', backref='owner', lazy='dynamic')
+    products = db.relationship('Product', backref='owner', lazy='dynamic')
+    devices = db.relationship('Device', backref='owner', lazy='dynamic')
 
     @staticmethod
     def add_self_follows():
