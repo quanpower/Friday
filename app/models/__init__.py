@@ -1,5 +1,5 @@
 from .user import Permission, Role, Follow, User, AnonymousUser, Post, Comment
-from .daq import Project, Worker,DAQ, Alarm
+from .device import Project, Product, Device, Daq, Alarm
 
 __all__ = [
     'Permission',
@@ -10,7 +10,8 @@ __all__ = [
     'Post',
     'Comment',
     'Project',
-    'Worker',
-    'DAQ',
+    'Product',
+    'Device',
+    'Daq',
     'Alarm',
 ]
