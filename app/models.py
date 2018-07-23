@@ -402,6 +402,7 @@ class Product(db.Model):
     aliyun_commodity_code = db.Column(db.String(100))
     gmt_create = db.Column(db.DateTime())
     gmt_update = db.Column(db.DateTime())
+
     product_description = db.Column(db.String(500))
     devices = db.relationship('Device',backref='product', lazy='dynamic')
 
