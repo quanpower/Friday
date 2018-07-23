@@ -9,6 +9,8 @@ from config import config
 from flask_admin import Admin, BaseView, expose
 from flask_admin.contrib.fileadmin import FileAdmin
 from flask_babelex import Babel
+from flask_security import SQLAlchemyUserDatastore, Security
+
 import os.path as op
 
 
@@ -20,19 +22,24 @@ pagedown = PageDown()
 flas_admin = Admin(name='smart-iiot')
 babel = Babel()
 
+security = Security()
+
+
 # flask-login
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 
-# flask-admin add views
-from app.admin import UserAdminView, TestAdminView, UserModelView, TemperatureModelView
+# # flask-admin add views
+# from app.admin import TestAdminView,  TemperatureModelView 
 
-flas_admin.add_view(UserAdminView(name='UserAdmin', category='UserAdmin'))
-flas_admin.add_view(TestAdminView(name='test', endpoint='test', category='UserAdmin'))
+# #, UserModelView, UserAdminView, 
 
-flas_admin.add_view(TemperatureModelView(db.session, name='Temperature', endpoint='daq_temperatures', category='DAQAdmin'))
+# # flas_admin.add_view(UserAdminView(name='UserAdmin', category='UserAdmin'))
+# flas_admin.add_view(TestAdminView(name='test', endpoint='test', category='UserAdmin'))
 
-flas_admin.add_view(UserModelView(db.session, name='User', endpoint='user', category='UserAdmin'))
+# flas_admin.add_view(TemperatureModelView(db.session, name='Temperature', endpoint='daq_temperatures', category='DAQAdmin'))
+
+# # flas_admin.add_view(UserModelView(db.session, name='User', endpoint='user', category='UserAdmin'))
 
 
 path = op.join(op.dirname(__file__), 'static')
@@ -71,6 +78,12 @@ def configure_extensions(app):
     pagedown.init_app(app)
     babel.init_app(app)
     flas_admin.init_app(app)
+
+    from .models import User, Role
+    # Setup Flask-Security
+    user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+    security.init_app(app, user_datastore)
+
 
 
 def register_blueprints(app):

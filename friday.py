@@ -19,7 +19,7 @@ import sys
 import click
 from flask_migrate import Migrate, upgrade
 from app import create_app, db
-from app.models import User, Follow, Role, Permission, Post, Comment
+from app.models import User, Role
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
@@ -78,9 +78,9 @@ def deploy():
     # migrate database to latest revision
     upgrade()
 
-    # create or update user roles
-    Role.insert_roles()
+    # # create or update user roles
+    # Role.insert_roles()
 
-    # ensure all users are following themselves
-    User.add_self_follows()
+    # # ensure all users are following themselves
+    # User.add_self_follows()
 
