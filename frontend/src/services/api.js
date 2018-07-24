@@ -95,6 +95,18 @@ export async function queryDeviceDaqRecord(params) {
   return request(`/api/device/daq/record?${stringify(params)}`);
 }
 
+
+
+export async function queryProductProfile(params) {
+  return request(`/api/product/profile?${stringify(params)}`);
+}
+
+
+export async function queryDeviceProfile(params) {
+  return request(`/api/device/profile?${stringify(params)}`);
+}
+
+
 export async function queryProjects() {
   return request('/api/projects');
 }

@@ -161,17 +161,7 @@ class Projects(Resource):
 class Products(Resource):
     '''
         get the products.
-        id = db.Column(db.Integer,primary_key = True, autoincrement=True)
-        user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-        product_name = db.Column(db.String(100),nullable = False)
-        product_key = db.Column(db.String(100),nullable = False)
-        data_format = db.Column(db.Integer, nullable = False)
-        node_type = db.Column(db.Integer, nullable = False)
-        aliyun_commodity_code = db.Column(db.String(100))
-        gmt_create = db.Column(db.DateTime())
-        gmt_update = db.Column(db.DateTime())
-        product_description = db.Column(db.String(500))
-        devices = db.relationship('Device',backref='product', lazy='dynamic')
+
     '''
 
     def get(self):
@@ -243,33 +233,189 @@ class Products(Resource):
         pass
 
 
+
+
+class ProductProfile(Resource):
+    '''
+        get the ProductProfile.
+
+    '''
+
+    def get(self):
+        userId = 1
+
+        parser = reqparse.RequestParser()
+        parser.add_argument('product_id', type=str)
+        args = parser.parse_args()
+
+        print('--------product_id-------', args)
+
+        productID = args['product_id']
+
+        print('----productID---' * 5)
+        print(productID)
+
+
+
+
+        products = Product.query.filter_by(user_id=userId, id=productID).all()
+
+        # products = db.session.query(Product.id, Product.product_name, Product.product_key, Product.data_format, 
+        #     Product.node_type, Product.aliyun_commodity_code, Product.gmt_create, Product.gmt_update, Product.product_description).filter(Product.user_id == userId).order_by(
+        #     Product.id.asc()).all()
+
+        productLists = []
+
+        for product in products:
+            product_id = product.id
+            product_name = product.product_name
+            owner = product.owner.email
+            product_key = product.product_key
+            data_format = product.data_format
+            node_type = product.node_type
+            aliyun_commodity_code = product.aliyun_commodity_code
+            gmt_create = product.gmt_create
+            gmt_update = product.gmt_update
+            product_description = product.product_description
+            devices = product.devices
+
+            productLists.append({
+                'id':product_id,
+                'owner':owner,
+                # todo:add product_avatar to database
+                'product_avatar': 'http://image.cn.made-in-china.com/2f0j01NMlQWPFanirm/%E6%97%A0%E7%BA%B8%E8%AE%B0%E5%BD%95%E4%BB%AA.jpg',
+                'product_name':product_name,
+                'product_key':product_key,
+                'data_format':data_format,
+                'node_type': node_type,
+                'aliyun_commodity_code': aliyun_commodity_code,
+                'gmt_update': gmt_update,
+                'gmt_create': gmt_create,
+                'product_description': product_description,
+                'members': [
+                    {
+                      'avatar': 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
+                      'name': '曲丽丽',
+                    },
+                    {
+                      'avatar': 'https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png',
+                      'name': '王昭君',
+                    },
+                    {
+                      'avatar': 'https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png',
+                      'name': '董娜娜',
+                    },
+                  ],
+                # 'devices': devices,
+                })
+
+        print(productLists)
+        return jsonify(productLists) 
+
+    def post(self):
+        pass
+
+
+    def delete(self):
+        pass
+
+
+    def put(self):
+        pass
+
+
+
 class Devices(Resource):
     '''
         get the devices.
-        id = db.Column(db.Integer, primary_key = True, autoincrement=True)
-        user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-        product_id = db.Column(db.Integer,db.ForeignKey('products.id'))
-        project_id = db.Column(db.Integer,db.ForeignKey('projects.id'))
-        name = db.Column(db.String(100), nullable = False)
-        iot_id = db.Column(db.String(100))
-        device_name = db.Column(db.String(100), nullable = False)
-        device_secret = db.Column(db.String(100), nullable = False)
-        gmt_create = db.Column(db.DateTime())
-        gmt_active = db.Column(db.DateTime())
-        gmt_online = db.Column(db.DateTime())
-        status = db.Column(db.String(20))
-        firmware_version = db.Column(db.String(20))
-        ip_address = db.Column(db.String(30))
-        node_type = db.Column(db.Integer, nullable = False)
-        region = db.Column(db.String(100))
-        daq = db.relationship('Daq',backref='device', lazy='dynamic')
-        alarm = db.relationship('Alarm',backref='device', lazy='dynamic')
+
     '''
 
     def get(self):
 
         userId = 1
+
         devices = Device.query.filter_by(user_id=userId).all()
+        # devices = db.session.query(Device.id, Device.name, Device.device_name, Device.device_secret, 
+        #     Device.gmt_create, Device.gmt_active, Device.gmt_online, Device.status, Device.firmware_version, 
+        #     Device.ip_address, Device.node_type, Device.region).filter(Device.user_id == userId).order_by(
+        #     Device.id.asc()).all()
+
+        deviceLists = []
+
+        for device in devices:
+            device_id = device.id
+            owner = device.owner.email
+
+            name = device.name
+            device_name = device.device_name
+            device_secret = device.device_secret
+            gmt_create = device.gmt_create
+            gmt_active = device.gmt_active
+            gmt_online = device.gmt_online
+            status = device.status
+            firmware_version = device.firmware_version
+            ip_address = device.ip_address
+            node_type = device.node_type
+            region = device.region
+
+            deviceLists.append({
+                'id':device_id,
+                'owner':owner,
+                'name':name,
+                'avatar':"http://dummyimage.com/48x48/{0}/757575.png&text={1}".format(index_color(device_id), device_id),
+                'device_name':device_name,
+                'device_secret':device_secret,
+                'gmt_create':gmt_create,
+                'gmt_active':gmt_active,
+                'gmt_online':gmt_online,
+                'status': status,
+                'firmware_version': firmware_version,
+                'ip_address': ip_address,
+                'node_type': node_type,
+                'region': region,
+                })
+
+        print(deviceLists)
+        return jsonify(deviceLists) 
+
+    def post(self):
+        pass
+
+
+    def delete(self):
+        pass
+
+
+    def put(self):
+        pass
+
+
+
+
+class DeviceProfile(Resource):
+    '''
+        get the DeviceProfile.
+
+    '''
+
+    def get(self):
+
+        userId = 1
+
+
+        parser = reqparse.RequestParser()
+        parser.add_argument('device_id', type=str)
+        args = parser.parse_args()
+
+        print('--------device_id-------', args)
+
+        deviceID = args['device_id']
+
+        print('----deviceID---' * 5)
+        print(deviceID)
+
+        devices = Device.query.filter_by(user_id=userId, id=deviceID).all()
         # devices = db.session.query(Device.id, Device.name, Device.device_name, Device.device_secret, 
         #     Device.gmt_create, Device.gmt_active, Device.gmt_online, Device.status, Device.firmware_version, 
         #     Device.ip_address, Device.node_type, Device.region).filter(Device.user_id == userId).order_by(
@@ -338,16 +484,16 @@ class DeviceDaqRealtime(Resource):
 
         print('--------device_id-------', args)
 
-        deviceId = args['device_id']
+        deviceID = args['device_id']
 
         print('----deivceID---' * 5)
-        print(deviceId)
+        print(deviceID)
 
-        device_daq_realtime = Daq.query.filter_by(device_id=deviceId).order_by(
+        device_daq_realtime = Daq.query.filter_by(device_id=deviceID).order_by(
             Daq.gmt_daq.desc()).first()
 
         # device_daq_realtime = db.session.query(Daq.gmt_daq, Daq.daq_value).filter(
-        #     Daq.device_id == deviceId).order_by(
+        #     Daq.device_id == deviceID).order_by(
         #     Daq.gmt_daq.desc()).first()
 
 
@@ -400,7 +546,7 @@ class DeviceDaqAlarm(Resource):
 
         print('--------device_id-------', args)
 
-        deviceId = args['device_id']
+        deviceID = args['device_id']
 
         print('----deivceID---' * 5)
         print(deivceId)
@@ -408,7 +554,7 @@ class DeviceDaqAlarm(Resource):
         device_daq_alarm = Alarm.query.filter_by(user_id=userId).order_by(
             Alarm.gmt_daq.desc()).first()
         # device_daq_alarm = db.session.query(Alarm.gmt_alarm, Alarm.alarm_value).filter(
-        #     Alarm.device_id == deviceId).first()
+        #     Alarm.device_id == deviceID).first()
 
         device_alarms = device_daq_alarm.alarm_value
 
@@ -447,16 +593,16 @@ class DeviceDaqHistory(Resource):
 
         print('--------device_id-------', args)
 
-        deviceId = args['device_id']
+        deviceID = args['device_id']
 
         print('----deivceID---' * 5)
-        print(deviceId)
+        print(deviceID)
 
         # device_daq_history = db.session.query(Daq.gmt_daq, Daq.daq_value).filter(
-        #     Daq.device_id == deviceId).order_by(
+        #     Daq.device_id == deviceID).order_by(
         #     Daq.gmt_daq.desc()).limit(20).all()
 
-        device_daq_history = Daq.query.filter_by(device_id=deviceId).order_by(
+        device_daq_history = Daq.query.filter_by(device_id=deviceID).order_by(
             Daq.gmt_daq.desc()).limit(20).all()
 
 
@@ -510,16 +656,16 @@ class DeviceDaqRecord(Resource):
 
         print('--------device_id-------', args)
 
-        deviceId = args['device_id']
+        deviceID = args['device_id']
 
         print('----deivceID---' * 5)
-        print(deviceId)
+        print(deviceID)
 
         # daq_records = db.session.query(Daq.gmt_daq, Daq.daq_value).filter(
-        #     Daq.device_id == deviceId).order_by(
+        #     Daq.device_id == deviceID).order_by(
         #     Daq.gmt_daq.desc()).all()
 
-        device_daq_records = Daq.query.filter_by(device_id=deviceId).order_by(
+        device_daq_records = Daq.query.filter_by(device_id=deviceID).order_by(
             Daq.gmt_daq.desc()).limit(20).all()
 
 

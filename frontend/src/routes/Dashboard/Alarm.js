@@ -20,7 +20,7 @@ import styles from './Analysis.less';
 
 @connect(({ alarm, loading }) => ({
   alarm,
-  loading: loading.effects['alarm/fetchTemperatureAlarm'],
+  loading: loading.effects['alarm/fetchDaqAlarm'],
 }))
 
 export default class Alarm extends Component {
@@ -30,19 +30,19 @@ export default class Alarm extends Component {
     // this.props.dispatch({
     //   type: 'survey/fetchCurrentPowerData',
     //   payload: {
-    //     worker_name: '20180704',
+    //     device_id: '20180704',
     //   },
     // });
     console.log('this.props')
     console.log(this.props);
-    const worker_name = this.props.match.params.worker_name;
+    const device_id = this.props.match.params.device_id;
 
-    console.log(worker_name);
+    console.log(device_id);
 
     this.props.dispatch({
-        type: 'alarm/fetchTemperatureAlarm',
+        type: 'alarm/fetchDaqAlarm',
         payload: {
-          worker_name: worker_name,
+          device_id: device_id,
         },
       });
 
@@ -50,9 +50,9 @@ export default class Alarm extends Component {
     this.timer = setInterval(() => {
 
       this.props.dispatch({
-        type: 'alarm/fetchTemperatureAlarm',
+        type: 'alarm/fetchDaqAlarm',
         payload: {
-          worker_name: worker_name,
+          device_id: device_id,
         },
       });
 
@@ -75,13 +75,13 @@ export default class Alarm extends Component {
     console.log('--alarm,loading--')
     console.log(alarm)
     console.log(loading)
-    const { temperatureAlarm } = alarm;
+    const { deviceDaqAlarm } = alarm;
 
     return (
       <Fragment>
         
         <Row gutter={24}>
-          {temperatureAlarm.map((item, i) => (
+          {deviceDaqAlarm.map((item, i) => (
             <Col >
               <Button type={item.type} icon={item.icon} size='large'> {item.channel}</Button>
             </Col>

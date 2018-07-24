@@ -22,7 +22,7 @@ import styles from './Monitor.less';
 
 @connect(({ survey, loading }) => ({
   survey,
-  loading: loading.effects['survey/fetchTemperatureRecord'],
+  loading: loading.effects['survey/fetchDeviceDaqRecord'],
 }))
 
 export default class Monitor extends PureComponent {
@@ -30,22 +30,22 @@ export default class Monitor extends PureComponent {
 
     console.log('monitor this.props:')
     console.log(this.props);
-    const worker_name = this.props.match.params.worker_name
-    console.log(worker_name);
+    const device_id = this.props.match.params.device_id
+    console.log(device_id);
 
     this.props.dispatch({
-        type: 'survey/fetchTemperatureRecord',
+        type: 'survey/fetchDeviceDaqRecord',
         payload: {
-          worker_name: worker_name,
+          device_id: device_id,
         },
       });
 
     this.timer = setInterval(() => {
 
       this.props.dispatch({
-        type: 'survey/fetchTemperatureRecord',
+        type: 'survey/fetchDeviceDaqRecord',
         payload: {
-          worker_name: worker_name,
+          device_id: device_id,
         },
       });
     }, 10000);
@@ -54,7 +54,7 @@ export default class Monitor extends PureComponent {
 
   render() {
     const { survey, loading } = this.props;
-    const { recordColumns, temperatureRecord } = survey;
+    const { recordColumns, deviceDaqRecord } = survey;
 
 
     return (
@@ -63,7 +63,7 @@ export default class Monitor extends PureComponent {
           <Col xl={24} lg={24} md={24} sm={24} xs={24} style={{ marginBottom: 24 }}>
             <Card title="历史记录" bordered={false}>
               <Row>
-              <Table columns={recordColumns} dataSource={temperatureRecord} />
+              <Table columns={recordColumns} dataSource={deviceDaqRecord} />
               </Row>
             </Card>
           </Col>

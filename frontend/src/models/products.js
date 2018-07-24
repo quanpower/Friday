@@ -1,10 +1,12 @@
 import { queryProducts } from '../services/api';
+import { queryProductProfile } from '../services/api';
 
 export default {
   namespace: 'products',
 
   state: {
     products: [],
+    productProfile: [],
   },
 
   effects: {
@@ -17,6 +19,16 @@ export default {
         payload: Array.isArray(response) ? response : [],
       });
     },
+
+    *fetchProductProfile({ payload }, { call, put }) {
+      const response = yield call(queryProductProfile, payload);
+      console.log('-----in effects queryProductProfile-----')
+      console.log(response)
+      yield put({
+        type: 'saveProductProfile',
+        payload: Array.isArray(response) ? response : [],
+      });
+    },
   },
 
   reducers: {
@@ -24,6 +36,13 @@ export default {
       return {
         ...state,
         products: action.payload,
+      };
+    },
+
+    saveProductProfile(state, action) {
+      return {
+        ...state,
+        productProfile: action.payload,
       };
     },
   },

@@ -72,29 +72,38 @@ export const getRouterData = app => {
     '/': {
       component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/BasicLayout')),
     },
+    '/dashboard/analysis/:device_id': {
+      component: dynamicWrapper(app, ['survey'], () => import('../routes/Dashboard/Analysis')),
+    },
+    '/dashboard/monitor/:device_id': {
+      component: dynamicWrapper(app, ['survey'], () => import('../routes/Dashboard/Monitor')),
+    },
+    '/dashboard/alarm/:device_id': {
+      component: dynamicWrapper(app, ['alarm'], () => import('../routes/Dashboard/Alarm')),
+    },
     '/product/product-list': {
       component: dynamicWrapper(app, ['products'], () => import('../routes/Product/ProductList')),
     },
-    '/product/product-profile': {
+    '/product/product-profile/:product_id': {
       component: dynamicWrapper(app, ['products'], () => import('../routes/Product/ProductProfile')),
     },
 
     '/device/device-list': {
       component: dynamicWrapper(app, ['devices'], () => import('../routes/Device/DeviceList')),
     },
-    '/device/device-profile': {
+    '/device/device-profile/:device_id': {
       component: dynamicWrapper(app, ['devices'], () => import('../routes/Device/DeviceProfile')),
     },
     '/projects': {
       component: dynamicWrapper(app, ['projects'], () => import('../routes/Project/ProjectList')),
     },
-    '/dashboard/analysis/:worker_name': {
+    '/dashboard/analysis/:device_id': {
       component: dynamicWrapper(app, ['survey'], () => import('../routes/Dashboard/Analysis')),
     },
-    '/dashboard/monitor/:worker_name': {
+    '/dashboard/monitor/:device_id': {
       component: dynamicWrapper(app, ['survey'], () => import('../routes/Dashboard/Monitor')),
     },
-    '/dashboard/alarm/:worker_name': {
+    '/dashboard/alarm/:device_id': {
       component: dynamicWrapper(app, ['alarm'], () => import('../routes/Dashboard/Alarm')),
     },
     '/dashboard/workplace': {
@@ -108,9 +117,7 @@ export const getRouterData = app => {
     '/project/project': {
       component: dynamicWrapper(app, ['projects'], () => import('../routes/Project/ProjectList')),
     },
-    '/project/worker/:project_name': {
-      component: dynamicWrapper(app, ['workers'], () => import('../routes/Project/WorkerList')),
-    },
+
     '/form/basic-form': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/BasicForm')),
     },

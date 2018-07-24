@@ -1,9 +1,35 @@
 import { isUrl } from '../utils/utils';
 
 const menuData = [
-{
+  {
+    name: 'dashboard',
+    icon: 'dashboard',
+    path: 'dashboard',
+    children: [
+      {
+        name: '监控页',
+        path: 'analysis/1',
+      },
+      {
+        name: '记录页',
+        path: 'monitor/1',
+      },
+      {
+        name: '报警页',
+        path: 'alarm/1',
+      },
+      {
+        name: '分析工作台监控',
+        path: 'workplace',
+        hideInMenu: true,
+        // hideInBreadcrumb: true,
+        // hideInMenu: true,
+      },
+    ],
+  },
+  {
     name: '产品管理',
-    icon: 'table',
+    icon: 'laptop',
     path: 'product',
     children: [
       {
@@ -18,7 +44,7 @@ const menuData = [
   },
 {
     name: '设备管理',
-    icon: 'table',
+    icon: 'tablet',
     path: 'device',
     children: [
       {
@@ -34,7 +60,7 @@ const menuData = [
 
 {
     name: '项目页',
-    icon: 'table',
+    icon: 'calendar',
     path: 'project',
     children: [
       {
@@ -42,37 +68,56 @@ const menuData = [
         path: 'project',
       },
       {
-        name: '工况',
-        path: 'worker/20180719_01',
+        name: '任务',
+        path: 'worker',
       },
     ],
   },
+
   {
-    name: 'dashboard',
-    icon: 'dashboard',
-    path: 'dashboard',
+    name: '用户管理',
+    icon: 'user',
+    path: 'user',
     children: [
       {
-        name: '监控页',
-        path: 'analysis/20180719_01',
+        name: '个人资料',
+        path: 'profile',
       },
       {
-        name: '记录页',
-        path: 'monitor/20180719_01',
-      },
-      {
-        name: '报警页',
-        path: 'alarm/20180719_01',
-      },
-      {
-        name: '分析工作台监控',
-        path: 'workplace',
-        hideInMenu: true,
-        // hideInBreadcrumb: true,
-        // hideInMenu: true,
+        name: '用户权限',
+        path: 'permission',
       },
     ],
   },
+
+  {
+    name: '系统设置',
+    icon: 'setting',
+    path: 'form',
+    children: [
+      {
+        name: '充值',
+        path: 'step-form',
+      },
+    ],
+  },
+
+  {
+    name: '版本更新',
+    icon: 'sync',
+    path: 'version',
+    children: [
+      {
+        name: 'ChangeLog',
+        path: 'changelog',
+      },
+      {
+        name: 'ToDo',
+        path: 'todolist',
+      },
+    ],
+  },
+
   {
     name: '表单页',
     icon: 'form',

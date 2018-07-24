@@ -51,7 +51,7 @@ const Yuan = ({ children }) => (
 
 @connect(({ survey, loading }) => ({
   survey,
-  loading: loading.effects['survey/fetchTemperatureData'],
+  loading: loading.effects['survey/fetchDeviceDaqRealtime'],
 }))
 
 export default class Analysis extends Component {
@@ -65,42 +65,42 @@ export default class Analysis extends Component {
     // this.props.dispatch({
     //   type: 'survey/fetchCurrentPowerData',
     //   payload: {
-    //     worker_name: '20180704',
+    //     device_id: '20180704',
     //   },
     // });
     console.log('this.props')
     console.log(this.props);
-    const worker_name = this.props.match.params.worker_name;
+    const device_id = this.props.match.params.device_id;
 
-    console.log(worker_name);
+    console.log(device_id);
 
     this.props.dispatch({
-      type: 'survey/fetchTemperatureData',
+      type: 'survey/fetchDeviceDaqRealtime',
       payload: {
-        worker_name: worker_name,
+        device_id: device_id,
       },
     });
 
     this.props.dispatch({
-      type: 'survey/fetchTemperatureHistory',
+      type: 'survey/fetchDeviceDaqHistory',
       payload: {
-        worker_name: worker_name,
+        device_id: device_id,
       },
     });
 
     this.timer = setInterval(() => {
 
       this.props.dispatch({
-        type: 'survey/fetchTemperatureData',
+        type: 'survey/fetchDeviceDaqRealtime',
         payload: {
-          worker_name: worker_name,
+          device_id: device_id,
         },
       });
 
       this.props.dispatch({
-        type: 'survey/fetchTemperatureHistory',
+        type: 'survey/fetchDeviceDaqHistory',
         payload: {
-          worker_name: worker_name,
+          device_id: device_id,
         },
       });
 
@@ -135,7 +135,7 @@ export default class Analysis extends Component {
     });
 
     this.props.dispatch({
-      type: 'survey/fetchTemperatureHistory',
+      type: 'survey/fetchDeviceDaqHistory',
     });
   };
 
@@ -145,7 +145,7 @@ export default class Analysis extends Component {
     });
 
     this.props.dispatch({
-      type: 'survey/fetchTemperatureHistory',
+      type: 'survey/fetchDeviceDaqHistory',
     });
   };
 
@@ -169,7 +169,7 @@ export default class Analysis extends Component {
     console.log('--survey,loading--')
     console.log(survey)
     console.log(loading)
-    const {currentPower, temperatureData, realtimeBars, temperatureHistory, historyLines } = survey;
+    const {currentPower, deviceDaqRealtime, realtimeBars, deviceDaqHistory, historyLines } = survey;
 
 
     const salesExtra = (
@@ -242,10 +242,10 @@ export default class Analysis extends Component {
                 <Row>
                   <Col xl={16} lg={12} md={12} sm={24} xs={24}>
                     <div className={styles.salesBar}>
-                          {console.log('temperatureData:', temperatureData)}
+                          {console.log('deviceDaqRealtime:', deviceDaqRealtime)}
                           {console.log('realtimeBars:', realtimeBars)}
 
-                          <BarChart width={600} height={300} data={temperatureData}
+                          <BarChart width={600} height={300} data={deviceDaqRealtime}
                                 margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                            <CartesianGrid strokeDasharray="3 3"/>
                            <XAxis dataKey="name"/>
@@ -281,7 +281,7 @@ export default class Analysis extends Component {
                 <Row>
                   <Col xl={16} lg={12} md={12} sm={24} xs={24}>
                     <div className={styles.salesBar}>
-                      <LineChart width={600} height={300} data={temperatureHistory}
+                      <LineChart width={600} height={300} data={deviceDaqHistory}
                               margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                          <XAxis dataKey="time"/>
                          <YAxis/>

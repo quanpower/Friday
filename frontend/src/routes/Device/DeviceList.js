@@ -4,7 +4,7 @@ import { connect } from 'dva';
 import { Row, Col, Form, Card, Select, Icon, Avatar, List, Tooltip, Dropdown, Menu } from 'antd';
 
 
-import styles from './Applications.less';
+import styles from './DeviceList.less';
 
 
 /* eslint react/no-array-index-key: 0 */
