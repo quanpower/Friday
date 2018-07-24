@@ -1,15 +1,15 @@
-import { queryDAQData } from '../services/api';
-import { queryDAQHistory } from '../services/api';
-import { queryDAQRecord } from '../services/api';
+import { queryDeviceDaqRealtime } from '../services/api';
+import { queryDeviceDaqHistory } from '../services/api';
+import { queryDeviceDaqRecord } from '../services/api';
 
 export default {
   namespace: 'survey',
 
   state: {
     currentPower: [],
-    temperatureData: [],
-    temperatureHistory:[],
-    temperatureRecord:[],
+    deviceDaqRealtime: [],
+    deviceDaqHistory:[],
+    deviceDaqRecord:[],
     realtimeBars:[],
     historyLines:[],
     recordColumns:[],
@@ -25,12 +25,12 @@ export default {
       });
     },
 
-    *fetchTemperatureData({ payload }, { call, put }) {
+    *fetchDeviceDaqRealtime({ payload }, { call, put }) {
       const response = yield call(queryDAQData, payload);
       yield put({
         type: 'save',
         payload: {
-          temperatureData: response.temperatureData,
+          deviceDaqRealtime: response.deviceDaqRealtime,
         },
       });
 
@@ -42,12 +42,12 @@ export default {
       });
     },
 
-    *fetchTemperatureHistory({ payload }, { call, put }) {
+    *fetchDeviceDaqHistory({ payload }, { call, put }) {
       const response = yield call(queryDAQHistory, payload);
       yield put({
         type: 'save',
         payload: {
-          temperatureHistory: response.temperatureHistory,
+          deviceDaqHistory: response.deviceDaqHistory,
         },
       });
 
@@ -61,12 +61,12 @@ export default {
 
     },
 
-    *fetchTemperatureRecord({ payload }, { call, put }) {
+    *fetchDeviceDaqRecord({ payload }, { call, put }) {
       const response = yield call(queryDAQRecord, payload);
       yield put({
         type: 'save',
         payload: {
-          temperatureRecord: response.temperatureRecord,
+          deviceDaqRecord: response.deviceDaqRecord,
         },
       });
 
@@ -91,9 +91,9 @@ export default {
     clear() {
       return {
         currentPower: [],
-        temperatureData: [],
-        temperatureHistory:[],
-        temperatureRecord:[],
+        deviceDaqRealtime: [],
+        deviceDaqHistory:[],
+        deviceDaqRecord:[],
         realtimeBars:[],
         historyLines:[],
         recordColumns:[],

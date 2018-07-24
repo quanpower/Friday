@@ -72,11 +72,21 @@ export const getRouterData = app => {
     '/': {
       component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/BasicLayout')),
     },
-    '/project/project': {
-      component: dynamicWrapper(app, ['projects'], () => import('../routes/Project/ProjectList')),
+    '/product/product-list': {
+      component: dynamicWrapper(app, ['products'], () => import('../routes/Product/ProductList')),
     },
-    '/project/worker/:project_name': {
-      component: dynamicWrapper(app, ['workers'], () => import('../routes/Project/WorkerList')),
+    '/product/product-profile': {
+      component: dynamicWrapper(app, ['products'], () => import('../routes/Product/ProductProfile')),
+    },
+
+    '/device/device-list': {
+      component: dynamicWrapper(app, ['devices'], () => import('../routes/Device/DeviceList')),
+    },
+    '/device/device-profile': {
+      component: dynamicWrapper(app, ['devices'], () => import('../routes/Device/DeviceProfile')),
+    },
+    '/projects': {
+      component: dynamicWrapper(app, ['projects'], () => import('../routes/Project/ProjectList')),
     },
     '/dashboard/analysis/:worker_name': {
       component: dynamicWrapper(app, ['survey'], () => import('../routes/Dashboard/Analysis')),

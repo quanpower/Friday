@@ -79,26 +79,30 @@ export async function queryNotices() {
 }
 
 
-export async function queryDAQData(params) {
-  return request(`/api/daq/realtime?${stringify(params)}`);
+export async function queryDeviceDaqRealtime(params) {
+  return request(`/api/device/daq/realtime?${stringify(params)}`);
 }
 
-export async function queryDAQAlarm(params) {
-  return request(`/api/daq/alarm?${stringify(params)}`);
+export async function queryDeviceDaqAlarm(params) {
+  return request(`/api/device/daq/alarm?${stringify(params)}`);
 }
 
-export async function queryDAQHistory(params) {
-  return request(`/api/daq/history?${stringify(params)}`);
+export async function queryDeviceDaqHistory(params) {
+  return request(`/api/device/daq/history?${stringify(params)}`);
 }
 
-export async function queryDAQRecord(params) {
-  return request(`/api/daq/record?${stringify(params)}`);
+export async function queryDeviceDaqRecord(params) {
+  return request(`/api/device/daq/record?${stringify(params)}`);
 }
 
 export async function queryProjects() {
   return request('/api/projects');
 }
 
-export async function queryWorkers(params) {
-  return request(`/api/workers?${stringify(params)}`);
+export async function queryProducts() {
+  return request('/api/products');
+}
+
+export async function queryDevices() {
+  return request('/api/devices');
 }

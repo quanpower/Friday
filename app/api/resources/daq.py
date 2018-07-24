@@ -99,24 +99,29 @@ class Projects(Resource):
     '''
 
     def get(self):
+        userId = 1
 
-        projects = db.session.query(Project.id, Project.project_name, Project.avatar, Project.status, 
-            Project.project_href, Project.percent, Project.gmt_create, Project.gmt_update, Project.project_description ).order_by(
-            Project.id.asc()).all()
+
+        # projects = db.session.query(Project.id, Project.project_name, Project.avatar, Project.status, 
+        #     Project.project_href, Project.percent, Project.gmt_create, Project.gmt_update, Project.project_description).filter(Project.user_id == userId).order_by(
+        #     Project.id.asc()).all()
+
+        projects = Project.query.filter_by(user_id=userId).all()
 
         projectLists = []
 
         for project in projects:
-            project_id = project[0]
-            project_name = project[1]
-            owner = project.owner.username
-            avatar = project[2]
-            status = project[3]
-            project_href = project[4]
-            percent = project[5]
-            gmt_create = project[6]
-            gmt_update = project[7]
-            project_description = project[8]
+            project_id = project.id
+            project_name = project.project_name
+            owner = project.owner.email
+            # owner = 'owner'
+            avatar = project.avatar
+            status = project.status
+            project_href = project.project_href
+            percent = project.percent
+            gmt_create = project.gmt_create
+            gmt_update = project.gmt_update
+            project_description = project.project_description
             devices = project.devices
 
             projectLists.append({
@@ -134,9 +139,10 @@ class Projects(Resource):
                 'createdAt': gmt_create,
                 'subDescription': project_description,
                 'description':project_description,
-                'devices': devices,
+                # 'devices': devices,
                 })
 
+        print('---------projectLists-------')
         print(projectLists)
         return jsonify(projectLists) 
 
@@ -169,29 +175,34 @@ class Products(Resource):
     '''
 
     def get(self):
+        userId = 1
 
-        products = db.session.query(Product.id, Product.product_name, Product.product_key, Product.data_format, 
-            Product.node_type, Product.aliyun_commodity_code, Product.gmt_create, Product.gmt_update, Product.product_description ).order_by(
-            Product.id.asc()).all()
+        products = Product.query.filter_by(user_id=userId).all()
+
+        # products = db.session.query(Product.id, Product.product_name, Product.product_key, Product.data_format, 
+        #     Product.node_type, Product.aliyun_commodity_code, Product.gmt_create, Product.gmt_update, Product.product_description).filter(Product.user_id == userId).order_by(
+        #     Product.id.asc()).all()
 
         productLists = []
 
         for product in products:
-            product_id = product[0]
-            product_name = product[1]
-            owner = product.owner.username
-            product_key = product[2]
-            data_format = product[3]
-            node_type = product[4]
-            aliyun_commodity_code = product[5]
-            gmt_create = product[6]
-            gmt_update = product[7]
-            product_description = product[8]
+            product_id = product.id
+            product_name = product.product_name
+            owner = product.owner.email
+            product_key = product.product_key
+            data_format = product.data_format
+            node_type = product.node_type
+            aliyun_commodity_code = product.aliyun_commodity_code
+            gmt_create = product.gmt_create
+            gmt_update = product.gmt_update
+            product_description = product.product_description
             devices = product.devices
 
             productLists.append({
                 'id':product_id,
                 'owner':owner,
+                # todo:add product_avatar to database
+                'product_avatar': 'http://image.cn.made-in-china.com/2f0j01NMlQWPFanirm/%E6%97%A0%E7%BA%B8%E8%AE%B0%E5%BD%95%E4%BB%AA.jpg',
                 'product_name':product_name,
                 'product_key':product_key,
                 'data_format':data_format,
@@ -200,7 +211,21 @@ class Products(Resource):
                 'gmt_update': gmt_update,
                 'gmt_create': gmt_create,
                 'product_description': product_description,
-                'devices': devices,
+                'members': [
+                    {
+                      'avatar': 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
+                      'name': '曲丽丽',
+                    },
+                    {
+                      'avatar': 'https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png',
+                      'name': '王昭君',
+                    },
+                    {
+                      'avatar': 'https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png',
+                      'name': '董娜娜',
+                    },
+                  ],
+                # 'devices': devices,
                 })
 
         print(productLists)
@@ -243,33 +268,36 @@ class Devices(Resource):
 
     def get(self):
 
-        devices = db.session.query(Device.id, Device.name, Device.device_name, Device.device_secret, 
-            Device.gmt_create, Device.gmt_active, Device.gmt_online, Device.status, Device.firmware_version, 
-            Device.ip_address, Device.node_type, Device.region).order_by(
-            Device.id.asc()).all()
+        userId = 1
+        devices = Device.query.filter_by(user_id=userId).all()
+        # devices = db.session.query(Device.id, Device.name, Device.device_name, Device.device_secret, 
+        #     Device.gmt_create, Device.gmt_active, Device.gmt_online, Device.status, Device.firmware_version, 
+        #     Device.ip_address, Device.node_type, Device.region).filter(Device.user_id == userId).order_by(
+        #     Device.id.asc()).all()
 
         deviceLists = []
 
         for device in devices:
-            device_id = device[0]
-            owner = device.owner.username
+            device_id = device.id
+            owner = device.owner.email
 
-            name = device[1]
-            device_name = device[2]
-            device_secret = device[3]
-            gmt_create = device[4]
-            gmt_active = device[5]
-            gmt_online = device[6]
-            status = device[7]
-            firmware_version = device[8]
-            ip_address = device[9]
-            node_type = device[10]
-            region = device[11]
+            name = device.name
+            device_name = device.device_name
+            device_secret = device.device_secret
+            gmt_create = device.gmt_create
+            gmt_active = device.gmt_active
+            gmt_online = device.gmt_online
+            status = device.status
+            firmware_version = device.firmware_version
+            ip_address = device.ip_address
+            node_type = device.node_type
+            region = device.region
 
             deviceLists.append({
                 'id':device_id,
                 'owner':owner,
                 'name':name,
+                'avatar':"http://dummyimage.com/48x48/{0}/757575.png&text={1}".format(index_color(device_id), device_id),
                 'device_name':device_name,
                 'device_secret':device_secret,
                 'gmt_create':gmt_create,
@@ -313,24 +341,24 @@ class DeviceDaqRealtime(Resource):
         deviceId = args['device_id']
 
         print('----deivceID---' * 5)
-        print(deivceId)
+        print(deviceId)
 
-        device_daq_realtime = db.session.query(Daq.gmt_daq, Daq.daq_value).filter(
-            Daq.device_id == deviceId).order_by(
+        device_daq_realtime = Daq.query.filter_by(device_id=deviceId).order_by(
             Daq.gmt_daq.desc()).first()
+
+        # device_daq_realtime = db.session.query(Daq.gmt_daq, Daq.daq_value).filter(
+        #     Daq.device_id == deviceId).order_by(
+        #     Daq.gmt_daq.desc()).first()
 
 
 
         print('--------device_daq_realtime--------\n' * 3)
         print(device_daq_realtime)
-
-        daq_values = json.loads(device_daq_realtime[1])
-        gmt_daq = device_daq_realtime[0]
+        daq_values = device_daq_realtime.daq_value
+        # daq_values = json.loads(device_daq_realtime.daq_value)
+        gmt_daq = device_daq_realtime.gmt_daq
         gmt_daq_str = datetime.datetime.strftime(gmt_daq, "%H-%M-%S")
         daq_dict = {'name':gmt_daq_str}
-
-        print('---------daq_values--------')
-        print(daq_values)
 
         daq_dict_list = []
         for daq_value in daq_values:
@@ -338,7 +366,6 @@ class DeviceDaqRealtime(Resource):
             daq_dict[daq_value[0]] = daq_value[1]
         daq_dict_list.append(daq_dict)
 
-        print('--------daq_dict_list---- \n' *3)
         print(daq_dict_list)
 
         realtimeBars = []
@@ -347,7 +374,7 @@ class DeviceDaqRealtime(Resource):
             daq_value = daq_values[i]
             realtimeBars.append({'dataKey': daq_value[0], 'fill':index_color(i)})
 
-        return jsonify({'daqRealtimeData': daq_dict_list, 'realtimeBars': realtimeBars}) 
+        return jsonify({'deviceDaqRealtime': daq_dict_list, 'realtimeBars': realtimeBars}) 
 
     def post(self):
         pass
@@ -378,10 +405,12 @@ class DeviceDaqAlarm(Resource):
         print('----deivceID---' * 5)
         print(deivceId)
 
-        device_daq_alarm = db.session.query(Alarm.gmt_alarm, Alarm.alarm_value).filter(
-            Alarm.device_id == deviceId).first()
+        device_daq_alarm = Alarm.query.filter_by(user_id=userId).order_by(
+            Alarm.gmt_daq.desc()).first()
+        # device_daq_alarm = db.session.query(Alarm.gmt_alarm, Alarm.alarm_value).filter(
+        #     Alarm.device_id == deviceId).first()
 
-        device_alarms = json.loads(device_daq_alarm[1])
+        device_alarms = device_daq_alarm.alarm_value
 
         alarm_dict_list = []
         for device_alarm in device_alarms:
@@ -421,18 +450,21 @@ class DeviceDaqHistory(Resource):
         deviceId = args['device_id']
 
         print('----deivceID---' * 5)
-        print(deivceId)
+        print(deviceId)
 
-        device_daq_history = db.session.query(Daq.gmt_daq, Daq.daq_value).filter(
-            Daq.device_id == deviceId).order_by(
+        # device_daq_history = db.session.query(Daq.gmt_daq, Daq.daq_value).filter(
+        #     Daq.device_id == deviceId).order_by(
+        #     Daq.gmt_daq.desc()).limit(20).all()
+
+        device_daq_history = Daq.query.filter_by(device_id=deviceId).order_by(
             Daq.gmt_daq.desc()).limit(20).all()
 
 
         daq_dict_lists = []
         for device_daqs in device_daq_history:
-            daq_datetime = device_daqs[0]
+            daq_datetime = device_daqs.gmt_daq
             daq_datetime_str = datetime.datetime.strftime(daq_datetime, "%H:%M:%S")
-            daq_values = json.loads(device_daqs[1])
+            daq_values = device_daqs.daq_value
 
             print(daq_values)
 
@@ -446,7 +478,7 @@ class DeviceDaqHistory(Resource):
         historyLines = []
 
         daq_value = device_daq_history[0]
-        daq_lines = json.loads(daq_value[1])
+        daq_lines = daq_value.daq_value
         print('all lines:', daq_lines)
 
         for i in range(len(daq_lines)):
@@ -481,20 +513,23 @@ class DeviceDaqRecord(Resource):
         deviceId = args['device_id']
 
         print('----deivceID---' * 5)
-        print(deivceId)
+        print(deviceId)
 
-        daq_records = db.session.query(Daq.gmt_daq, Daq.daq_value).filter(
-            Daq.device_id == deviceId).order_by(
-            Daq.gmt_daq.desc()).all()
+        # daq_records = db.session.query(Daq.gmt_daq, Daq.daq_value).filter(
+        #     Daq.device_id == deviceId).order_by(
+        #     Daq.gmt_daq.desc()).all()
+
+        device_daq_records = Daq.query.filter_by(device_id=deviceId).order_by(
+            Daq.gmt_daq.desc()).limit(20).all()
 
 
         daq_dict_lists = []
         # for temperatures in temps_records:
-        for i in range(len(daq_records)):
-            daqs = daq_records[i]
-            daq_datetime = daqs[0]
+        for i in range(len(device_daq_records)):
+            daqs = device_daq_records[i]
+            daq_datetime = daqs.gmt_daq
             daq_datetime_str = datetime.datetime.strftime(daq_datetime, "%Y-%m-%d %H:%M:%S")
-            daq_values = json.loads(daqs[1])
+            daq_values = daqs.daq_value
 
             print(daq_values)
 
@@ -509,7 +544,7 @@ class DeviceDaqRecord(Resource):
         print(daq_dict_lists)
 
 
-        daq_record = daq_records[0][1]
+        daq_record = device_daq_records[0].daq_value
         recordColumns = [{
                   'title': '时间',
                   'dataIndex': 'datetime',
@@ -517,7 +552,7 @@ class DeviceDaqRecord(Resource):
                 }]
 
 
-        channels = json.loads(daq_record)
+        channels = daq_record
         for channel in channels:
             recordColumns.append({'title': channel[0],
                   'dataIndex': channel[0],

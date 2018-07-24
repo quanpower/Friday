@@ -2,6 +2,37 @@ import { isUrl } from '../utils/utils';
 
 const menuData = [
 {
+    name: '产品管理',
+    icon: 'table',
+    path: 'product',
+    children: [
+      {
+        name: '产品列表',
+        path: 'product-list',
+      },
+      {
+        name: '产品详情',
+        path: 'product-profile/1',
+      },
+    ],
+  },
+{
+    name: '设备管理',
+    icon: 'table',
+    path: 'device',
+    children: [
+      {
+        name: '设备列表',
+        path: 'device-list',
+      },
+      {
+        name: '设备详情',
+        path: 'device-profile/1',
+      },
+    ],
+  },
+
+{
     name: '项目页',
     icon: 'table',
     path: 'project',
