@@ -61,7 +61,7 @@ class Login(Resource):
         password = args['password']
         post_type = args['type']
 
-        user = User.query.filter_by(email=username).first()
+        # user = User.query.filter_by(email=username).first()
         # if user is not None and user.verify_password(password):
         # todo: auth
         if True:
