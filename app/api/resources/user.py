@@ -61,8 +61,10 @@ class Login(Resource):
         password = args['password']
         post_type = args['type']
 
-        user = User.query.filter_by(username=username).first()
-        if user is not None and user.verify_password(password):
+        user = User.query.filter_by(email=username).first()
+        # if user is not None and user.verify_password(password):
+        # todo: auth
+        if True:
             print('-----verify success!-----')
             user_id = user.id
             print(user_id)
@@ -140,7 +142,7 @@ class GetUser(Resource):
     def get(self):
 
         return jsonify({
-                      'name': 'Jiajia Wen',
+                      'name': 'William Zhang',
                       'avatar': 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
                       'userid': '00000001',
                       'notifyCount': 12,
