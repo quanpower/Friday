@@ -66,8 +66,8 @@ class Login(Resource):
         # todo: auth
         if True:
             print('-----verify success!-----')
-            user_id = user.id
-            print(user_id)
+            # user_id = user.id
+            # print(user_id)
 
 
             if username == 'admin':
