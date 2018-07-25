@@ -38,7 +38,6 @@ export default class DeviceProfile extends Component {
   render() {
     const { deviceProfile, loading } = this.props;
     console.log(deviceProfile)
-    const profile = deviceProfile[0]
     return (
       <PageHeaderLayout title="设备详情页">
 
