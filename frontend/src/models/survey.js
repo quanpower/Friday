@@ -26,7 +26,7 @@ export default {
     },
 
     *fetchDeviceDaqRealtime({ payload }, { call, put }) {
-      const response = yield call(queryDAQData, payload);
+      const response = yield call(queryDeviceDaqRealtime, payload);
       yield put({
         type: 'save',
         payload: {
@@ -43,7 +43,7 @@ export default {
     },
 
     *fetchDeviceDaqHistory({ payload }, { call, put }) {
-      const response = yield call(queryDAQHistory, payload);
+      const response = yield call(queryDeviceDaqHistory, payload);
       yield put({
         type: 'save',
         payload: {
@@ -62,7 +62,7 @@ export default {
     },
 
     *fetchDeviceDaqRecord({ payload }, { call, put }) {
-      const response = yield call(queryDAQRecord, payload);
+      const response = yield call(queryDeviceDaqRecord, payload);
       yield put({
         type: 'save',
         payload: {
