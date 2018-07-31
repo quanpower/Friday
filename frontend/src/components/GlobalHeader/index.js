@@ -12,9 +12,10 @@ export default class GlobalHeader extends PureComponent {
   componentWillUnmount() {
     this.triggerResizeEvent.cancel();
   }
+
   getNoticeData() {
-    const { notices = [] } = this.props;
-    if (notices.length === 0) {
+    const { notices } = this.props;
+    if (notices == null || notices.length === 0) {
       return {};
     }
     const newNotices = notices.map(notice => {
@@ -43,6 +44,7 @@ export default class GlobalHeader extends PureComponent {
     });
     return groupBy(newNotices, 'type');
   }
+
   toggle = () => {
     const { collapsed, onCollapse } = this.props;
     onCollapse(!collapsed);
@@ -73,6 +75,9 @@ export default class GlobalHeader extends PureComponent {
         </Menu.Item>
         <Menu.Item disabled>
           <Icon type="setting" />设置
+        </Menu.Item>
+        <Menu.Item key="triggerError">
+          <Icon type="close-circle" />触发报错
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item key="logout">
