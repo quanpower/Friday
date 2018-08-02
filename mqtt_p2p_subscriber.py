@@ -319,10 +319,28 @@ def mqtt_p2p_sub_wifi():
     mqttc.loop_forever()
 
 
+def mqtt_p2p_sub_stm32():
+    mqttc = mqtt.Client("mqtt_p2p_sub_stm32" + str(random.choice(range(100))))
+    mqttc.username_pw_set("iiot", "smartlinkcloud")
+    mqttc.on_message = on_message
+    mqttc.on_connect = on_connect
+    mqttc.on_publish = on_publish
+    mqttc.on_subscribe = on_subscribe
+    mqttc.on_log = on_log
+
+    # strBroker = "localhost"
+    strBroker = "101.200.158.2"
+
+    mqttc.connect(strBroker, 1883, 60)
+    mqttc.subscribe("stm32.00000001.upstream.passthrough", 0)
+    mqttc.loop_forever()
+
+
 if __name__ == '__main__':
     # app = create_app(os.getenv('FLASK_CONFIG') or 'default')
     # mqtt_p2p_sub_di()
     # mqtt_p2p_sub_ai()
     # mqtt_p2p_sub_do()
     # mqtt_p2p_sub_warning()
-    mqtt_p2p_sub_wifi()
+    # mqtt_p2p_sub_wifi()
+    mqtt_p2p_sub_stm32()

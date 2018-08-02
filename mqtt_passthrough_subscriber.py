@@ -6,7 +6,6 @@ import socket, sys
 import struct
 from bitstring import BitArray, BitStream
 import binascii
-from app.models import LoraNode, PowerIo
 import logging
 from app import db
 from utils import crc_func, sign
@@ -192,7 +191,7 @@ def lora_unpacking_ack(packet_data):
 #=====================================================
 def mqtt_passthrough_sub():
 
-    mqttc = mqtt.Client("001.passthrough_subscriber")
+    mqttc = mqtt.Client("stm32.00000001.upstream.passthrough_subscriber")
     mqttc.username_pw_set("iiot", "smartlinkcloud")
     mqttc.on_message = on_message
     mqttc.on_connect = on_connect
@@ -204,7 +203,7 @@ def mqtt_passthrough_sub():
     strBroker = "101.200.158.2"
 
     mqttc.connect(strBroker, 1883, 60)
-    mqttc.subscribe("001.passthrough_upstream", 0)
+    mqttc.subscribe("stm32.00000001.upstream.passthrough", 0)
     mqttc.loop_forever()
 
 if __name__ == '__main__':
