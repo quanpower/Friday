@@ -4,9 +4,9 @@ import hmac
 
 url = 'https://iot-auth.cn-shanghai.aliyuncs.com/auth/register/device'
 
-productKey='a14MQd3lS1y'
-productSecret='a1g5QjBmCQa'
-deviceName='yj_recoder_test3'
+productKey='a1nwrypxWbP'
+productSecret='TxV8mZGsZw4Dnd1f'
+deviceName='RTU_test3'
 randomStr='smartlinkcloud'
 
 paramatersDict = {'productKey': productKey, 'deviceName': deviceName, 'random': randomStr }
@@ -32,6 +32,9 @@ print(sign)
 
 signMethod='hmacsha1'
 
-r = requests.post(url, data = {'productKey':productKey, 'deviceName':deviceName, 'random':randomStr, 'sign':sign, 'signMethod':signMethod })
+# headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
+# r = requests.post(url, headers=headers, data = {'productKey':productKey, 'deviceName':deviceName, 'random':randomStr, 'sign':sign, 'signMethod':signMethod })
+r = requests.post(url, data = {'productKey':productKey, 'deviceName':deviceName, 'random':randomStr, 'sign':sign, 'signMethod':signMethod })
+print(r.headers)
 print(r.text)

@@ -64,7 +64,6 @@ export default class ProductList extends PureComponent {
     ) : null;
 
 
-
     return (
       <div className={styles.coverCardList}>
         <div className={styles.cardList}>{cardList}</div>

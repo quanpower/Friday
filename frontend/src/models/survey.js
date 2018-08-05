@@ -1,4 +1,5 @@
 import { queryDeviceDaqRealtime } from '../services/api';
+import { queryDeviceDaqBar } from '../services/api';
 import { queryDeviceDaqHistory } from '../services/api';
 import { queryDeviceDaqRecord } from '../services/api';
 
@@ -41,6 +42,25 @@ export default {
         },
       });
     },
+
+
+    *fetchDeviceDaqBar({ payload }, { call, put }) {
+      const response = yield call(queryDeviceDaqBar, payload);
+      yield put({
+        type: 'save',
+        payload: {
+          deviceDaqBar: response.deviceDaqBar,
+        },
+      });
+
+      yield put({
+        type: 'save',
+        payload: {
+          realtimeBars: response.realtimeBars,
+        },
+      });
+    },
+
 
     *fetchDeviceDaqHistory({ payload }, { call, put }) {
       const response = yield call(queryDeviceDaqHistory, payload);

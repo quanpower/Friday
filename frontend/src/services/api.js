@@ -96,7 +96,6 @@ export async function queryDeviceDaqRecord(params) {
 }
 
 
-
 export async function queryProductProfile(params) {
   return request(`/api/product/profile?${stringify(params)}`);
 }

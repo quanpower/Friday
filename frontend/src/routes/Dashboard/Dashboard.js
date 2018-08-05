@@ -47,8 +47,6 @@ const Yuan = ({ children }) => (
 );
 
 
-
-
 @connect(({ survey, loading }) => ({
   survey,
   loading: loading.effects['survey/fetchDeviceDaqRealtime'],

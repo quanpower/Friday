@@ -15,8 +15,8 @@ clt = client.AcsClient(accessKeyId, accessKeySecret, 'cn-shanghai')
 # request.set_CurrentPage('1')
 
 request = RegistDeviceRequest.RegistDeviceRequest()
-request.set_ProductKey('a14MQd3lS1y')
-request.set_DeviceName('yj_recoder_test2')
+request.set_ProductKey('a1nwrypxWbP')
+request.set_DeviceName('RTU_test2')
 
 
 result = clt.do_action_with_exception(request)
@@ -24,3 +24,4 @@ print(result)
 # print('result : ' + result)
 
 
+# {"DeviceId":"Pxm7GkyB41qUhv8huJGo","DeviceName":"RTU_test1","RequestId":"BD3F80FF-FC0E-462E-A67D-6E65F04CDA33","DeviceSecret":"uRBgiGO8HJZMjvQHOI85tI0skvl52Yeb","Success":true}

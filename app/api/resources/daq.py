@@ -158,6 +158,7 @@ class Projects(Resource):
         pass
 
 
+
 class Products(Resource):
     '''
         get the products.
@@ -231,7 +232,6 @@ class Products(Resource):
 
     def put(self):
         pass
-
 
 
 
@@ -392,7 +392,6 @@ class Devices(Resource):
 
 
 
-
 class DeviceProfile(Resource):
     '''
         get the DeviceProfile.
@@ -471,6 +470,7 @@ class DeviceProfile(Resource):
         pass
 
 
+
 class DeviceDaqRealtime(Resource):
     '''
         get the lates daq.
@@ -500,6 +500,7 @@ class DeviceDaqRealtime(Resource):
 
         print('--------device_daq_realtime--------\n' * 3)
         print(device_daq_realtime)
+
         daq_values = device_daq_realtime.daq_value
         # daq_values = json.loads(device_daq_realtime.daq_value)
         gmt_daq = device_daq_realtime.gmt_daq
@@ -508,7 +509,6 @@ class DeviceDaqRealtime(Resource):
 
         daq_dict_list = []
         for daq_value in daq_values:
-
             daq_dict[daq_value[0]] = daq_value[1]
         daq_dict_list.append(daq_dict)
 
@@ -531,6 +531,147 @@ class DeviceDaqRealtime(Resource):
 
     def put(self):
         pass
+
+
+
+class CurrentPower(Resource):
+    '''
+        get the power voltage and current value. 
+    '''
+
+    def get(self):
+
+        current_power = db.session.query(Power.datetime, Power.value).order_by(Power.datetime.desc()).first()
+        # current_power = db.session.query(Power.datetime, Power.value).filter(
+        #     and_(Power.project == 1, Power.worker == 1)).order_by(Power.datetime.desc()).first()
+
+        history_power = db.session.query(Power.datetime, Power.value).order_by(
+            Power.datetime.desc()).limit(10).all()
+
+        # history_power = db.session.query(Power.datetime, Power.value).filter(
+        #     and_(Power.project == 1, Power.worker == 1)).order_by(
+        #     Power.datetime.desc()).limit(10).all()
+
+        powerValues = json.loads(current_power[1])
+
+        # first power
+        powerValues1 = powerValues[0]
+        print('-----------powerValues1------------')
+        print(powerValues1)
+
+
+        mini_area_data1 = []
+        mini_area_data2 = []
+        mini_area_data3 = []
+        mini_area_data4 = []
+
+
+
+        for i in range(0,len(history_power)):
+            historyPowerValues = history_power[i]
+            datetime = historyPowerValues[0].strftime("%H:%M:%S")
+
+            print(datetime)
+
+            # first power
+            historyPowerValue = json.loads(historyPowerValues[1])[0]
+
+
+            print('-----------historyPowerValue-------------')
+            print(historyPowerValue)
+
+            
+            voltage_dict1 = {'x': datetime,
+                            'y': historyPowerValue[1][1]}
+            mini_area_data1.append(voltage_dict1)
+
+            voltage_dict2= {'x': datetime,
+                            'y': historyPowerValue[1][3]}
+            mini_area_data2.append(voltage_dict2)
+
+            voltage_dict3 = {'x': datetime,
+                            'y': historyPowerValue[1][5]}
+            mini_area_data3.append(voltage_dict3)
+
+            voltage_dict4 = {'x': datetime,
+                            'y': historyPowerValue[1][7]}
+            mini_area_data4.append(voltage_dict4)
+
+        print('------mini_area_data1-----')
+        print(mini_area_data1)
+        print(mini_area_data2)
+        print(mini_area_data3)
+        print(mini_area_data4)
+
+
+        print(current_power[0])
+
+        current_time = current_power[0].strftime("%Y-%m-%d %H:%M:%S")
+        
+        channel1_dict ={'bordered':True,
+        'title':'电压1',
+        'tooltip_title':'通道1',
+        'voltage':powerValues1[1][1],
+        'footer_label':'时间',
+        'footer_value':current_time,
+        'contentHeight':46,
+        'mini_area_color':'#DC143C',
+        'mini_area_data':mini_area_data1,
+        }
+        
+
+        channel2_dict ={'bordered':True,
+        'title':'电压2',
+        'tooltip_title':'通道2',
+        'voltage':powerValues1[1][3],
+        'footer_label':'时间',
+        'footer_value':current_time,
+        'contentHeight':46,
+        'mini_area_color':'#975FE4',
+        'mini_area_data':mini_area_data2,
+        }
+        
+
+        channel3_dict ={'bordered':False,
+        'title':'电压3',
+        'tooltip_title':'通道3',
+        'voltage':powerValues1[1][5],
+        'footer_label':'时间',
+        'footer_value':current_time,
+        'contentHeight':46,
+        'mini_area_color':'#0000FF',
+        'mini_area_data':mini_area_data3,
+        }
+        
+
+        channel4_dict ={'bordered':False,
+        'title':'电压4',
+        'tooltip_title':'通道4',
+        'voltage':powerValues1[1][7],
+        'footer_label':'时间',
+        'footer_value':current_time,
+        'contentHeight':46,
+        'mini_area_color':'#00FFFF',
+        'mini_area_data':mini_area_data4,
+        }
+        
+        current_power_list = []
+        current_power_list.append(channel1_dict)
+        current_power_list.append(channel2_dict)
+        current_power_list.append(channel3_dict)
+        current_power_list.append(channel4_dict)
+
+        return jsonify({'currentPower': current_power_list}) 
+
+    def post(self):
+        pass
+
+    def delete(self):
+        pass
+
+    def put(self):
+        pass
+
 
 
 class DeviceDaqAlarm(Resource):

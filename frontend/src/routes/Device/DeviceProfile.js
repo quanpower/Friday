@@ -41,8 +41,6 @@ export default class DeviceProfile extends Component {
     return (
       <PageHeaderLayout title="设备详情页">
 
-
-
         <List
           rowKey="id"
           style={{ marginTop: 24 }}
@@ -76,9 +74,6 @@ export default class DeviceProfile extends Component {
             </List.Item>
           )}
         />
-
-
-
 
       </PageHeaderLayout>
     );
