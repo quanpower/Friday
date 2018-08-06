@@ -6,7 +6,17 @@ export default {
 
   state: {
     products: [],
-    productProfile: [],
+
+    productProfile: [{
+    product_name: 'product_name',
+    owner: 'owner',
+    product_key: 'product_key',
+    product_description:'product_description',
+    node_type:'node_type',
+    data_format:'data_format',
+    gmt_create:'gmt_create',
+    gmt_update:'gmt_update',
+    }],
   },
 
   effects: {

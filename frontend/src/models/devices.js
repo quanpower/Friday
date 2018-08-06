@@ -6,7 +6,20 @@ export default {
 
   state: {
     devices: [],
-    deviceProfile: [],
+    deviceProfile: [{
+      name:'name',
+      owner:'owner',
+      device_name:'device_name',
+      device_secret:'device_secret',
+      firmware_version:'firmware_version',
+      node_type:'node_type',
+      ip_address:'ip_address',
+      status:'status',
+      gmt_create:'gmt_create',
+      gmt_active:'gmt_active',
+      gmt_online:'gmt_online',
+    }],
+
   },
 
   effects: {
