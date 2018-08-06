@@ -709,6 +709,7 @@ class DeviceDaqAlarm(Resource):
 
         print('----deivceID---' * 5)
         print(deviceID)
+        userId = 1
 
         device_daq_alarm = Alarm.query.filter_by(user_id=userId).order_by(
             Alarm.gmt_daq.desc()).first()
