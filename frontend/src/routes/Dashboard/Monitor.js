@@ -17,7 +17,7 @@ const havePermissionAsync = new Promise(resolve => {
   // Call resolve on behalf of passed
   setTimeout(() => resolve(), 1000);
 });
-@Secured(havePermissionAsync)
+
 @connect(({ survey, loading }) => ({
   survey,
   loading: loading.effects['survey/fetchDeviceDaqRecord'],
