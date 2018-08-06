@@ -514,13 +514,31 @@ class DeviceDaqRealtime(Resource):
 
         print(daq_dict_list)
 
+        current_time = gmt_daq.strftime("%Y-%m-%d %H:%M:%S")
+        
+
+        daq_digital_dict_list = []
+
+        for i in range(len(daq_values)):
+            daq_value = daq_values[i]
+            daq_digital_dict_list.append({
+                'bordered':True,
+                'title':'通道' + daq_value[0],
+                'tooltip_title':'通道' + daq_value[0],
+                'value':float('%.3f' % daq_value[1]),
+                'footer_label':'时间',
+                'footer_value':current_time,
+                'contentHeight':46,
+                })
+
+
         realtimeBars = []
         # for temp_value in temp_values:
         for i in range(len(daq_values)):
             daq_value = daq_values[i]
             realtimeBars.append({'dataKey': daq_value[0], 'fill':index_color(i)})
 
-        return jsonify({'deviceDaqRealtime': daq_dict_list, 'realtimeBars': realtimeBars}) 
+        return jsonify({'deviceDaqRealtime': daq_dict_list, 'deviceDaqDigital': daq_digital_dict_list,  'realtimeBars': realtimeBars}) 
 
     def post(self):
         pass
@@ -744,7 +762,7 @@ class DeviceDaqHistory(Resource):
         #     Daq.gmt_daq.desc()).limit(20).all()
 
         device_daq_history = Daq.query.filter_by(device_id=deviceID).order_by(
-            Daq.gmt_daq.desc()).limit(20).all()
+            Daq.gmt_daq.desc()).limit(10).all()
 
 
         daq_dict_lists = []
@@ -757,7 +775,7 @@ class DeviceDaqHistory(Resource):
 
             daq_dict = {'time':daq_datetime_str}
             for daq_value in daq_values:
-                daq_dict[daq_value[0]] = daq_value[1]
+                daq_dict[daq_value[0]] = float('%.3f' % daq_value[1])
             daq_dict_lists.append(daq_dict)
 
         print(daq_dict_lists)
@@ -823,7 +841,7 @@ class DeviceDaqRecord(Resource):
             daq_dict = {'key':i, 'datetime':daq_datetime_str}
 
             for daq_value in daq_values:
-                daq_dict[daq_value[0]] = daq_value[1]
+                daq_dict[daq_value[0]] = float('%.3f' % daq_value[1])
 
             daq_dict_lists.append(daq_dict)
 

@@ -13,7 +13,7 @@ except ImportError:
  
 # 设置连接信息
 ProductKey = "a1nwrypxWbP" # ProductKey
-DeviceName = "stm32006_sim800c006"  # DeviceName
+DeviceName = "stm32009_sim800c009"  # DeviceName
 
  
 strBroker = 'a1nwrypxWbP.iot-as-mqtt.cn-shanghai.aliyuncs.com'
@@ -37,22 +37,19 @@ def on_connect(client, userdata, flags, rc):
 def on_publish(client,msg, rc):
     if rc == 0:
         print("publish success, msg = " + msg)
- 
+
 #成功订阅消息的操作
 def on_subscribe(mqttc, obj, mid, granted_qos):
     print("Subscribed: " + str(mid) + " " + str(granted_qos))
  
- 
 def on_log(mqttc, obj, level, string):
     print("Log:" + string)
- 
  
 def on_message(mqttc, obj, msg):
     curtime = datetime.datetime.now()
     strcurtime = curtime.strftime("%Y-%m-%d %H:%M:%S")
     print(strcurtime + ": " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
     on_exec(str(msg.payload))
- 
  
 def on_exec(strcmd):
     print("Exec:", strcmd)

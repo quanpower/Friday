@@ -27,7 +27,7 @@ import Trend from 'components/Trend';
 import NumberInfo from 'components/NumberInfo';
 import { getTimeDistance } from '../../utils/utils';
 import {BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
-import ReactEcharts from 'echarts-for-react';
+// import ReactEcharts from 'echarts-for-react';
 
 import styles from './Analysis.less';
 
@@ -169,7 +169,7 @@ export default class Analysis extends Component {
     console.log('--survey,loading--')
     console.log(survey)
     console.log(loading)
-    const {currentPower, deviceDaqRealtime, realtimeBars, deviceDaqHistory, historyLines } = survey;
+    const {currentPower, deviceDaqRealtime, deviceDaqDigital, realtimeBars, deviceDaqHistory, historyLines } = survey;
 
 
     const salesExtra = (
@@ -209,37 +209,37 @@ export default class Analysis extends Component {
 
     return (
       <Fragment>
-        <Row gutter={24}>
-          {console.log('currentPower:', currentPower)}
-
-          {currentPower.map((item, i) => (
-            <Col {...topColResponsiveProps}>
-              <ChartCard
-                bordered={item.bordered}
-                title={item.title}
-                action={
-                  <Tooltip title={item.tooltip_title}>
-                    <Icon type="info-circle-o" />
-                  </Tooltip>
-                }
-                total={item.voltage}
-                footer={<Field label={item.footer_label} value={item.footer_value} />}
-                contentHeight={item.contentHeight}
-              >
-                <MiniArea color={item.mini_area_color} data={item.mini_area_data} />
-              </ChartCard>
-            </Col>
-            )
-          )}
-        </Row>
-
 
         <Card loading={loading} bordered={false} bodyStyle={{ padding: 0 }}>
           <div className={styles.salesCard}>
             <Tabs tabBarExtraContent={salesExtra} size="large" tabBarStyle={{ marginBottom: 24 }}>
-              <TabPane tab="实时温度" key="sales">
+              <TabPane tab="数显图" key="digital">
+                <Row gutter={24}>
+
+                  {deviceDaqDigital.map((item, i) => (
+                    <Col {...topColResponsiveProps}>
+                      <ChartCard
+                        bordered={item.bordered}
+                        title={item.title}
+                        action={
+                          <Tooltip title={item.tooltip_title}>
+                            <Icon type="info-circle-o" />
+                          </Tooltip>
+                        }
+                        total={item.value}
+                        footer={<Field label={item.footer_label} value={item.footer_value} />}
+                        contentHeight={item.contentHeight}
+                      >
+                      </ChartCard>
+                    </Col>
+                    )
+                  )}
+                </Row>
+              </TabPane>
+
+              <TabPane tab="棒状图" key="sales">
                 <Row>
-                  <Col xl={16} lg={12} md={12} sm={24} xs={24}>
+                  <Col xl={24} lg={12} md={12} sm={24} xs={24}>
                     <div className={styles.salesBar}>
                           {console.log('deviceDaqRealtime:', deviceDaqRealtime)}
                           {console.log('realtimeBars:', realtimeBars)}
@@ -259,26 +259,13 @@ export default class Analysis extends Component {
                           </BarChart>
                     </div>
                   </Col>
-                  <Col xl={8} lg={12} md={12} sm={24} xs={24}>
-                    <div className={styles.salesRank}>
-                      <h4 className={styles.rankingTitle}>实时温度</h4>
-                      <ul className={styles.rankingList}>
-                        {rankingListData.map((item, i) => (
-                          <li key={item.title}>
-                            <span className={i < 3 ? styles.active : ''}>{i + 1}</span>
-                            <span>{item.title}</span>
-                            <span>{numeral(item.total).format('0,0')}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </Col>
+
                 </Row>
               </TabPane>
 
-              <TabPane tab="历史温度" key="views">
+              <TabPane tab="曲线图" key="views">
                 <Row>
-                  <Col xl={16} lg={12} md={12} sm={24} xs={24}>
+                  <Col xl={24} lg={12} md={12} sm={24} xs={24}>
                     <div className={styles.salesBar}>
                       <LineChart width={600} height={300} data={deviceDaqHistory}
                               margin={{top: 5, right: 30, left: 20, bottom: 5}}>
@@ -295,20 +282,7 @@ export default class Analysis extends Component {
                       </LineChart>
                     </div>
                   </Col>
-                  <Col xl={8} lg={12} md={12} sm={24} xs={24}>
-                    <div className={styles.salesRank}>
-                      <h4 className={styles.rankingTitle}>历史温度</h4>
-                      <ul className={styles.rankingList}>
-                        {rankingListData.map((item, i) => (
-                          <li key={item.title}>
-                            <span className={i < 3 ? styles.active : ''}>{i + 1}</span>
-                            <span>{item.title}</span>
-                            <span>{numeral(item.total).format('0,0')}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </Col>
+
                 </Row>
               </TabPane>
 

@@ -1,5 +1,5 @@
 import { queryDeviceDaqRealtime } from '../services/api';
-import { queryDeviceDaqBar } from '../services/api';
+// import { queryDeviceDaqBar } from '../services/api';
 import { queryDeviceDaqHistory } from '../services/api';
 import { queryDeviceDaqRecord } from '../services/api';
 
@@ -9,6 +9,7 @@ export default {
   state: {
     currentPower: [],
     deviceDaqRealtime: [],
+    deviceDaqDigital: [],
     deviceDaqHistory:[],
     deviceDaqRecord:[],
     realtimeBars:[],
@@ -38,18 +39,7 @@ export default {
       yield put({
         type: 'save',
         payload: {
-          realtimeBars: response.realtimeBars,
-        },
-      });
-    },
-
-
-    *fetchDeviceDaqBar({ payload }, { call, put }) {
-      const response = yield call(queryDeviceDaqBar, payload);
-      yield put({
-        type: 'save',
-        payload: {
-          deviceDaqBar: response.deviceDaqBar,
+          deviceDaqDigital: response.deviceDaqDigital,
         },
       });
 
@@ -60,6 +50,24 @@ export default {
         },
       });
     },
+
+
+    // *fetchDeviceDaqBar({ payload }, { call, put }) {
+    //   const response = yield call(queryDeviceDaqBar, payload);
+    //   yield put({
+    //     type: 'save',
+    //     payload: {
+    //       deviceDaqBar: response.deviceDaqBar,
+    //     },
+    //   });
+
+    //   yield put({
+    //     type: 'save',
+    //     payload: {
+    //       realtimeBars: response.realtimeBars,
+    //     },
+    //   });
+    // },
 
 
     *fetchDeviceDaqHistory({ payload }, { call, put }) {
@@ -112,6 +120,7 @@ export default {
       return {
         currentPower: [],
         deviceDaqRealtime: [],
+        deviceDaqDigital: [],
         deviceDaqHistory:[],
         deviceDaqRecord:[],
         realtimeBars:[],
