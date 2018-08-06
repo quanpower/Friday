@@ -38,7 +38,9 @@ export default class ProductProfile extends Component {
   }
 
   render() {
-    const { productProfile, loading } = this.props;
+    const { productProfile, loading } = this.props.products;
+    console.log(this.props)
+    console.log('----productProfile----')
     console.log(productProfile)
     return (
       <PageHeaderLayout title="产品详情页">

@@ -11,7 +11,7 @@ export default {
   effects: {
 
     *fetchDaqAlarm({ payload }, { call, put }) {
-      const response = yield call(queryDAQAlarm, payload);
+      const response = yield call(queryDeviceDaqAlarm, payload);
       yield put({
         type: 'save',
         payload: {
