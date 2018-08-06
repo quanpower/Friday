@@ -711,7 +711,7 @@ class DeviceDaqAlarm(Resource):
         print(deviceID)
         userId = 1
 
-        device_daq_alarm = Alarm.query.order_by(Alarm.gmt_daq.desc()).first()
+        device_daq_alarm = Alarm.query.order_by(Alarm.gmt_alarm.desc()).first()
 
         # device_daq_alarm = db.session.query(Alarm.gmt_alarm, Alarm.alarm_value).filter(
         #     Alarm.device_id == deviceID).first()
