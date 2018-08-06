@@ -715,11 +715,21 @@ class DeviceDaqAlarm(Resource):
 
         # device_daq_alarm = db.session.query(Alarm.gmt_alarm, Alarm.alarm_value).filter(
         #     Alarm.device_id == deviceID).first()
-
+        print('-----device_daq_alarm----')
+        print(device_daq_alarm)
         device_alarms = device_daq_alarm.alarm_value
+        print('-----device_alarms----')
+
+        print(device_alarms)
+        print(type(device_alarms))
+        # todo:
+        device_alarms_list = json.loads(device_alarms)
+        print(device_alarms_list)
+
 
         alarm_dict_list = []
-        for device_alarm in device_alarms:
+
+        for device_alarm in device_alarms_list:
             if device_alarm[1] == '0':
                 alarm_dict = {'type': 'danger', 'icon':'warning', 'channel': device_alarm[0], 'alarm': device_alarm[1]}
             else:
