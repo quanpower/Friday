@@ -102,15 +102,7 @@ export const getRouterData = app => {
     '/projects': {
       component: dynamicWrapper(app, ['projects'], () => import('../routes/Project/ProjectList')),
     },
-    '/dashboard/analysis/:device_id': {
-      component: dynamicWrapper(app, ['survey'], () => import('../routes/Dashboard/Analysis')),
-    },
-    '/dashboard/monitor/:device_id': {
-      component: dynamicWrapper(app, ['survey'], () => import('../routes/Dashboard/Monitor')),
-    },
-    '/dashboard/alarm/:device_id': {
-      component: dynamicWrapper(app, ['alarm'], () => import('../routes/Dashboard/Alarm')),
-    },
+
     '/dashboard/workplace': {
       component: dynamicWrapper(app, ['project', 'activities', 'chart'], () =>
         import('../routes/Dashboard/Workplace')
@@ -122,6 +114,13 @@ export const getRouterData = app => {
     '/project/project': {
       component: dynamicWrapper(app, ['projects'], () => import('../routes/Project/ProjectList')),
     },
+    '/version/changelog': {
+      component: dynamicWrapper(app, ['version'], () => import('../routes/Version/Changelog')),
+    },
+    '/version/todolist': {
+      component: dynamicWrapper(app, ['version'], () => import('../routes/Version/Todolist')),
+    },
+
 
     '/form/basic-form': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/BasicForm')),

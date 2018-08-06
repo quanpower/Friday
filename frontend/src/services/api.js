@@ -117,3 +117,12 @@ export async function queryProducts() {
 export async function queryDevices() {
   return request('/api/devices');
 }
+
+export async function queryChangelog() {
+  return request('/api/version/changelog');
+}
+
+
+export async function queryTodolist() {
+  return request('/api/version/todolist');
+}

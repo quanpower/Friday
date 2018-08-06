@@ -46,6 +46,7 @@
     "react-document-title": "^2.0.3",
     "react-dom": "^16.4.1",
     "react-fittext": "^1.0.0",
+    "react-markdown": "^3.4.1",
     "recharts": "^1.0.0-beta.10",
     "rollbar": "^2.3.4",
     "setprototypeof": "^1.1.0",
