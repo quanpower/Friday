@@ -38,17 +38,13 @@ export default class DeviceProfile extends Component {
   render() {
     const { deviceProfile, loading } = this.props.devices;
     console.log(deviceProfile)
+    console.log(deviceProfile[0])
+    const item = deviceProfile[0]
+
+
     return (
       <PageHeaderLayout title="设备详情页">
 
-        <List
-          rowKey="id"
-          style={{ marginTop: 24 }}
-          grid={{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }}
-          loading={loading}
-          dataSource={deviceProfile}
-          renderItem={item => (
-            <List.Item key={item.id}>
               <Card bordered={false}>
                 <DescriptionList size="large" title="基本信息" style={{ marginBottom: 32 }}>
                   <Description term="设备名称">{item.name}</Description>
@@ -70,10 +66,6 @@ export default class DeviceProfile extends Component {
                 <Divider style={{ marginBottom: 32 }} />
                 
               </Card>
-
-            </List.Item>
-          )}
-        />
 
       </PageHeaderLayout>
     );

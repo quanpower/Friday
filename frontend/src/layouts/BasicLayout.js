@@ -125,7 +125,7 @@ class BasicLayout extends React.PureComponent {
   getPageTitle() {
     const { routerData, location } = this.props;
     const { pathname } = location;
-    let title = 'Ant Design Pro';
+    let title = 'Smart Link Cloud';
     let currRouterData = null;
     // match params path
     Object.keys(routerData).forEach(key => {
@@ -134,7 +134,7 @@ class BasicLayout extends React.PureComponent {
       }
     });
     if (currRouterData && currRouterData.name) {
-      title = `${currRouterData.name} - Ant Design Pro`;
+      title = `${currRouterData.name} - Smart Link Cloud`;
     }
     return title;
   }
@@ -264,8 +264,8 @@ class BasicLayout extends React.PureComponent {
               links={[
                 {
                   key: 'Pro 首页',
-                  title: 'Pro 首页',
-                  href: 'http://pro.ant.design',
+                  title: '智联云',
+                  href: 'http://www.smartlinkcloud.com',
                   blankTarget: true,
                 },
                 {
@@ -283,7 +283,7 @@ class BasicLayout extends React.PureComponent {
               ]}
               copyright={
                 <Fragment>
-                  Copyright <Icon type="copyright" /> 2018 蚂蚁金服体验技术部出品
+                  Copyright <Icon type="copyright" /> 2018 上海数航测控技术部出品
                 </Fragment>
               }
             />
