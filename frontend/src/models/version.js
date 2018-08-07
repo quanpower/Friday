@@ -49,7 +49,6 @@ export default {
       return {
         changelog: '',
         todolist: '',
-
       };
     },
   },

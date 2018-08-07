@@ -10,12 +10,17 @@ try:
 except ImportError:
     print("MQTT client not find. Please install as follow:")
     print("pip install paho-mqtt")
+import paho.mqtt.publish as publish
 
 import json
 
+
+productKey = 'a1nwrypxWbP'
 # stm32 芯片id+sim800c 标识作为序列号
-device_id = 'stm32009_sim800c009'
-client_id = device_id
+device_name = 'stm320012_sim800c0012'
+
+
+client_id = device_name
 username = 'iiot'
 password = 'smartlinkcloud'
 strBroker = '101.200.158.2'
@@ -25,10 +30,15 @@ port = 1883
 # 成功连接后的操作
 def on_connect(client, userdata, flags, rc):
     print("OnConnetc, rc: " + str(rc))
- 
+
+    # subscribe on connect!
+    client.subscribe("utctime", qos=1)
+    client.subscribe(productKey +'.register.' + device_name, qos=1)
+
 #成功发布消息的操作
 def on_publish(client,msg, rc):
     if rc == 0:
+        print("---------in publish--------")
         print("publish success, msg = " + msg)
  
 #成功订阅消息的操作
@@ -46,14 +56,46 @@ def on_message(mqttc, obj, msg):
     print("------on_message:---------")
 
     print(strcurtime + ": " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
-    on_exec(str(msg.payload))
- 
+    if msg.topic.split('/')[0] == productKey:
+        payload_dict = json.loads(msg.payload)
+        # 1.Register successed!
+        if payload_dict['Success'] :
+            print('Register successed!')
+            # unsubscribe {productKey}/register/devicename
+            mqttc.unsubscribe(productKey +'.register.' + device_name)
+        else:
+            # 2.Already Registered!
+            if payload_dict['Code'] == 'iot.device.AlreadyExistedDeviceName':
+                print('Already Registered!')
+                # unsubscribe {productKey}/register/devicename
+                mqttc.unsubscribe(productKey +'.register.' + device_name)
+            else:
+                # 3.Register failure!
 
-def on_exec(strcmd):
-    print("------Exec:---------")
+                # fake utctime
+                utctime = int(time.time())
+                # msg_dict = {'device_name':device_name, 'time':datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")}
+                msg_dict = {'device_name':device_name, 'time':utctime}
+                send_msg = json.dumps(msg_dict)
+                topic = productKey + '.register'
+                mqttc.publish(topic, payload=send_msg, qos=1, retain=False)
 
-    # {"DeviceId":"8YIHioUqFc1rCQCgBFtn","DeviceName":"stm32005_sim800c005","RequestId":"869FF8FC-A0E7-4D16-9951-654C66645EF7","DeviceSecret":"umbnJHfrdfqV89L8VQ1n18XYmWtqJ9FW","Success":true}
-    # todo: save this result to local
+    elif msg.topic == 'utctime':
+        # get the utctime from server and pub the first register request!
+        print('-------msg utc--------')
+        utctime = json.loads(msg.payload)['utctime']
+        print('-----#######utctime########-----')
+        print(utctime)
+        # msg_dict = {'device_name':device_name, 'time':datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")}
+        msg_dict = {'device_name':device_name, 'time':utctime}
+        send_msg = json.dumps(msg_dict)
+        topic = productKey + '.register'
+        # pub request
+        mqttc.publish(topic, payload=send_msg, qos=1, retain=False)
+        # unsubscribe utctime,maybe need judge!
+        mqttc.unsubscribe('utctime')
+    else:
+        print('Unkown topic!')
  
 if __name__ == '__main__':
     mqttc = mqtt.Client(client_id)
@@ -63,19 +105,7 @@ if __name__ == '__main__':
     mqttc.on_publish = on_publish
     mqttc.on_subscribe = on_subscribe
     mqttc.on_log = on_log
+
     mqttc.connect(strBroker, port, 120)
-    # mqttc.loop_start()
-    time.sleep(1)
     
-    # mqttc.subscribe("/a1nwrypxWbP/RTU_test1/data", qos=1)  # 换成自己的
-    # haven't checked!
-    # todo: check
-    msg_dict = {'device_id':device_id, 'time':datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")}
-    send_msg = json.dumps(msg_dict)
-    
-    # stm32_rtu's productKey:a1nwrypxWbP
-    mqttc.publish("a1nwrypxWbP.register", payload=send_msg, qos=1, retain=False)
-    
-    # subscribe a1nwrypxWbP.register." + device_id
-    mqttc.subscribe("a1nwrypxWbP.register." + device_id, qos=1)
     mqttc.loop_forever()
