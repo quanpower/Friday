@@ -64,21 +64,15 @@ def on_message(mqttc, obj, msg):
             # unsubscribe {productKey}/register/devicename
             mqttc.unsubscribe(productKey +'.register.' + device_name)
         else:
-            # 2.Already Registered!
-            if payload_dict['Code'] == 'iot.device.AlreadyExistedDeviceName':
-                print('Already Registered!')
-                # unsubscribe {productKey}/register/devicename
-                mqttc.unsubscribe(productKey +'.register.' + device_name)
-            else:
-                # 3.Register failure!
+            # 2.Register failure!
 
-                # fake utctime
-                utctime = int(time.time())
-                # msg_dict = {'device_name':device_name, 'time':datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")}
-                msg_dict = {'device_name':device_name, 'time':utctime}
-                send_msg = json.dumps(msg_dict)
-                topic = productKey + '.register'
-                mqttc.publish(topic, payload=send_msg, qos=1, retain=False)
+            # fake utctime
+            utctime = int(time.time())
+            # msg_dict = {'device_name':device_name, 'time':datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")}
+            msg_dict = {'device_name':device_name, 'time':utctime}
+            send_msg = json.dumps(msg_dict)
+            topic = productKey + '.register'
+            mqttc.publish(topic, payload=send_msg, qos=1, retain=False)
 
     elif msg.topic == 'utctime':
         # get the utctime from server and pub the first register request!

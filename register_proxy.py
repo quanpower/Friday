@@ -25,7 +25,7 @@ accessKeyId = 'LTAIAquKjgwHPNsX'
 accessKeySecret = '7Of0XiOIITOw2rmYUt4nUTSQOEKyK2'
 
 ProductKey = 'a1nwrypxWbP'
-client_id = 'register_proxy_' + productKey
+client_id = 'register_proxy_' + ProductKey
 username = 'iiot'
 password = 'smartlinkcloud'
 strBroker = '101.200.158.2'
@@ -59,10 +59,9 @@ def on_message(mqttc, obj, msg):
 
 
     # 计算密码（签名值）
-def calculation_sign(signmethod, ClientId, DeviceName, ProductKey, timestamp):
+def calculation_sign(signmethod, ClientId, DeviceName, ProductKey, timestamp, DeviceSecret):
     data = "".join(("clientId", ClientId, "deviceName", DeviceName,
                     "productKey", ProductKey, "timestamp", timestamp))
- 
     if "hmacsha1" == signmethod:
         ret = hmac.new(bytes(DeviceSecret),
                    bytes(data),hashlib.sha1).hexdigest()
@@ -72,7 +71,6 @@ def calculation_sign(signmethod, ClientId, DeviceName, ProductKey, timestamp):
     else:
         raise ValueError
     return ret
-
 
  
 def on_exec(strcmd):
@@ -89,7 +87,7 @@ def on_exec(strcmd):
         clt = client.AcsClient(accessKeyId, accessKeySecret, 'cn-shanghai')
 
         request = RegistDeviceRequest.RegistDeviceRequest()
-        request.set_ProductKey(productKey)
+        request.set_ProductKey(ProductKey)
         request.set_DeviceName(deviceName)
 
         result = clt.do_action_with_exception(request)
@@ -98,7 +96,6 @@ def on_exec(strcmd):
         print(result)
 
         result_dict = json.loads(result)
-        print(result_dict)
 
         isSuccess = result_dict['Success']
         print('-----register isSuccess------')
@@ -110,8 +107,8 @@ def on_exec(strcmd):
         if isSuccess:
 
             # 设置连接信息
-            ClientId = result_dict['DeviceId'] # DeviceId
-            DeviceName = deviceName  # DeviceName
+            ClientId = result_dict['DeviceName'] # DeviceId
+            DeviceName = result_dict['DeviceName']  # DeviceName
             DeviceSecret = result_dict['DeviceSecret'] # DeviceSecret
              
             # 获取时间戳（当前时间毫秒值）
@@ -125,7 +122,7 @@ def on_exec(strcmd):
                                  ",timestamp=", timestamp,
                                  "|"))
             username = "".join((DeviceName, "&", ProductKey))
-            password = calculation_sign("hmacsha1", ClientId, DeviceName, ProductKey, timestamp)
+            password = calculation_sign("hmacsha1", ClientId, DeviceName, ProductKey, timestamp, DeviceSecret)
 
             return_dcit = {'Success': True, 'strBroker': strBroker, 'port':port, 'client_id':client_id, 'username':username, 'password':password}
             return_json = json.dumps(return_dcit)
@@ -134,7 +131,7 @@ def on_exec(strcmd):
         else:
             if result_dict['Code'] == 'iot.device.AlreadyExistedDeviceName':
                 request = QueryDeviceDetailRequest.QueryDeviceDetailRequest()
-                request.set_ProductKey(productKey)
+                request.set_ProductKey(ProductKey)
                 request.set_DeviceName(deviceName)
 
                 result = clt.do_action_with_exception(request)
@@ -143,28 +140,36 @@ def on_exec(strcmd):
                 print(result)
 
                 result_dict = json.loads(result)
-                print(result_dict)
 
-                ClientId = result_dict['DeviceId'] # DeviceId
-                DeviceName = deviceName  # DeviceName
-                DeviceSecret = result_dict['DeviceSecret'] # DeviceSecret
-                 
-                # 获取时间戳（当前时间毫秒值）
-                us = math.modf(time.time())[0]
-                ms = int(round(us * 1000))
-                timestamp = str(ms)
+                isSuccess = result_dict['Success']
+                print('-----device-detail-isSuccess------')
+                print(isSuccess)
 
-                client_id = "".join((ClientId,
-                                     "|securemode=3",
-                                     ",signmethod=", "hmacsha1",
-                                     ",timestamp=", timestamp,
-                                     "|"))
-                username = "".join((DeviceName, "&", ProductKey))
-                password = calculation_sign("hmacsha1", ClientId, DeviceName, ProductKey, timestamp)
+                if isSuccess:
+                    print('query device detail successed!')
+                    ClientId = result_dict['Data']['DeviceName'] # DeviceId
+                    DeviceName = result_dict['Data']['DeviceName']  # DeviceName
+                    DeviceSecret = result_dict['Data']['DeviceSecret'] # DeviceSecret
+                     
+                    # 获取时间戳（当前时间毫秒值）
+                    us = math.modf(time.time())[0]
+                    ms = int(round(us * 1000))
+                    timestamp = str(ms)
 
-                return_dcit = {'Success': True, 'strBroker': strBroker, 'port':port, 'client_id':client_id, 'username':username, 'password':password}
-                return_json = json.dumps(return_dcit)
-                print(return_json)
+                    client_id = "".join((ClientId,
+                                         "|securemode=3",
+                                         ",signmethod=", "hmacsha1",
+                                         ",timestamp=", timestamp,
+                                         "|"))
+                    username = "".join((DeviceName, "&", ProductKey))
+                    password = calculation_sign("hmacsha1", ClientId, DeviceName, ProductKey, timestamp, DeviceSecret)
+                    return_dcit = {'Success': True, 'strBroker': strBroker, 'port':port, 'client_id':client_id, 'username':username, 'password':password}
+                    return_json = json.dumps(return_dcit)
+                    print(return_json)
+                else:
+                    return_json = result
+                    print(return_json)
+
             else:
                 return_json = result
                 print(return_json)
