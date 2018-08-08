@@ -41,6 +41,7 @@ class User(db.Model, UserMixin):
     projects = db.relationship('Project', backref='owner', lazy='dynamic')
     products = db.relationship('Product', backref='owner', lazy='dynamic')
     devices = db.relationship('Device', backref='owner', lazy='dynamic')
+    bug_comment = db.relationship('BugComment', backref='author', lazy='dynamic')
 
 
 
@@ -129,6 +130,106 @@ class Alarm(db.Model):
 
     def __repr__(self):
         return str(self.device_id)
+
+
+class BugOrderOfSeverity(db.Model):
+    __tablename__ = 'bug_order_of_severity'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(20), nullable = False, unique=True)
+    name_en = db.Column(db.String(20), nullable = False, unique=True)
+    bugs = db.relationship('Bug', backref='severity', lazy='dynamic')
+
+    def __repr__(self):
+        return str(self.severity_name)
+
+class BugPriority(db.Model):
+    __tablename__ = 'bug_priority'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(20), nullable = False, unique=True)
+    name_en = db.Column(db.String(20), nullable = False, unique=True)
+    bugs = db.relationship('Bug', backref='priority', lazy='dynamic')
+
+
+    def __repr__(self):
+        return str(self.name)
+
+class Models(db.Model):
+    __tablename__ = 'models'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(20), nullable = False, unique=True)
+    bugs = db.relationship('Bug', backref='models', lazy='dynamic')
+
+
+    def __repr__(self):
+        return str(self.name)
+
+class Version(db.Model):
+    __tablename__ = 'versions'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(20), nullable = False, unique=True)
+    bugs = db.relationship('Bug', backref='versions', lazy='dynamic')
+
+
+    def __repr__(self):
+        return str(self.name)
+
+
+class TestingEnvironment(db.Model):
+    __tablename__ = 'testing_environment'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(50), nullable = False, unique=True)
+    bugs = db.relationship('Bug', backref='environment', lazy='dynamic')
+
+
+    def __repr__(self):
+        return str(self.name)
+
+class BugStatus(db.Model):
+    __tablename__ = 'bug_status'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(50), nullable = False, unique=True)
+    name_en = db.Column(db.String(50), nullable = False, unique=True)
+    bugs = db.relationship('Bug', backref='status', lazy='dynamic')
+
+
+    def __repr__(self):
+        return str(self.name)
+
+class BugComment(db.Model):
+    __tablename__ = 'bug_comment'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    author_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    bug_id = db.Column(db.Integer,db.ForeignKey('bugs.id'))
+    comment = db.Column(db.String(200), nullable = False)
+
+    def __repr__(self):
+        return str(self.comment)
+
+class Bug(db.Model):
+    __tablename__ = 'bugs'
+    id = db.Column(db.Integer, primary_key = True, autoincrement=True)
+    title = db.Column(db.String(100), nullable = False)
+    order_of_severity_id = db.Column(db.Integer,db.ForeignKey('bug_order_of_severity.id'))
+    priority_id = db.Column(db.Integer,db.ForeignKey('bug_priority.id'))
+    model_id = db.Column(db.Integer,db.ForeignKey('models.id'))
+    version_id = db.Column(db.Integer,db.ForeignKey('versions.id'))
+    testing_environment_id = db.Column(db.Integer,db.ForeignKey('testing_environment.id'))
+    developer_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    tester_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    status_id = db.Column(db.Integer,db.ForeignKey('bug_status.id'))
+    procedure_description = db.Column(db.String(1000), nullable = False)
+    expected_result = db.Column(db.String(100))
+    actual_result = db.Column(db.String(100))
+    gmt_bug = db.Column(db.DateTime(), default=datetime.utcnow())
+    gmt_report = db.Column(db.DateTime(), default=datetime.utcnow())
+    screenshot = db.Column(db.JSON)
+    reason = db.Column(db.String(200))
+    solution = db.Column(db.String(300))
+    note = db.Column(db.String(300))
+    bug = db.relationship('BugComment',backref='bug', lazy='dynamic')
+
+    def __repr__(self):
+        return str(self.title) 
 
 
 # db.create_all()

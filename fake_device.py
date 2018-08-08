@@ -62,7 +62,7 @@ def on_message(mqttc, obj, msg):
         if payload_dict['Success'] :
             print('Register successed!')
             # unsubscribe {productKey}/register/devicename
-            mqttc.unsubscribe(productKey +'.register.' + device_name)
+            # mqttc.unsubscribe(productKey +'.register.' + device_name)
         else:
             # 2.Register failure!
 

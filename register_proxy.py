@@ -165,6 +165,7 @@ def on_exec(strcmd):
                     password = calculation_sign("hmacsha1", ClientId, DeviceName, ProductKey, timestamp, DeviceSecret)
                     return_dcit = {'Success': True, 'strBroker': strBroker, 'port':port, 'client_id':client_id, 'username':username, 'password':password}
                     return_json = json.dumps(return_dcit)
+                    print(len(return_json))
                     print(return_json)
                 else:
                     return_json = result
@@ -181,6 +182,7 @@ def on_exec(strcmd):
         strMqttChannel = "a1nwrypxWbP.register." + deviceName_stm32_sim
         print('----------------strMqttChannel-----------')
         print(strMqttChannel)
+        print(return_json)
         publish.single(strMqttChannel, return_json, hostname=strMqttBroker, auth={'username': 'iiot', 'password': 'smartlinkcloud'})
 
     except:
