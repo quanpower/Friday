@@ -11,130 +11,92 @@
 - 'Fixed': 改的bug
 - 'Security': 改的有关安全相关bug
 ---
+
+
 ## [Unreleased]
 ---
-## [1.0.0] - 2017-06-20
+## [0.1.2] - 2018-08-08
 ### Added
-- New visual identity by @tylerfortune8.
-- Version navigation.
-- Links to latest released version in previous versions.
-- "Why keep a changelog?" section.
-- "Who needs a changelog?" section.
-- "How do I make a changelog?" section.
-- "Frequently Asked Questions" section.
-- New "Guiding Principles" sub-section to "How do I make a changelog?".
-- Simplified and Traditional Chinese translations from @tianshuo.
-- German translation from @mpbzh & @Art4.
-- Italian translation from @azkidenz.
-- Swedish translation from @magol.
-- Turkish translation from @karalamalar.
-- French translation from @zapashcanon.
-- Brazilian Portugese translation from @aisamu.
-- Polish translation from @amielucha.
-- Russian translation from @aishek.
-- Czech translation from @h4vry.
-- Slovak translation from @jkostolansky.
+- Proxy-register,设备代理注册功能.
+- UTCTime Server.
 
-### Changed
-- Start using "changelog" over "change log" since it's the common usage.
-- Start versioning based on the current English version at 0.3.0 to help
-translation authors keep things up-to-date.
-- Rewrite "What makes unicorns cry?" section.
-- Rewrite "Ignoring Deprecations" sub-section to clarify the ideal
-  scenario.
-- Improve "Commit log diffs" sub-section to further argument against
-  them.
-- Merge "Why can’t people just use a git log diff?" with "Commit log
-  diffs"
-- Fix typos in Simplified Chinese and Traditional Chinese translations.
-- Fix typos in Brazilian Portugese translation.
-- Fix typos in Turkish translation.
-- Fix typos in Czech translation.
-- Fix typos in Swedish translation.
-- Improve phrasing in French translation.
-- Fix phrasing and spelling in German translation.
 
-### Removed
-- Section about "changelog" vs "CHANGELOG".
-
-## [0.3.0] - 2015-12-03
+## [0.1.1] - 2018-08-06
 ### Added
-- RU translation from @aishek.
-- pt-BR translation from @tallesl.
-- es-ES translation from @ZeliosAriex.
+- Markdown语法支持及HTML显示CSS.
+- ChageLog.
+- TodoList.
 
-## [0.2.0] - 2015-10-06
-### Changed
-- Remove exclusionary mentions of "open source" since this project can
-benefit both "open" and "closed" source projects equally.
 
-## [0.1.0] - 2015-10-06
+## [0.1.0] - 2018-8-01
 ### Added
-- Answer "Should you ever rewrite a change log?".
+- 设备地图显示
+- 设备概览，包括设备总数，激活数，在线数
+
+
+## [0.0.9] - 2018-07-25
+### Added
+- 产品详情
+- 设备详情
+
+
+## [0.0.8] - 2018-07-21
+### Added
+- 仪表盘页
+- 实时数据以数显表样式显示
+
+
+## [0.0.7] - 2018-07-16
+### Added
+- 用户管理页
+- 系统设置页
 
 ### Changed
-- Improve argument against commit logs.
-- Start following [SemVer](http://semver.org) properly.
-
-## [0.0.8] - 2015-02-17
-### Changed
-- Update year to match in every README example.
-- Reluctantly stop making fun of Brits only, since most of the world
-  writes dates in a strange way.
+- 产品管理页改为产品列表
+- 设备管理页改为设备列表
 
 ### Fixed
-- Fix typos in recent README changes.
-- Update outdated unreleased diff link.
+- 详情页非正常显示
 
-## [0.0.7] - 2015-02-16
+
+## [0.0.6] - 2018-07-12
 ### Added
-- Link, and make it obvious that date format is ISO 8601.
+- Dashboard页,包括棒状图，历史数据.
+- 产品管理.
+- 设备管理.
+- 项目管理页.
 
-### Changed
-- Clarified the section on "Is there a standard change log format?".
 
-### Fixed
-- Fix Markdown links to tag comparison URL with footnote-style links.
-
-## [0.0.6] - 2014-12-12
+## [0.0.5] - 2018-07-05
 ### Added
-- README section on "yanked" releases.
+- users表.
+- 使用Flask-Security 管理用户，注册，权限，角色.
 
-## [0.0.5] - 2014-08-09
+
+## [0.0.4] - 2018-06-28
 ### Added
-- Markdown links to version tags on release headings.
-- Unreleased section to gather unreleased changes and encourage note
-keeping prior to releases.
+- 前端界面，使用DVA + ANTD.
 
-## [0.0.4] - 2014-08-09
+
+## [0.0.3] - 2018-06-20
 ### Added
-- Better explanation of the difference between the file ("CHANGELOG")
-and its function "the change log".
+- 提供数据实时数据，历史记录接口.
+- 提供棒状图，曲线图接口.
 
-### Changed
-- Refer to a "change log" instead of a "CHANGELOG" throughout the site
-to differentiate between the file and the purpose of the file — the
-logging of changes.
 
-### Removed
-- Remove empty sections from CHANGELOG, they occupy too much space and
-create too much noise in the file. People will have to assume that the
-missing sections were intentionally left out because they contained no
-notable changes.
-
-## [0.0.3] - 2014-08-09
+## [0.0.2] - 2018-06-17
 ### Added
-- "Why should I care?" section mentioning The Changelog podcast.
+- 使用Flask-restful 提供API接口.
+- 使用BluePrint包装.
+- 使用FactoryMethod集中注册Flask各模块.
 
-## [0.0.2] - 2014-07-10
-### Added
-- Explanation of the recommended reverse chronological release ordering.
 
-## 0.0.1 - 2014-05-31
+## [0.0.1] - 2018-06-15
 ### Added
-- This CHANGELOG file to hopefully serve as an evolving example of a
-  standardized open source project CHANGELOG.
-- CNAME file to enable GitHub Pages custom domain
-- README now contains answers to common questions about CHANGELOGs
-- Good examples and basic guidelines, including proper date formatting.
-- Counter-examples: "What makes unicorns cry?"
+- Flask框架
+- Python3 venv
+- Flask-SQLAlchemy
+- MySQL
+- models里创建product，device，project，daq,alram ORM
+- 使用supervisor守护进程
+- Nginx代理
