@@ -224,8 +224,8 @@ class Bug(db.Model):
     note = db.Column(db.String(300))
     bug_comment = db.relationship('BugComment',backref='bug', lazy='dynamic')
     # resolve sqlalchemy.exc.AmbiguousForeignKeysError:
-    developer = relationship("User", foreign_keys=[developer_id])
-    tester = relationship("User", foreign_keys=[tester_id])
+    developer = db.relationship("User", foreign_keys=[developer_id])
+    tester = db.relationship("User", foreign_keys=[tester_id])
 
     def __repr__(self):
         return str(self.title) 
