@@ -41,7 +41,8 @@ class User(db.Model, UserMixin):
     projects = db.relationship('Project', backref='owner', lazy='dynamic')
     products = db.relationship('Product', backref='owner', lazy='dynamic')
     devices = db.relationship('Device', backref='owner', lazy='dynamic')
-    bug_comment = db.relationship('BugComment', backref='author', lazy='dynamic')
+    bugs = db.relationship('Bug', backref='tester', lazy='dynamic')
+    bug_comments = db.relationship('BugComment', backref='author', lazy='dynamic')
 
 
 
@@ -142,6 +143,7 @@ class BugOrderOfSeverity(db.Model):
     def __repr__(self):
         return str(self.severity_name)
 
+
 class BugPriority(db.Model):
     __tablename__ = 'bug_priority'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -153,6 +155,7 @@ class BugPriority(db.Model):
     def __repr__(self):
         return str(self.name)
 
+
 class Models(db.Model):
     __tablename__ = 'models'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -162,6 +165,7 @@ class Models(db.Model):
 
     def __repr__(self):
         return str(self.name)
+
 
 class Version(db.Model):
     __tablename__ = 'versions'
@@ -184,6 +188,7 @@ class TestingEnvironment(db.Model):
     def __repr__(self):
         return str(self.name)
 
+
 class BugStatus(db.Model):
     __tablename__ = 'bug_status'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -195,15 +200,6 @@ class BugStatus(db.Model):
     def __repr__(self):
         return str(self.name)
 
-class BugComment(db.Model):
-    __tablename__ = 'bug_comment'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    author_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    bug_id = db.Column(db.Integer,db.ForeignKey('bugs.id'))
-    comment = db.Column(db.String(200), nullable = False)
-
-    def __repr__(self):
-        return str(self.comment)
 
 class Bug(db.Model):
     __tablename__ = 'bugs'
@@ -226,10 +222,21 @@ class Bug(db.Model):
     reason = db.Column(db.String(200))
     solution = db.Column(db.String(300))
     note = db.Column(db.String(300))
-    bug = db.relationship('BugComment',backref='bug', lazy='dynamic')
+    bug_comment = db.relationship('BugComment',backref='bug', lazy='dynamic')
 
     def __repr__(self):
         return str(self.title) 
+
+
+class BugComment(db.Model):
+    __tablename__ = 'bug_comment'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    author_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    bug_id = db.Column(db.Integer,db.ForeignKey('bugs.id'))
+    comment = db.Column(db.String(200), nullable = False)
+
+    def __repr__(self):
+        return str(self.comment)
 
 
 # db.create_all()

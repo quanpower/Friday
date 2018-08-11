@@ -13,15 +13,14 @@ except ImportError:
  
 # 设置连接信息
 ProductKey = "a1nwrypxWbP" # ProductKey
-DeviceName = "stm320012"  # DeviceName
+DeviceName = "05DAFF373733475351157913"  # DeviceName
 
- 
 strBroker = 'a1nwrypxWbP.iot-as-mqtt.cn-shanghai.aliyuncs.com'
 port = 1883
  
-client_id = "stm320012|securemode=3,signmethod=hmacsha1,timestamp=191|"
-username = "stm320012&a1nwrypxWbP"
-password = 'aff63bf2348676221a34aa4d8e5e96c4bc26f7b6'
+client_id = "05DAFF373733475351157913|securemode=3,signmethod=hmacsha1,timestamp=384|"
+username = "05DAFF373733475351157913&a1nwrypxWbP"
+password = "40ba3d2b10c177a97fd5c2333738114483c56305"
 # print("="*30)
 # print("client_id:", client_id)
 # print("username:", username)
