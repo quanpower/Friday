@@ -125,3 +125,16 @@ export async function queryChangelog() {
 export async function queryTodolist() {
   return request('/api/version/todolist');
 }
+
+export async function queryBugs() {
+  return request('/api/version/bugs');
+}
+
+
+export async function postBugs(params) {
+  return request('/api/version/bugs', {
+    method: 'POST',
+    body: params,
+  });
+}
+

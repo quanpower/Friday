@@ -51,15 +51,15 @@ class Bugs(Resource):
 
         bugLists = []
 
-        for bug in projects:
+        for bug in bugs:
             bug_id = bug.id
             bug_title = bug.title
             order_of_severity = bug.severity.name
             priority = bug.priority.name
             model = bug.models.name
-            version = bug.version.name
+            version = bug.versions.name
             testing_environment = bug.environment.name
-            developer = bug.developer.email
+            # developer = bug.developer.email
             tester = bug.tester.email
             status = bug.status.name
             procedure_description = bug.procedure_description
@@ -97,7 +97,7 @@ class Bugs(Resource):
 
         print('---------bugLists-------')
         print(bugLists)
-        return jsonify(bugLists) 
+        return jsonify({'bugLists': bugLists}) 
 
     def post(self):
         pass

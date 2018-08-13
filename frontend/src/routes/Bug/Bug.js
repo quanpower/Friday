@@ -1,25 +1,18 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
-import { Row, Col, Form, Card, Select, List } from 'antd';
+import { Row, Col, Card, Select, List } from 'antd';
 import { Button, Modal, Form, Input, Radio } from 'antd';
 
 
 
-import styles from './ProductList.less';
-
-
-/* eslint react/no-array-index-key: 0 */
-@connect(({ bug, loading }) => ({
-  bug,
-  loading: loading.models.bug,
-}))
+// import styles from './ProductList.less';
 
 
 const FormItem = Form.Item;
 
 const CollectionCreateForm = Form.create()(
-  class extends React.Component {
+  class extends Component {
     render() {
       const { visible, onCancel, onCreate, form } = this.props;
       const { getFieldDecorator } = form;
@@ -59,45 +52,56 @@ const CollectionCreateForm = Form.create()(
   }
 );
 
-export default class Bug extends PureComponent {
+/* eslint react/no-array-index-key: 0 */
+@connect(({ bug, loading }) => ({
+  bug,
+  loading: loading.models.bug,
+}))
+
+export default class Bug extends Component {
+
+
+  state = {
+    visible: false,
+  };
+
   componentDidMount() {
     this.props.dispatch({
       type: 'bug/fetchBugs',
     });
-  }
+  };
 
+  showModal = () => {
+    this.setState({ visible: true });
+  };
+
+  handleCancel = () => {
+    this.setState({ visible: false });
+  };
+
+  handleCreate = () => {
+    const form = this.formRef.props.form;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+
+      console.log('Received values of form: ', values);
+      form.resetFields();
+      this.setState({ visible: false });
+    });
+  };
+
+  saveFormRef = (formRef) => {
+    this.formRef = formRef;
+  };
 
   render() {
-    const { bugs: { products = [] }, loading } = this.props;
+    const { bugs, loading } = this.props;
+    const { bugLists } = bugs;
+    console.log(this.props)
+    console.log(bugLists)
 
-    state = {
-        visible: false,
-      };
-
-    showModal = () => {
-      this.setState({ visible: true });
-    }
-
-    handleCancel = () => {
-      this.setState({ visible: false });
-    }
-
-    handleCreate = () => {
-      const form = this.formRef.props.form;
-      form.validateFields((err, values) => {
-        if (err) {
-          return;
-        }
-
-        console.log('Received values of form: ', values);
-        form.resetFields();
-        this.setState({ visible: false });
-      });
-    }
-
-    saveFormRef = (formRef) => {
-      this.formRef = formRef;
-    }
 
     return (
       <div>

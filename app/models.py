@@ -65,7 +65,6 @@ class Project(db.Model):
         return str(self.project_name)     
 
 
-
 class Product(db.Model):
     __tablename__ = 'products'
     id = db.Column(db.Integer,primary_key = True, autoincrement=True)
@@ -210,7 +209,7 @@ class Bug(db.Model):
     model_id = db.Column(db.Integer,db.ForeignKey('models.id'))
     version_id = db.Column(db.Integer,db.ForeignKey('versions.id'))
     testing_environment_id = db.Column(db.Integer,db.ForeignKey('testing_environment.id'))
-    developer_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    # developer_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     tester_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     status_id = db.Column(db.Integer,db.ForeignKey('bug_status.id'))
     procedure_description = db.Column(db.String(1000), nullable = False)
@@ -222,10 +221,12 @@ class Bug(db.Model):
     reason = db.Column(db.String(200))
     solution = db.Column(db.String(300))
     note = db.Column(db.String(300))
-    bug_comment = db.relationship('BugComment',backref='bug', lazy='dynamic')
     # resolve sqlalchemy.exc.AmbiguousForeignKeysError:
-    developer = db.relationship("User", foreign_keys=[developer_id])
-    tester = db.relationship("User", foreign_keys=[tester_id])
+
+    # developer = db.relationship("User", foreign_keys=[developer_id])
+    # tester = db.relationship("User", foreign_keys=[tester_id])
+    bug_comment = db.relationship('BugComment',backref='bug', lazy='dynamic')
+
 
     def __repr__(self):
         return str(self.title) 

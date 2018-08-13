@@ -77,10 +77,16 @@ export const getRouterData = app => {
     '/dashboard/dashboard': {
       component: dynamicWrapper(app, ['survey'], () => import('../routes/Dashboard/Dashboard')),
     },
-    '/dashboard/analysis/:device_id': {
-      component: dynamicWrapper(app, ['survey'], () => import('../routes/Dashboard/Analysis')),
+    '/dashboard/display/digital/:device_id': {
+      component: dynamicWrapper(app, ['survey'], () => import('../routes/Dashboard/Display/Digital')),
     },
-    '/dashboard/monitor/:device_id': {
+    '/dashboard/display/bar/:device_id': {
+      component: dynamicWrapper(app, ['survey'], () => import('../routes/Dashboard/Display/Bar')),
+    },
+    '/dashboard/display/line/:device_id': {
+      component: dynamicWrapper(app, ['survey'], () => import('../routes/Dashboard/Display/Line')),
+    },
+    '/dashboard/history/:device_id': {
       component: dynamicWrapper(app, ['survey'], () => import('../routes/Dashboard/Monitor')),
     },
     '/dashboard/alarm/:device_id': {
@@ -119,6 +125,9 @@ export const getRouterData = app => {
     },
     '/version/todolist': {
       component: dynamicWrapper(app, ['version'], () => import('../routes/Version/Todolist')),
+    },
+    '/version/bugs': {
+      component: dynamicWrapper(app, ['bug'], () => import('../routes/Bug/Bug')),
     },
 
 

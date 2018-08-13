@@ -12,15 +12,34 @@ const menuData = [
       },
       {
         name: '监控页',
-        path: 'analysis/1',
+        path: 'display',
+        children: [
+        {
+          name: '数显表',
+          icon: 'dashboard',
+          path: 'digital/1',
+        },
+        {
+          name: '棒状图',
+          icon: 'bar',
+          path: 'bar/1',
+        },
+        {
+          name: '曲线图',
+          icon: 'line',
+          path: 'line/1',
+        }
+        ]
       },
       {
         name: '记录页',
-        path: 'monitor/1',
+        path: 'history/1',
       },
       {
         name: '报警页',
         path: 'alarm/1',
+        hideInMenu: true,
+
       },
       {
         name: '分析工作台监控',
@@ -118,6 +137,10 @@ const menuData = [
       {
         name: 'ToDo',
         path: 'todolist',
+      },
+      {
+        name: 'Bug',
+        path: 'bugs',
       },
     ],
   },
