@@ -21,12 +21,12 @@ const menuData = [
         },
         {
           name: '棒状图',
-          icon: 'bar',
+          icon: 'bar-chart',
           path: 'bar/1',
         },
         {
           name: '曲线图',
-          icon: 'line',
+          icon: 'area-chart',
           path: 'line/1',
         }
         ]
