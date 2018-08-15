@@ -141,6 +141,16 @@ const menuData = [
       {
         name: 'Bug',
         path: 'bugs',
+        children: [
+        {
+          name: 'BugList',
+          path: 'buglist',
+        },
+        {
+          name: 'BugProfile',
+          path: 'bugprofile',
+        },
+        ]
       },
     ],
   },

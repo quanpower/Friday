@@ -16,6 +16,9 @@ export default {
     *fetchBugs({ payload }, { call, put }) {
       const response = yield call(queryBugs, payload);
 
+      console.log('------response-------')
+      console.log(response)
+
       yield put({
         type: 'save',
         payload: {

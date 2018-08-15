@@ -126,8 +126,11 @@ export const getRouterData = app => {
     '/version/todolist': {
       component: dynamicWrapper(app, ['version'], () => import('../routes/Version/Todolist')),
     },
-    '/version/bugs': {
-      component: dynamicWrapper(app, ['bug'], () => import('../routes/Bug/Bug')),
+    '/version/bugs/buglist': {
+      component: dynamicWrapper(app, ['bug'], () => import('../routes/Bug/BugList')),
+    },
+    '/version/bugs/bugprofile': {
+      component: dynamicWrapper(app, ['bug'], () => import('../routes/Bug/BugProfile')),
     },
 
 
