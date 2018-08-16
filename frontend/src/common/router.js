@@ -105,6 +105,14 @@ export const getRouterData = app => {
     '/device/device-profile/:device_id': {
       component: dynamicWrapper(app, ['devices'], () => import('../routes/Device/DeviceProfile')),
     },
+
+    '/configuration/svg/display': {
+      component: dynamicWrapper(app, ['svg'], () => import('../routes/Configuration/Svg/Display')),
+    },
+    '/configuration/svg/editor': {
+      component: dynamicWrapper(app, ['svg'], () => import('../routes/Configuration/Svg/Editor')),
+    },
+
     '/projects': {
       component: dynamicWrapper(app, ['projects'], () => import('../routes/Project/ProjectList')),
     },
