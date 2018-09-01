@@ -10,6 +10,8 @@ from flask_admin import Admin, BaseView, expose
 from flask_admin.contrib.fileadmin import FileAdmin
 from flask_babelex import Babel
 from flask_security import SQLAlchemyUserDatastore, Security
+from importlib import import_module
+from logging import basicConfig, DEBUG, getLogger, StreamHandler
 
 import os.path as op
 
@@ -21,7 +23,6 @@ db = SQLAlchemy()
 pagedown = PageDown()
 flas_admin = Admin(name='smart-iiot')
 babel = Babel()
-
 security = Security()
 
 
@@ -59,9 +60,9 @@ def create_app(config_name):
         sslify = SSLify(app)
 
     configure_extensions(app)
-
     register_blueprints(app)
-
+    configure_database(app)
+    configure_logs(app)
 
     return app
 
@@ -89,6 +90,9 @@ def configure_extensions(app):
 def register_blueprints(app):
     """register all blueprints for application
     """
+    for module_name in ('base', 'forms', 'ui', 'home', 'tables', 'additional', 'data', 'conf2d', 'conf3d'):
+        module = import_module('app.{}.routes'.format(module_name))
+        app.register_blueprint(module.blueprint)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
@@ -96,5 +100,25 @@ def register_blueprints(app):
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
     from .api import api as api_blueprint
     app.register_blueprint(api_blueprint, url_prefix='/api')
+
+
+def configure_database(app):
+
+    @app.before_first_request
+    def initialize_database():
+        db.create_all()
+
+    @app.teardown_request
+    def shutdown_session(exception=None):
+        db.session.remove()
+
+
+def configure_logs(app):
+    basicConfig(filename='error.log', level=DEBUG)
+    logger = getLogger()
+    logger.addHandler(StreamHandler())
+
+
+
 
 
