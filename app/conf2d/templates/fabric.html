@@ -20,7 +20,7 @@
             var canvas =new fabric.Canvas('c'); //利用fabric找到我们的画布
 
             var fan1;
-            fabric.Image.fromURL('fan1.png', function(oImg) {
+            fabric.Image.fromURL("{{ url_for('static', filename='images/fan1.png') }}", function(oImg) {
               oImg.set({
                     left: 300,
                     top: 200,
