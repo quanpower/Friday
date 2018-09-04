@@ -14,27 +14,11 @@
 
 {% block javascripts %}
   {{ super() }}
-    <!-- Chart.js -->
+
+    <!-- fabric.js -->
     <script src="{{ url_for('static', filename='vendors/fabric.js/dist/fabric.js') }}"></script>
-{% autoescape false %}
     <script type="text/javascript">
         var canvas =new fabric.Canvas('c'); //利用fabric找到我们的画布
-
-        var fan1;
-        fabric.Image.fromURL("{{ url_for('static', filename='images/fan1.png') }}", function(oImg) {
-          oImg.set({
-                left: 300,
-                top: 200,
-                originX:  'center',
-                originY: 'center',
-            });
-          oImg.scale(0.1);
-          canvas.add(oImg);
-          // canvas.renderAll();
-
-          fan1 = oImg;
-        });
-
 
         var color = new fabric.Color('#1af').toRgb();
         console.log(color);
@@ -71,28 +55,78 @@
 
         })
 
-        //进行组合
-        var group = new fabric.Group([rect, rect1, text1], {
-            left: 150,
+        // 进行组合
+        var group1 = new fabric.Group([rect, rect1, text1], {
+            left: 250,
             top: 100,
             angle: 0
         })
 
-        canvas.add(group);
+        canvas.add(group1);
 
-        group.item(0).setFill('red');
-        group.item(2).set({
-            text: '75%',
+
+        // group1.item(0).setFill('green');
+
+        // var int=self.setInterval("clock()",100);
+
+        // function clock()
+        // {
+        //  var curAngle = fan1.getAngle();
+        //  var curHeight = rect.getHeight();
+        //  fan1.setAngle(curAngle+15); 
+
+        //  if (curHeight < 100)
+        //   {
+        //     curHeight += 1;
+        //   }
+        // else
+        // {
+        //   curHeight = 100;
+        // }
+
+        //  rect.setHeight(curHeight);
+
+        // // group1.item(2).set({
+        // //     text: String(curHeight),
+        // // });
+        //  canvas.renderAll();
+        // }
+
+ 
+        var fan12;
+
+        // function test() { fabric.Image.fromURL("{{ url_for('static', filename='images/fan1.png') }}", function(oImg) {
+        //   console.log('in test!');
+        //   fan12 = 'fan12';
+
+        // }); }
+
+        fabric.Image.fromURL("{{ url_for('static', filename='images/fan1.png') }}", function(oImg) {
+          oImg.set({
+                left: 400,
+                top: 160,
+                originX:  'center',
+                originY: 'center',
+            });
+          oImg.scale(0.1);
+          canvas.add(oImg);
+          // canvas.renderAll();
+
+          fan12 = oImg;
+          console.log(fan12);
+
         });
 
+        rect.setFill('red');
 
-        var int=self.setInterval("clock()",100);
 
-        function clock()
-        {
-         var curAngle = fan1.getAngle();
+        console.log('fan12:');
+        console.log(fan12);
+
+         var curAngle = fan12.getAngle();
          var curHeight = rect.getHeight();
-         fan1.setAngle(curAngle+15); 
+         var curFill = rect.getFill();
+         fan12.setAngle(curAngle+15); 
 
          if (curHeight < 100)
           {
@@ -101,21 +135,27 @@
         else
         {
           curHeight = 100;
-        }
+        };
 
-         rect.setHeight(curHeight);
+        if (curHeight > 80)
+          {
+            group1.item(0).set({
+            fill: 'red',
+        });
+          };
 
-        group.item(2).set({
+         // rect.setHeight(curHeight);
+
+        group1.item(2).set({
             text: String(curHeight),
         });
+
          canvas.renderAll();
-        document.getElementById("clock").value=t;
-        }
+        
 
         console.log(JSON.stringify(canvas.toJSON()));
         // console.log(canvas.toSVG());
 
     </script>
-    
-{% endautoescape %}
+
 {% endblock javascripts %}
