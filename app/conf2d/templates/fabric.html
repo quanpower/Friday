@@ -18,219 +18,98 @@
 
             <script type="text/javascript">
             var canvas =new fabric.Canvas('c'); //利用fabric找到我们的画布
-            canvas.on('mouse:down', function(options) {
-                console.log(options.e.clientX, options.e.clientY)
-            })
+
+            var fan1;
+            fabric.Image.fromURL('fan1.png', function(oImg) {
+              oImg.set({
+                    left: 300,
+                    top: 200,
+                    originX:  'center',
+                    originY: 'center',
+                });
+              oImg.scale(0.1);
+              canvas.add(oImg);
+              // canvas.renderAll();
+
+              fan1 = oImg;
+            });
+
 
             var color = new fabric.Color('#1af').toRgb();
             console.log(color);
 
             var rect = new fabric.Rect({  //创建我们的正方形
                 left:100,
-                top:100,
+                top:500,
+                originY: 'bottom',
                 fill:color,
+
                 width:50,
                 height:50
             });
-
-            rect.on('selected', function() {//选中监听事件
-                console.log('selected a rectangle');
-            });
             canvas.add(rect);//把我们创建好的正方形加到画布上
 
+            var rect1 = new fabric.Rect({  //创建我们的正方形
+                left:100,
+                top:500,
+                originY: 'bottom',
+                opacity:0.2,
+                // backgroundColor:'red',
 
-            //开始画圆形
-            var circle = new fabric.Circle({
-                left: 100,
-                top: 100,
-                radius: 50,
-                strokeWidth: 1, //设置圆的边框是1个像素
-                stroke: 'red' //边框颜色是红色
+                width:50,
+                height:100
             });
+            canvas.add(rect1);//把我们创建好的正方形加到画布上
 
-            circle.on('selected', function() {
-                console.log('selected a circle');
-            });
-            //设置填充颜色
-            circle.setGradient('fill', {
-                //色标的位置
-                x1: 0,
-                y1: 0,
-                x2: circle.width,
-                y2: 0,
-                //渐变的颜色
-                colorStops: {
-                    0: "red",
-                    0.2: "orange",
-                    0.4: "yellow",
-                    0.6: "green",
-                    0.8: "blue",
-                    1: "purple"
-                }
-            });
-             
-            canvas.add(circle);
-
- 
-            //开始画三角形
-            var triangle = new fabric.Triangle({
-                width: 80,
-                height: 100,
-                fill: 'blue', 
-                left: 300, 
-                top: 250
-            });
-             
-            canvas.add(triangle);//把绘画好形状添加到画布上
-
-            triangle.animate('left', '+=100', { onChange: canvas.renderAll.bind(canvas),
-                duration: 1000,
-                easing: fabric.util.ease.easeOutBounce
-             });
-
-            // img
-            fabric.Image.fromURL('./shark.jpeg', function(oImg) {
-                oImg.scale(0.1);//图片缩小10倍
-              canvas.add(oImg);
-            });
-
-
-            // path
-            var path = new fabric.Path('M 0 0 L 100 200 L 270 310 z');
-            path.set({ left: 320, top: 320,fill:'orange' });
-            canvas.add(path);
-            path.animate('angle', '-=5', { onChange: canvas.renderAll.bind(canvas) });
-            
-
-            //animate
-            rect.set('angle',30);//设置正方形的初始角度是0度
-            rect.animate('angle',360,{
-                onChange:canvas.renderAll.bind(canvas)
-            })
-
-            // filter
-             fabric.Image.fromURL('./mlao.jpeg', function(img) {
-                img.scale(0.3);//图片缩小10倍
-
-                img.filters.push(
-                    new fabric.Image.filters.Sepia(),
-                    new fabric.Image.filters.Brightness({ brightness: 100 })
-             
-                );
-                img.applyFilters(canvas.renderAll.bind(canvas));
-                canvas.add(img);
-            });
-
-            //text
-            var text = new fabric.Text('hello world', { 
-                left: 400, 
-                top: 400,
-                fontFamily: 'Comic Sans',
-                fontSize: 80,
-                fontWeight: 'bold',
-                textDecoration: 'underline',
-             });
-            canvas.add(text);
-
-
-            //绘制圆形
-            var circle1 = new fabric.Circle({
-                radius: 100,
-                fill: '#eef',
-                scaleY: 0.5,
-                originX: 'center',//调整中心点的X轴坐标
-                originY: 'center'//调整中心点的Y轴坐标
-            });
-            //绘制文本
-            var text1 = new fabric.Text('Hello World', {
+            var text1 = new fabric.Text('65', {
                 fontSize: 30,
-                originX: 'center',
-                originY: 'center'
+                left:100,
+                top:465,
+                fill: 'white',
+                originY: 'bottom',
+
             })
+
             //进行组合
-            var group = new fabric.Group([circle1, text1], {
+            var group = new fabric.Group([rect, rect1, text1], {
                 left: 150,
                 top: 100,
-                angle: 10
+                angle: 0
             })
-            
-            group.addWithUpdate(new fabric.Rect({
-                fill: 'blue',
-                width: 100,
-                height: 100,
-                left: group.getLeft(),
-                top: group.getTop(),
-                originX: 'center',
-                originY: 'center',
-            }));
 
             canvas.add(group);
 
             group.item(0).setFill('red');
-            group.item(1).set({
-                text: 'trol11111111olo',
-                fill: 'white'
+            group.item(2).set({
+                text: '75%',
             });
 
 
-            //group 
-            var circle4 = new fabric.Circle({
-                radius: 50,
-                fill: 'red',
-                left: 0
+            var int=self.setInterval("clock()",100);
+
+            function clock()
+            {
+             var curAngle = fan1.getAngle();
+             var curHeight = rect.getHeight();
+             fan1.setAngle(curAngle+15); 
+
+             if (curHeight < 100)
+              {
+                curHeight += 1;
+              }
+            else
+            {
+              curHeight = 100;
+            }
+
+             rect.setHeight(curHeight);
+
+            group.item(2).set({
+                text: String(curHeight),
             });
-            var circle2 = new fabric.Circle({
-                radius: 50,
-                fill: 'green',
-                left: 100
-            });
-            var circle3 = new fabric.Circle({
-                radius: 50,
-                fill: 'blue',
-                left: 200
-            });
-            var group1 = new fabric.Group([circle4, circle2, circle3], {
-                left: 500,
-                top: 500
-            });
-             
-            canvas.add(group1);
-
-
-
-
-            fabric.Image.fromURL('mlao.jpeg', function(img) {
-                var img1 = img.scale(0.1).set({
-                    left: 100,
-                    top: 100
-                });
-                fabric.Image.fromURL('mlao.jpeg', function(img) {
-                    var img2 = img.scale(0.1).set({
-                        left: 175,
-                        top: 175
-                    });
-                    fabric.Image.fromURL('mlao.jpeg', function(img) {
-                        var img3 = img.scale(0.1).set({ left: 250, top: 250 });
-             
-                        canvas.add(new fabric.Group([img1, img2, img3], { left: 200, top: 200 }));
-                    });
-                });
-            });
-
-            // create a group with copies of existing (2) objects
-
-
-            // var group2 = new fabric.Group([
-            //   canvas.item(0).clone(),
-            //   canvas.item(1).clone(),
-            // ]);
-             
-            // // remove all objects and re-render
-            // canvas.clear().renderAll();
-             
-            // // add group onto canvas
-            // canvas.add(group2);
-
+             canvas.renderAll();
+            document.getElementById("clock").value=t;
+            }
 
             console.log(JSON.stringify(canvas.toJSON()));
             // console.log(canvas.toSVG());
