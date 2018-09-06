@@ -170,6 +170,24 @@ def index_color(index):
         'borderSplit': '#f4f4f4',
         'grass': '#d6fbb5',
         'sky': '#c1e0fc',
+    }
+    colors_list = list(colors)
+    # print(colors_list)
+    index_color = colors[colors_list[index]]
+    return index_color
+
+def index_color2(index):
+    colors = {
+        'blue': '#8fc9fb',
+        'green': '#64ea91',
+        'red': '#f69899',
+        'yellow': '#f8c82e',
+        'purple': '#d897eb',
+        'peach': '#f797d6',
+        'borderBase': '#e5e5e5',
+        'borderSplit': '#f4f4f4',
+        'grass': '#d6fbb5',
+        'sky': '#c1e0fc',
         'aliceblue':            '#F0F8FF',
         'antiquewhite':         '#FAEBD7',
         'aqua':                 '#00FFFF',
