@@ -17,7 +17,7 @@ import json
 import datetime
 import struct
 import binascii
-# import pymysql
+import pymysql
 
 
 
@@ -27,14 +27,14 @@ accid,acckey,endpoint,token = MNSSampleCommon.LoadConfig()
 
 #初始化 my_account, my_queue
 my_account = Account(endpoint, accid, acckey, token)
-queue_name = sys.argv[1] if len(sys.argv) > 1 else "MySampleQueue"
+queue_name = sys.argv[1] if len(sys.argv) > 1 else "aliyun-iot-a1nwrypxWbP"
 isbase64 = False if len(sys.argv) > 2 and sys.argv[2].lower() == "false" else True
 my_queue = my_account.get_queue(queue_name)
 my_queue.set_encoding(isbase64)
 
 
-# db = pymysql.connect("101.200.158.2","smartlinkcloud","Smartlink6027","friday" )
-# cursor = db.cursor()
+db = pymysql.connect("101.200.158.2","smartlinkcloud","Smartlink6027","friday" )
+cursor = db.cursor()
 
 #循环读取删除消息直到队列空
 #receive message请求使用long polling方式，通过wait_seconds指定长轮询时间为3秒
@@ -54,78 +54,102 @@ while True:
 
         message_body_json = recv_msg.message_body
         print(message_body_json)
-        message_body = json.loads(message_body_json)
 
-        print('---message_body---')
-        print(message_body)
-
-        message_body_payload_64 = message_body['payload']
-        print(message_body_payload_64)
+        if message_body_json['messagetype'] == 'status':
 
 
-        message_body_payload = base64.b64decode(message_body_payload_64)
-        print(message_body_payload)
+            message_body = json.loads(message_body_json)
+
+            print('*******---status message_body---*******')
+            print(message_body)
+
+            message_body_payload_64 = message_body['payload']
+            print(message_body_payload_64)
+
+
+            message_body_payload = base64.b64decode(message_body_payload_64)
+            print(message_body_payload)
+        elif message_body_json['messagetype'] == 'upload':
+            message_body = json.loads(message_body_json)
+
+            print('*******---upload message_body---*******')
+            print(message_body)
+
+            message_body_payload_64 = message_body['payload']
+            print(message_body_payload_64)
+
+
+            message_body_payload = base64.b64decode(message_body_payload_64)
+            print(message_body_payload)
+
+
+            # fake_str = '01034042140000425D33334291CCCD42AECCCD42C1999A42C7CCCD42C0999A42ACCCCD428F000042573333420E00004199999A40E000003F3333333F80000040FCCCCD0E88'
+            # fake_a2b_hex = binascii.a2b_hex(fake_str)
+
+            # message_body_payload_hex = binascii.a2b_hex(message_body_payload)
+
+            # daq_data_length = struct.unpack('B', message_body_payload_hex[2:3])
+            # print(daq_data_length)
+            # daq_data = message_body_payload_hex[3:3 + daq_data_length[0]]
+
+            # device_daqs = []
+            # for i in range(int(daq_data_length[0]/4)):
+            #     packed_data = daq_data[4*i:4*i + 4]
+            #     print('-----packed_data-----'* 3)
+
+            #     print(binascii.hexlify(packed_data))
+
+            #     unpacked_data = struct.unpack('>f', packed_data)
+            #     device_daqs.append([str(i), unpacked_data[0]])
+
+            #     print(packed_data)
+            #     print(unpacked_data)
+
+
+            device_daqs = []
+
+            device_daqs_json = json.dumps(device_daqs)
+
+            # #insert into database;
+            print(device_daqs_json)
+            print(type(device_daqs_json))
+            # # SQL 插入语句
+            # # sql = 'INSERT INTO daqs(device_id, gmt_daq, daq_value) VALUES ({0}, {1}, {2})'.format(1, datetime.datetime.utcnow(), device_daqs_json)
+            sql = """INSERT INTO `daqs` (`device_id`, `gmt_daq`, `daq_value`) VALUES (%s, %s, %s)"""
+            # # cursor.execute(sql, ('webmaster@python.org', 'very-secret'))
+
+
+            try:
+               # 执行sql语句
+               cursor.execute(sql, (2, datetime.datetime.utcnow(), device_daqs_json))
+               # 提交到数据库执行
+               db.commit()
+            except Exception, e:
+               # 如果发生错误则回滚
+               db.rollback()
+               print('insert error!')
+               print(e)
+
+            # daq = Daq()
+            # daq.device_id = 1
+            # daq.gmt_daq = datetime.datetime.utcnow()
+            # daq.daq_value = device_daqs_json
+
+            # session.add(daq)
+
+            # try:
+            #     session.commit()
+            #     print("inserted", daq)
+            # except Exception as e:
+            #     log.error("Creating Daq: %s", e)
+            #     session.rollback()
+
+
+        else:
+            print('********known type!***********')
         
-        # fake_str = '01034042140000425D33334291CCCD42AECCCD42C1999A42C7CCCD42C0999A42ACCCCD428F000042573333420E00004199999A40E000003F3333333F80000040FCCCCD0E88'
-        # fake_a2b_hex = binascii.a2b_hex(fake_str)
-
-        # message_body_payload_hex = binascii.a2b_hex(message_body_payload)
-
-        # daq_data_length = struct.unpack('B', message_body_payload_hex[2:3])
-        # print(daq_data_length)
-        # daq_data = message_body_payload_hex[3:3 + daq_data_length[0]]
-
-        # device_daqs = []
-        # for i in range(int(daq_data_length[0]/4)):
-        #     packed_data = daq_data[4*i:4*i + 4]
-        #     print('-----packed_data-----'* 3)
-
-        #     print(binascii.hexlify(packed_data))
-
-        #     unpacked_data = struct.unpack('>f', packed_data)
-        #     device_daqs.append([str(i), unpacked_data[0]])
-
-        #     print(packed_data)
-        #     print(unpacked_data)
-
-        # device_daqs_json = json.dumps(device_daqs)
-
-        # #insert into database;
-        # print(device_daqs_json)
-        # print(type(device_daqs_json))
-        # # SQL 插入语句
-        # # sql = 'INSERT INTO daqs(device_id, gmt_daq, daq_value) VALUES ({0}, {1}, {2})'.format(1, datetime.datetime.utcnow(), device_daqs_json)
-        # sql = """INSERT INTO `daqs` (`device_id`, `gmt_daq`, `daq_value`) VALUES (%s, %s, %s)"""
-        # # cursor.execute(sql, ('webmaster@python.org', 'very-secret'))
-
-
-
-        # try:
-        #    # 执行sql语句
-        #    cursor.execute(sql, (1, datetime.datetime.utcnow(), device_daqs_json))
-        #    # 提交到数据库执行
-        #    db.commit()
-        # except Exception ,e:
-        #    # 如果发生错误则回滚
-        #    db.rollback()
-        #    print('insert error!')
-        #    print(e)
-
-        # daq = Daq()
-        # daq.device_id = 1
-        # daq.gmt_daq = datetime.datetime.utcnow()
-        # daq.daq_value = device_daqs_json
-
-        # session.add(daq)
-
-        # try:
-        #     session.commit()
-        #     print("inserted", daq)
-        # except Exception as e:
-        #     log.error("Creating Daq: %s", e)
-        #     session.rollback()
-
         print ("---" * 10)
+
 
     except MNSExceptionBase, e:
         if e.type == "QueueNotExist":
