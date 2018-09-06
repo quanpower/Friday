@@ -20,21 +20,21 @@ export default class ProductProfile extends Component {
     dispatch({
       type: 'products/fetchProductProfile',
       payload: {
-          product_id: 1,
+          product_id: 2,
         },
     });
 
 
-    this.timer = setInterval(() => {
+    // this.timer = setInterval(() => {
 
-    dispatch({
-      type: 'products/fetchProductProfile',
-      payload: {
-          product_id: 1,
-        },
-    });
+    // dispatch({
+    //   type: 'products/fetchProductProfile',
+    //   payload: {
+    //       product_id: 1,
+    //     },
+    // });
 
-    }, 10000);
+    // }, 10000);
   }
 
   render() {
