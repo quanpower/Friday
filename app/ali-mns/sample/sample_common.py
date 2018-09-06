@@ -17,7 +17,7 @@ class MNSSampleCommon:
 
     @staticmethod
     def LoadConfig():
-        cfg_fn = os.path.join(os.path.dirname(os.path.abspath(__file__)) + "/../mns.cfg")
+        cfg_fn = os.path.join(os.path.dirname(os.path.abspath(__file__)) + "/../sample.cfg")
         required_ops = [("Base", "AccessKeyId"), ("Base", "AccessKeySecret"), ("Base", "Endpoint")]
         optional_ops = [("Optional", "SecurityToken")]
 

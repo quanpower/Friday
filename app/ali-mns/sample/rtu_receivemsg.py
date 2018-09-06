@@ -14,10 +14,10 @@ from mns.account import Account
 from mns.queue import *
 import base64
 import json
-
+import datetime
 import struct
 import binascii
-import pymysql
+# import pymysql
 
 
 
@@ -33,8 +33,8 @@ my_queue = my_account.get_queue(queue_name)
 my_queue.set_encoding(isbase64)
 
 
-db = pymysql.connect("101.200.158.2","smartlinkcloud","Smartlink6027","friday" )
-cursor = db.cursor()
+# db = pymysql.connect("101.200.158.2","smartlinkcloud","Smartlink6027","friday" )
+# cursor = db.cursor()
 
 #循环读取删除消息直到队列空
 #receive message请求使用long polling方式，通过wait_seconds指定长轮询时间为3秒
@@ -69,42 +69,47 @@ while True:
         # fake_str = '01034042140000425D33334291CCCD42AECCCD42C1999A42C7CCCD42C0999A42ACCCCD428F000042573333420E00004199999A40E000003F3333333F80000040FCCCCD0E88'
         # fake_a2b_hex = binascii.a2b_hex(fake_str)
 
-        message_body_payload_hex = binascii.a2b_hex(message_body_payload)
+        # message_body_payload_hex = binascii.a2b_hex(message_body_payload)
 
-        daq_data_length = struct.unpack('B', message_body_payload_hex[2:3])
-        print(daq_data_length)
-        daq_data = message_body_payload_hex[3:3 + daq_data_length[0]]
+        # daq_data_length = struct.unpack('B', message_body_payload_hex[2:3])
+        # print(daq_data_length)
+        # daq_data = message_body_payload_hex[3:3 + daq_data_length[0]]
 
-        device_daqs = []
-        for i in range(int(daq_data_length[0]/4)):
-            packed_data = daq_data[4*i:4*i + 4]
-            print('-----packed_data-----'* 3)
+        # device_daqs = []
+        # for i in range(int(daq_data_length[0]/4)):
+        #     packed_data = daq_data[4*i:4*i + 4]
+        #     print('-----packed_data-----'* 3)
 
-            print(binascii.hexlify(packed_data))
+        #     print(binascii.hexlify(packed_data))
 
-            unpacked_data = struct.unpack('>f', packed_data)
-            device_daqs.append([str(i), unpacked_data[0]])
+        #     unpacked_data = struct.unpack('>f', packed_data)
+        #     device_daqs.append([str(i), unpacked_data[0]])
 
-            print(packed_data)
-            print(unpacked_data)
+        #     print(packed_data)
+        #     print(unpacked_data)
 
-        device_daqs_json = json.dumps(device_daqs)
+        # device_daqs_json = json.dumps(device_daqs)
 
-        #insert into database;
+        # #insert into database;
+        # print(device_daqs_json)
+        # print(type(device_daqs_json))
+        # # SQL 插入语句
+        # # sql = 'INSERT INTO daqs(device_id, gmt_daq, daq_value) VALUES ({0}, {1}, {2})'.format(1, datetime.datetime.utcnow(), device_daqs_json)
+        # sql = """INSERT INTO `daqs` (`device_id`, `gmt_daq`, `daq_value`) VALUES (%s, %s, %s)"""
+        # # cursor.execute(sql, ('webmaster@python.org', 'very-secret'))
 
-        # SQL 插入语句
-        sql = """INSERT INTO daqs(device_id,
-                 gmt_daq, daq_value)
-                 VALUES ({0}, {1}, {2})""".format(1, datetime.datetime.utcnow(), device_daqs_json)
-        try:
-           # 执行sql语句
-           cursor.execute(sql)
-           # 提交到数据库执行
-           db.commit()
-        except:
-           # 如果发生错误则回滚
-           db.rollback()
-           print('insert error!')
+
+
+        # try:
+        #    # 执行sql语句
+        #    cursor.execute(sql, (1, datetime.datetime.utcnow(), device_daqs_json))
+        #    # 提交到数据库执行
+        #    db.commit()
+        # except Exception ,e:
+        #    # 如果发生错误则回滚
+        #    db.rollback()
+        #    print('insert error!')
+        #    print(e)
 
         # daq = Daq()
         # daq.device_id = 1

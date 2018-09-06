@@ -24,7 +24,7 @@ def pub_utctime():
     curtime = int(time.time())
     curtime_dict = {'utctime': curtime}
     curtime_json = json.dumps(curtime_dict)
-    print(curtime_json)
+    # print(curtime_json)
 
     publish.single('utctime', curtime_json, hostname=strMqttBroker, auth={'username': 'iiot', 'password': 'smartlinkcloud'})
 
