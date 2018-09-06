@@ -20,7 +20,6 @@ import binascii
 import pymysql
 
 
-
 #从sample.cfg中读取基本配置信息
 ## WARNING： Please do not hard code your accessId and accesskey in next line.(more information: https://yq.aliyun.com/articles/55947)
 accid,acckey,endpoint,token = MNSSampleCommon.LoadConfig()
@@ -55,32 +54,29 @@ while True:
         message_body_json = recv_msg.message_body
         print(message_body_json)
 
-        if message_body_json['messagetype'] == 'status':
+        message_body = json.loads(message_body_json)
+        print(message_body)
 
-
-            message_body = json.loads(message_body_json)
-
+        if message_body['messagetype'] == 'status':
+            print ("\n" * 2)
             print('*******---status message_body---*******')
-            print(message_body)
-
+            
             message_body_payload_64 = message_body['payload']
             print(message_body_payload_64)
 
-
             message_body_payload = base64.b64decode(message_body_payload_64)
             print(message_body_payload)
-        elif message_body_json['messagetype'] == 'upload':
-            message_body = json.loads(message_body_json)
-
+        elif message_body['messagetype'] == 'upload':
+            print ("\n" * 2)
             print('*******---upload message_body---*******')
-            print(message_body)
 
             message_body_payload_64 = message_body['payload']
             print(message_body_payload_64)
 
-
             message_body_payload = base64.b64decode(message_body_payload_64)
             print(message_body_payload)
+            message_body_payload_json = json.loads(message_body_payload)
+            print(message_body_payload_json)
 
 
             # fake_str = '01034042140000425D33334291CCCD42AECCCD42C1999A42C7CCCD42C0999A42ACCCCD428F000042573333420E00004199999A40E000003F3333333F80000040FCCCCD0E88'
@@ -106,7 +102,14 @@ while True:
             #     print(unpacked_data)
 
 
+
             device_daqs = []
+            print("----message_body_payload['AI1']-----")
+            print(message_body_payload_json['AI1'])
+            device_daqs.append(['AI1', int(message_body_payload_json['AI1'])])
+            device_daqs.append(['AI2', int(message_body_payload_json['AI2'])])
+            device_daqs.append(['AI3', int(message_body_payload_json['AI3'])])
+            device_daqs.append(['AI4', int(message_body_payload_json['AI4'])])
 
             device_daqs_json = json.dumps(device_daqs)
 

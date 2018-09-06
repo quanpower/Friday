@@ -17,27 +17,27 @@ const menuData = [
         {
           name: '数显表',
           icon: 'dashboard',
-          path: 'digital/1',
+          path: 'digital/2',
         },
         {
           name: '棒状图',
           icon: 'bar-chart',
-          path: 'bar/1',
+          path: 'bar/2',
         },
         {
           name: '曲线图',
           icon: 'area-chart',
-          path: 'line/1',
+          path: 'line/2',
         }
         ]
       },
       {
         name: '记录页',
-        path: 'history/1',
+        path: 'history/2',
       },
       {
         name: '报警页',
-        path: 'alarm/1',
+        path: 'alarm/2',
         hideInMenu: true,
 
       },
@@ -61,7 +61,7 @@ const menuData = [
       },
       {
         name: '产品详情',
-        path: 'product-profile/1',
+        path: 'product-profile/2',
       },
     ],
   },
@@ -76,7 +76,7 @@ const menuData = [
       },
       {
         name: '设备详情',
-        path: 'device-profile/1',
+        path: 'device-profile/2',
       },
     ],
   },
