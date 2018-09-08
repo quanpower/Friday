@@ -124,7 +124,7 @@ while True:
 
             try:
                # 执行sql语句
-               cursor.execute(sql, (2, datetime.datetime.utcnow(), device_daqs_json))
+               cursor.execute(sql, (2, datetime.datetime.now(), device_daqs_json))
                # 提交到数据库执行
                db.commit()
             except Exception, e:
