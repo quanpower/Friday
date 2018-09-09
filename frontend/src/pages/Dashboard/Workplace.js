@@ -4,9 +4,9 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Row, Col, Card, List, Avatar } from 'antd';
 
-import { Radar } from 'components/Charts';
-import EditableLinkGroup from 'components/EditableLinkGroup';
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import { Radar } from '@/components/Charts';
+import EditableLinkGroup from '@/components/EditableLinkGroup';
+import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 
 import styles from './Workplace.less';
 
@@ -179,7 +179,7 @@ export default class Workplace extends PureComponent {
     );
 
     return (
-      <PageHeaderLayout content={pageHeaderContent} extraContent={extraContent}>
+      <PageHeaderWrapper content={pageHeaderContent} extraContent={extraContent}>
         <Row gutter={24}>
           <Col xl={16} lg={24} md={24} sm={24} xs={24}>
             <Card
@@ -262,7 +262,7 @@ export default class Workplace extends PureComponent {
             </Card>
           </Col>
         </Row>
-      </PageHeaderLayout>
+      </PageHeaderWrapper>
     );
   }
 }

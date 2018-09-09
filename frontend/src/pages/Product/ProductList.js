@@ -3,8 +3,8 @@ import moment from 'moment';
 import { connect } from 'dva';
 import { Row, Col, Form, Card, Select, List } from 'antd';
 
-import AvatarList from 'components/AvatarList';
-import Ellipsis from 'components/Ellipsis';
+import AvatarList from '@/components/AvatarList';
+import Ellipsis from '@/components/Ellipsis';
 
 import styles from './ProductList.less';
 

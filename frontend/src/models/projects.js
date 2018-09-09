@@ -1,4 +1,4 @@
-import { queryProjects } from '../services/api';
+import { queryProjects } from '@/services/api';
 
 export default {
   namespace: 'projects',

@@ -26,13 +26,13 @@ import {
   Field,
   Pie,
   TimelineChart,
-} from 'components/Charts';
+} from '@/components/Charts';
 
-import Trend from 'components/Trend';
+import Trend from '@/components/Trend';
 
-import NumberInfo from 'components/NumberInfo';
+import NumberInfo from '@/components/NumberInfo';
 
-import { getTimeDistance } from '../../utils/utils';
+import { getTimeDistance } from '@/utils/utils';
 // import ReactEcharts from 'echarts-for-react';
 import {Map, Marker, NavigationControl, InfoWindow} from 'react-bmap'
 import styles from './Dashboard.less';

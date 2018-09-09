@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Card, Badge, Table, List, Divider } from 'antd';
-import DescriptionList from 'components/DescriptionList';
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import DescriptionList from '@/components/DescriptionList';
+import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import styles from './ProductProfile.less';
 
 const { Description } = DescriptionList;
@@ -45,7 +45,7 @@ export default class ProductProfile extends Component {
     const item = productProfile[0]
 
     return (
-      <PageHeaderLayout title="产品详情页">
+      <PageHeaderWrapper title="产品详情页">
 
               <Card bordered={false}>
                 <DescriptionList size="large" title="基本信息" style={{ marginBottom: 32 }}>
@@ -67,7 +67,7 @@ export default class ProductProfile extends Component {
                 
               </Card>
 
-      </PageHeaderLayout>
+      </PageHeaderWrapper>
     );
   }
 }

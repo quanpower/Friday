@@ -22,10 +22,10 @@ import {
   Field,
   Pie,
   TimelineChart,
-} from 'components/Charts';
-import Trend from 'components/Trend';
-import NumberInfo from 'components/NumberInfo';
-import { getTimeDistance } from '../../utils/utils';
+} from '@/components/Charts';
+import Trend from '@/components/Trend';
+import NumberInfo from '@/components/NumberInfo';
+import { getTimeDistance } from '@/utils/utils';
 import {BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 // import ReactEcharts from 'echarts-for-react';
 

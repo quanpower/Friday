@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Card, Badge, Table, List, Divider } from 'antd';
-import DescriptionList from 'components/DescriptionList';
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import DescriptionList from '@/components/DescriptionList';
+import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import styles from './DeviceProfile.less';
 
 const { Description } = DescriptionList;
@@ -43,7 +43,7 @@ export default class DeviceProfile extends Component {
 
 
     return (
-      <PageHeaderLayout title="设备详情页">
+      <PageHeaderWrapper title="设备详情页">
 
               <Card bordered={false}>
                 <DescriptionList size="large" title="基本信息" style={{ marginBottom: 32 }}>
@@ -67,7 +67,7 @@ export default class DeviceProfile extends Component {
                 
               </Card>
 
-      </PageHeaderLayout>
+      </PageHeaderWrapper>
     );
   }
 }

@@ -1,5 +1,5 @@
-import { queryDevices } from '../services/api';
-import { queryDeviceProfile } from '../services/api';
+import { queryDevices } from '@/services/api';
+import { queryDeviceProfile } from '@/services/api';
 
 export default {
   namespace: 'devices',

@@ -2,10 +2,10 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Card, Table, Icon, Divider } from 'antd';
 import numeral from 'numeral';
-import NumberInfo from 'components/NumberInfo';
-import CountDown from 'components/CountDown';
-import ActiveChart from 'components/ActiveChart';
-import Authorized from '../../utils/Authorized';
+import NumberInfo from '@/components/NumberInfo';
+import CountDown from '@/components/CountDown';
+import ActiveChart from '@/components/ActiveChart';
+import Authorized from '@/utils/Authorized';
 import styles from './Monitor.less';
 
 const { Secured } = Authorized;

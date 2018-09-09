@@ -1,5 +1,5 @@
-import { queryBugs } from '../services/api';
-import { postBugs } from '../services/api';
+import { queryBugs } from '@/services/api';
+import { postBugs } from '@/services/api';
 
 export default {
   namespace: 'svg',

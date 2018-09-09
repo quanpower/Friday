@@ -7,6 +7,36 @@ export default {
   'menu.dashboard.analysis': '分析页',
   'menu.dashboard.monitor': '监控页',
   'menu.dashboard.workplace': '工作台',
+
+  'menu.dashboard.dashboard': '仪表盘',
+  'menu.dashboard.display': '数据展示',
+  'menu.dashboard.display.digital': '数显表',
+  'menu.dashboard.display.bar': '棒状图',
+  'menu.dashboard.display.line': '曲线图',
+  'menu.dashboard.history': '历史记录',
+  'menu.dashboard.workplace': '工作台',
+
+  'menu.product': '产品',
+  'menu.product.product-list': '产品列表',
+  'menu.product.product-profile': '产品详情',
+
+  'menu.device': '设备',
+  'menu.device.device-list': '设备详情',
+  'menu.device.device-profile': '设备详情',
+
+  'menu.svg': 'svg',
+  'menu.svg.svg-display': 'svg-display',
+  'menu.svg.svg-editor': 'svg-editor',
+
+  'menu.project': 'project',
+  'menu.project.projects': 'svg-editor',
+  
+  'menu.version': 'version',
+  'menu.version.changelog': 'changelog',
+  'menu.version.todolist': 'todolist',
+  'menu.bug.buglist': 'buglist',
+  'menu.bug.bugprofile': 'bugprofile',
+
   'menu.form': '表单页',
   'menu.form.basicform': '基础表单',
   'menu.form.stepform': '分步表单',

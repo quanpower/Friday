@@ -1,5 +1,5 @@
-import { queryChangelog } from '../services/api';
-import { queryTodolist } from '../services/api';
+import { queryChangelog } from '@/services/api';
+import { queryTodolist } from '@/services/api';
 
 export default {
   namespace: 'version',

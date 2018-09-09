@@ -1,5 +1,5 @@
-import { queryProducts } from '../services/api';
-import { queryProductProfile } from '../services/api';
+import { queryProducts } from '@/services/api';
+import { queryProductProfile } from '@/services/api';
 
 export default {
   namespace: 'products',

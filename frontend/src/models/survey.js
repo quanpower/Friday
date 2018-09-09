@@ -1,7 +1,7 @@
-import { queryDeviceDaqRealtime } from '../services/api';
+import { queryDeviceDaqRealtime } from '@/services/api';
 // import { queryDeviceDaqBar } from '../services/api';
-import { queryDeviceDaqHistory } from '../services/api';
-import { queryDeviceDaqRecord } from '../services/api';
+import { queryDeviceDaqHistory } from '@/services/api';
+import { queryDeviceDaqRecord } from '@/services/api';
 
 export default {
   namespace: 'survey',

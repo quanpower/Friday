@@ -16,7 +16,7 @@ import {
   Avatar,
 } from 'antd';
 
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 
 import styles from './ProjectList.less';
 
@@ -105,7 +105,7 @@ export default class ProjectList extends PureComponent {
     );
 
     return (
-      <PageHeaderLayout>
+      <PageHeaderWrapper>
         <div className={styles.standardList}>
 
           <Card
@@ -138,7 +138,7 @@ export default class ProjectList extends PureComponent {
             />
           </Card>
         </div>
-      </PageHeaderLayout>
+      </PageHeaderWrapper>
     );
   }
 }

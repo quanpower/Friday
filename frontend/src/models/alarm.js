@@ -1,4 +1,4 @@
-import { queryDeviceDaqAlarm } from '../services/api';
+import { queryDeviceDaqAlarm } from '@/services/api';
 
 export default {
   namespace: 'alarm',

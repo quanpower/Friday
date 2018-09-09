@@ -20,8 +20,8 @@ import {
   Tag,
 } from 'antd';
 
-import Ellipsis from 'components/Ellipsis';
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import Ellipsis from '@/components/Ellipsis';
+import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import styles from './BugList.less';
 import bugImg from '../../assets/bug.jpeg';
 
@@ -187,7 +187,7 @@ export default class Bug extends Component {
 
 
     return (
-      <PageHeaderLayout>
+      <PageHeaderWrapper>
 
 
 
@@ -248,7 +248,7 @@ export default class Bug extends Component {
       </div>
 
 
-      </PageHeaderLayout>
+      </PageHeaderWrapper>
 
     );
   }

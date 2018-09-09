@@ -17,29 +17,154 @@ export default [
     Routes: ['src/pages/Authorized'],
     routes: [
       // dashboard
-      { path: '/', redirect: '/dashboard/analysis' },
+      { path: '/', redirect: '/dashboard/dashboard' },
       {
         path: '/dashboard',
         name: 'dashboard',
         icon: 'dashboard',
         routes: [
           {
-            path: '/dashboard/analysis',
-            name: 'analysis',
-            component: './Dashboard/Analysis',
+            path: '/dashboard/dashboard',
+            name: 'dashboard',
+            component: './Dashboard/Dashboard',
           },
           {
-            path: '/dashboard/monitor',
-            name: 'monitor',
+            path: '/dashboard/display',
+            name: 'display',
+            routes: [
+              {
+                path: '/display/digital/:device_id',
+                name: 'digital',
+                component: './Dashboard/Display/Digital',
+              },
+              {
+                path: '/display/bar/:device_id',
+                name: 'bar',
+                component: './Dashboard/Display/Bar',
+              },
+              {
+                path: '/display/line/:device_id',
+                name: 'line',
+                component: './Dashboard/Display/Line',
+              },
+            ]
+          },
+          {
+            path: '/dashboard/history/:device_id',
+            name: 'history',
             component: './Dashboard/Monitor',
           },
           {
-            path: '/dashboard/workplace',
-            name: 'workplace',
-            component: './Dashboard/Workplace',
+            path: '/dashboard/alarm/:device_id',
+            name: 'history',
+            component: './Dashboard/Alarm',
           },
         ],
       },
+
+      // prouct
+      {
+        path: '/product',
+        icon: 'form',
+        name: 'form',
+        routes: [
+          {
+            path: '/product/product-list',
+            name: 'product-list',
+            component: './Product/ProductList',
+          },
+          {
+            path: '/product/product-profile/:product_id',
+            name: 'product-profile',
+            component: './Product/ProductProfile',
+          },
+        ],
+      },
+
+
+      // device
+      {
+        path: '/device',
+        icon: 'form',
+        name: 'form',
+        routes: [
+          {
+            path: '/device/device-list',
+            name: 'device-list',
+            component: './Device/DeviceList',
+          },
+          {
+            path: '/device/device-profile/:device_id',
+            name: 'device-profile',
+            component: './Device/DeviceProfile',
+          },
+        ],
+      },
+
+      // configuration
+      {
+        path: '/configuration',
+        icon: 'form',
+        name: 'form',
+        routes: [
+          {
+            path: '/configuration/svg/display',
+            name: 'svg-display',
+            component: './Configuration/Svg/Display',
+          },
+         {
+            path: '/configuration/svg/editor',
+            name: 'svg-editor',
+            component: './Configuration/Svg/Editor',
+          },
+        ],
+      },
+
+      //project
+
+      {
+        path: '/projects',
+        icon: 'form',
+        name: 'form',
+        routes: [
+          {
+            path: '/projects',
+            name: 'projects',
+            component: './Project/ProjectList',
+          },
+        ],
+      },
+
+      //version
+
+      {
+        path: '/version',
+        icon: 'form',
+        name: 'form',
+        routes: [
+          {
+            path: '/version/changelog',
+            name: 'changelog',
+            component: './Version/Changelog',
+          },
+          {
+            path: '/version/todolist',
+            name: 'todolist',
+            component: './Version/Todolist',
+          },
+          {
+            path: '/version/buglist',
+            name: 'buglist',
+            component: './Bug/BugList',
+          },
+          {
+            path: '/version/bugprofile',
+            name: 'bugprofile',
+            component: './Bug/BugProfile',
+          },
+        ],
+      },
+
       // forms
       {
         path: '/form',
