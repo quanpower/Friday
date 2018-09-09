@@ -5,6 +5,35 @@ export default {
   'menu.dashboard.analysis': 'Analysis',
   'menu.dashboard.monitor': 'Monitor',
   'menu.dashboard.workplace': 'Workplace',
+
+  'menu.dashboard.dashboard': 'Dashboard',
+  'menu.dashboard.display': 'Display',
+  'menu.dashboard.display.digital': 'Digital',
+  'menu.dashboard.display.bar': 'Dar',
+  'menu.dashboard.display.line': 'Line',
+  'menu.dashboard.history': 'History',
+
+  'menu.product': 'Product',
+  'menu.product.product-list': 'Product List',
+  'menu.product.product-profile': 'Product Profile',
+
+  'menu.device': 'Device',
+  'menu.device.device-list': 'Device List',
+  'menu.device.device-profile': 'Device Profile',
+
+  'menu.configuration': 'Configuration',
+  'menu.configuration.svg-display': 'Display',
+  'menu.configuration.svg-editor': 'Editor',
+
+  'menu.project': 'Project',
+  'menu.project.project': 'Project',
+  
+  'menu.version': 'Version',
+  'menu.version.changelog': 'Change Log',
+  'menu.version.todolist': 'Todo List',
+  'menu.version.buglist': 'Bug List',
+  'menu.version.bugprofile': 'Bug Profile',
+
   'menu.form': 'Form',
   'menu.form.basicform': 'Basic Form',
   'menu.form.stepform': 'Step Form',

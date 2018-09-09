@@ -16,26 +16,26 @@ export default {
   'menu.dashboard.history': '历史记录',
   'menu.dashboard.workplace': '工作台',
 
-  'menu.product': '产品',
+  'menu.product': '产品管理',
   'menu.product.product-list': '产品列表',
   'menu.product.product-profile': '产品详情',
 
-  'menu.device': '设备',
+  'menu.device': '设备管理',
   'menu.device.device-list': '设备详情',
   'menu.device.device-profile': '设备详情',
 
-  'menu.svg': 'svg',
-  'menu.svg.svg-display': 'svg-display',
-  'menu.svg.svg-editor': 'svg-editor',
+  'menu.configuration': '组态管理',
+  'menu.configuration.svg-display': '组态展示',
+  'menu.configuration.svg-editor': '组态编辑',
 
-  'menu.project': 'project',
-  'menu.project.projects': 'svg-editor',
+  'menu.project': '项目管理',
+  'menu.project.project': '项目列表',
   
-  'menu.version': 'version',
-  'menu.version.changelog': 'changelog',
-  'menu.version.todolist': 'todolist',
-  'menu.bug.buglist': 'buglist',
-  'menu.bug.bugprofile': 'bugprofile',
+  'menu.version': '版本管理',
+  'menu.version.changelog': '修改记录',
+  'menu.version.todolist': '计划列表',
+  'menu.version.buglist': 'Bug列表',
+  'menu.version.bugprofile': 'Bug详情',
 
   'menu.form': '表单页',
   'menu.form.basicform': '基础表单',

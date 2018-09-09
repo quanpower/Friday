@@ -25,7 +25,7 @@ const links = [
 
 const copyright = (
   <Fragment>
-    Copyright <Icon type="copyright" /> 2018 蚂蚁金服体验技术部出品
+    Copyright <Icon type="copyright" /> 2018 上海数航测控技术部出品出品
   </Fragment>
 );
 
@@ -54,7 +54,7 @@ class UserLayout extends React.PureComponent {
                 <span className={styles.title}>Ant Design</span>
               </Link>
             </div>
-            <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
+            <div className={styles.desc}>智联云--工业物联网行业解决方案专家！</div>
           </div>
           {children}
         </div>

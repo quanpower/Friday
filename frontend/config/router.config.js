@@ -35,16 +35,21 @@ export default [
               {
                 path: '/display/digital/:device_id',
                 name: 'digital',
+                icon: 'dashboard',
+
                 component: './Dashboard/Display/Digital',
               },
               {
                 path: '/display/bar/:device_id',
                 name: 'bar',
+                icon: 'bar-chart',
+
                 component: './Dashboard/Display/Bar',
               },
               {
                 path: '/display/line/:device_id',
                 name: 'line',
+                icon: 'area-chart',
                 component: './Dashboard/Display/Line',
               },
             ]
@@ -56,8 +61,10 @@ export default [
           },
           {
             path: '/dashboard/alarm/:device_id',
-            name: 'history',
+            name: 'alarm',
             component: './Dashboard/Alarm',
+            hideInMenu: true,
+
           },
         ],
       },
@@ -65,8 +72,8 @@ export default [
       // prouct
       {
         path: '/product',
-        icon: 'form',
-        name: 'form',
+        icon: 'laptop',
+        name: 'product',
         routes: [
           {
             path: '/product/product-list',
@@ -85,8 +92,8 @@ export default [
       // device
       {
         path: '/device',
-        icon: 'form',
-        name: 'form',
+        icon: 'tablet',
+        name: 'device',
         routes: [
           {
             path: '/device/device-list',
@@ -104,8 +111,8 @@ export default [
       // configuration
       {
         path: '/configuration',
-        icon: 'form',
-        name: 'form',
+        icon: 'block',
+        name: 'configuration',
         routes: [
           {
             path: '/configuration/svg/display',
@@ -124,12 +131,12 @@ export default [
 
       {
         path: '/projects',
-        icon: 'form',
-        name: 'form',
+        icon: 'schedule',
+        name: 'project',
         routes: [
           {
             path: '/projects',
-            name: 'projects',
+            name: 'project',
             component: './Project/ProjectList',
           },
         ],
@@ -139,8 +146,8 @@ export default [
 
       {
         path: '/version',
-        icon: 'form',
-        name: 'form',
+        icon: 'save',
+        name: 'version',
         routes: [
           {
             path: '/version/changelog',
@@ -160,6 +167,7 @@ export default [
           {
             path: '/version/bugprofile',
             name: 'bugprofile',
+            hideInMenu: true,
             component: './Bug/BugProfile',
           },
         ],
@@ -170,6 +178,7 @@ export default [
         path: '/form',
         icon: 'form',
         name: 'form',
+        hideInMenu: true,
         routes: [
           {
             path: '/form/basic-form',
@@ -216,6 +225,7 @@ export default [
         path: '/list',
         icon: 'table',
         name: 'list',
+        hideInMenu: true,
         routes: [
           {
             path: '/list/table-list',
@@ -264,6 +274,7 @@ export default [
         path: '/profile',
         name: 'profile',
         icon: 'profile',
+        hideInMenu: true,
         routes: [
           // profile
           {
@@ -282,6 +293,7 @@ export default [
         name: 'result',
         icon: 'check-circle-o',
         path: '/result',
+        hideInMenu: true,
         routes: [
           // result
           {
@@ -296,6 +308,7 @@ export default [
         name: 'exception',
         icon: 'warning',
         path: '/exception',
+        hideInMenu: true,
         routes: [
           // exception
           {
