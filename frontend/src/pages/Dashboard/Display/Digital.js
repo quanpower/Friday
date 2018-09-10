@@ -28,6 +28,7 @@ import NumberInfo from '@/components/NumberInfo';
 import { getTimeDistance } from '@/utils/utils';
 import {BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 // import ReactEcharts from 'echarts-for-react';
+import router from 'umi/router';
 
 import styles from './Display.less';
 
@@ -51,6 +52,8 @@ export default class Analysis extends Component {
     //     device_id: '20180704',
     //   },
     // });
+    router.push('/dashboard/display/digital/2')
+
     console.log('this.props')
     console.log(this.props);
     const device_id = this.props.match.params.device_id;

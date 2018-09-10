@@ -30,11 +30,14 @@ export default [
           },
           {
             path: '/dashboard/display',
+            // redirect: '/display/digital/2',
+            // component: './Dashboard/Display/Display',
             name: 'display',
+
             routes: [
               {
                 path: '/display/digital/:device_id',
-                redirect: '/display/digital/2',
+                // redirect: '/display/digital/2',
                 name: 'digital',
                 icon: 'dashboard',
 
@@ -42,7 +45,7 @@ export default [
               },
               {
                 path: '/display/bar/:device_id',
-                redirect: '/display/bar/2',
+                // redirect: '/display/bar/2',
 
                 name: 'bar',
                 icon: 'bar-chart',
@@ -51,7 +54,7 @@ export default [
               },
               {
                 path: '/display/line/:device_id',
-                redirect: '/display/line/2',
+                // redirect: '/display/line/2',
 
                 name: 'line',
                 icon: 'area-chart',
@@ -61,7 +64,7 @@ export default [
           },
           {
             path: '/dashboard/history/:device_id',
-            redirect: '/dashboard/history/2',
+            // redirect: '/dashboard/history/2',
 
             name: 'history',
             component: './Dashboard/Monitor',
@@ -89,7 +92,7 @@ export default [
           },
           {
             path: '/product/product-profile/:product_id',
-            redirect: '/product/product-profile/2',
+            // redirect: '/product/product-profile/2',
             name: 'product-profile',
             component: './Product/ProductProfile',
           },
@@ -110,8 +113,8 @@ export default [
           },
           {
             path: '/device/device-profile/:device_id',
-            redirect: '/device/device-profile/2',
-            
+            // redirect: '/device/device-profile/2',
+
             name: 'device-profile',
             component: './Device/DeviceProfile',
           },
