@@ -28,8 +28,8 @@
 
             var text1 = new fabric.Text('1#喷头', {
                 fontSize: 15,
-                left:50,
-                top:52,
+                left:180,
+                top:120,
                 fill: 'white',
                 originX:  'center',
                 originY: 'center',
@@ -38,8 +38,8 @@
 
             var text2 = new fabric.Text('2#喷头', {
                 fontSize: 15,
-                left:200,
-                top:52,
+                left:330,
+                top:120,
                 fill: 'white',
                 originX:  'center',
                 originY: 'center',
@@ -48,8 +48,8 @@
 
             var text3 = new fabric.Text('3#喷头', {
                 fontSize: 15,
-                left:350,
-                top:52,
+                left:480,
+                top:120,
                 fill: 'white',
                 originX:  'center',
                 originY: 'center',
@@ -58,8 +58,8 @@
 
             var text4 = new fabric.Text('4#喷头', {
                 fontSize: 15,
-                left:500,
-                top:52,
+                left:630,
+                top:120,
                 fill: 'white',
                 originX:  'center',
                 originY: 'center',
@@ -68,8 +68,8 @@
 
             var text5 = new fabric.Text('5#喷头', {
                 fontSize: 15,
-                left:700,
-                top:52,
+                left:830,
+                top:120,
                 fill: 'white',
                 originX:  'center',
                 originY: 'center',
@@ -78,8 +78,8 @@
 
             var text6 = new fabric.Text('6#喷头', {
                 fontSize: 15,
-                left:850,
-                top:52,
+                left:980,
+                top:120,
                 fill: 'white',
                 originX:  'center',
                 originY: 'center',
@@ -283,7 +283,7 @@
 
             var group_current_text = new fabric.Group([text1, text2, text3, text4, text5, text6, current_text1, current_text2, current_text3, current_text4, current_text5, current_text6, input_pressure_text, material_temperature_text, line_speed_text, current_running_time_text, accumulated_running_time_text, unit_bar, unit_h_1, unit_min_1, unit_s_1, unit_h_2, unit_min_2, unit_s_2, unit_line_speed, unit_degree_celsius], {
                 left: 650,
-                top: 380,
+                top: 305,
                 angle: 0,
                 originX:  'center',
                 originY: 'center',
@@ -291,31 +291,32 @@
 
             canvas.add(group_current_text);
 
+            console.log('------group_current_text----');
             console.log(group_current_text);
 
-            // // add unit A
-            // var unit_A = new fabric.Text('A', {
-            //     fontSize: 15,
-            //     left:200,
-            //     top:380,
-            //     fill: 'white',
-            //     originX:  'center',
-            //     originY: 'center',
-            // });  
+            // add unit A
+            var unit_A = new fabric.Text('A', {
+                fontSize: 15,
+                left:200,
+                top:380,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });  
 
 
-            // var current_text_A_clone = function(left_value,top_value){
-            //     unit_A.clone(function(c){
-            //         canvas.add(c.set({left: left_value, top: top_value, angle: 0}));
-            //     });
-            // };
+            var current_text_A_clone = function(left_value,top_value){
+                unit_A.clone(function(c){
+                    canvas.add(c.set({left: left_value, top: top_value, angle: 0}));
+                });
+            };
 
-            // current_text_A_clone(410,390);
-            // current_text_A_clone(410,426);
-            // current_text_A_clone(410,462);
-            // current_text_A_clone(410,498);
-            // current_text_A_clone(660,390);
-            // current_text_A_clone(660,426);
+            current_text_A_clone(410,390);
+            current_text_A_clone(410,426);
+            current_text_A_clone(410,462);
+            current_text_A_clone(410,498);
+            current_text_A_clone(660,390);
+            current_text_A_clone(660,426);
 
         };
 
@@ -323,6 +324,7 @@
         var get_value_json = function(){
 
             $.getJSON('device_status', function(data){
+                console.log('----realtime data-----');
                 console.log(data);
 
                 var current_value_1 = data['current_value']['current_value_1'];
@@ -754,6 +756,10 @@
 
                                                 group_bg_logo.sendToBack();
 
+
+                                                // draw text
+                                                draw_text();
+
                                         });
                                     });
                             });
@@ -903,8 +909,8 @@
                 });
             });
 
-            // draw text
-            draw_text();
+            // // draw text
+            // draw_text();
 
             // get value_json
             get_value_json();
