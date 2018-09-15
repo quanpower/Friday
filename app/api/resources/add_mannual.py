@@ -11,7 +11,7 @@ import bitstring
 from app.models import User, Role, Project, Product, Device, Daq, Alarm, \
 BugOrderOfSeverity, BugPriority, Models, Version, TestingEnvironment, BugStatus, BugComment, Bug
 
-time_now = datetime.datetime.utcnow()
+time_now = datetime.datetime.now()
 
 class AddUser(Resource):
     def get(self):
@@ -60,8 +60,8 @@ class AddProduct(Resource):
 
         try:
             products = list()
-            products.append(Product(user_id=1, product_name='RTU-AI4', product_key='a1nwrypxWbP', product_secret='', 
-                data_format=0, node_type=0, aliyun_commodity_code='iothub' , gmt_create=time_now, product_description='RTU-AI4'))
+            products.append(Product(user_id=1, product_name='Handsome_1', product_key='a1nwrypxWbP', product_secret='', 
+                data_format=0, node_type=0, aliyun_commodity_code='iothub' , gmt_create=time_now, product_description='HandSome_1'))
 
             db.session.add(products[0])
 
@@ -78,7 +78,7 @@ class AddDevice(Resource):
 
         try:
             devices = list()
-            devices.append(Device(user_id=1, product_id=2, project_id=2, iot_id='', name='RTU-test1', 
+            devices.append(Device(user_id=1, product_id=4, project_id=2, iot_id='', name='Handsome_1-test1', 
                 device_name='05DCFF383939415351017542', device_secret='0XbeMGO7iuUAFhUJpR9ApWrjvzbXkY2h', 
                 gmt_create=time_now, status='ONLINE', firmware_version='0.0.1', ip_address='117.136.8.234', node_type=0, region='华东 2'))
 

@@ -9,7 +9,6 @@ import random
 import datetime, time
 
 import bitstring
-import json
 import urllib
 from app.email import send_email
 from app.utils import index_color
