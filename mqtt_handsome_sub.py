@@ -240,6 +240,8 @@ def plc_unpacking(packet_data):
     emergency_button_str = str(struct.unpack('i', emergency_button)[0])
     pressure_detect_str = str(struct.unpack('i', pressure_detect)[0])
 
+    mantual_auto_str = str(struct.unpack('i', mantual_auto)[0])
+
 
     print('--emergency_button_str,pressure_detect_str---')
     print(emergency_button_str)
@@ -357,7 +359,8 @@ def plc_unpacking(packet_data):
             's':'00',
         },
         'current_time':datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-
+        'mantual_auto':mantual_auto_str,
+        'access_control': access_control_str,
     }
 
     return data

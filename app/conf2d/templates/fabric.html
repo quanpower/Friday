@@ -70,7 +70,7 @@
 
 
             // add current_rect_text
-            var injector_current_text1 = new fabric.Text('1号直枪喷嘴电流', {
+            var injector_current_text1 = new fabric.Text('1号枪喷头电流', {
                 fontSize: 15,
                 left:180,
                 top:400,
@@ -79,7 +79,7 @@
                 originY: 'center',
             });     
 
-            var injector_current_text2 = new fabric.Text('2号直枪喷嘴电流', {
+            var injector_current_text2 = new fabric.Text('2号枪喷头电流', {
                 fontSize: 15,
                 left:180,
                 top:436,
@@ -88,7 +88,7 @@
                 originY: 'center',
             });   
 
-            var injector_current_text3 = new fabric.Text('3号旋枪喷嘴电流', {
+            var injector_current_text3 = new fabric.Text('3号枪喷头电流', {
                 fontSize: 15,
                 left:180,
                 top:472,
@@ -97,7 +97,7 @@
                 originY: 'center',
             });   
 
-            var injector_current_text4 = new fabric.Text('4号直枪喷嘴电流', {
+            var injector_current_text4 = new fabric.Text('4号枪喷头电流', {
                 fontSize: 15,
                 left:180,
                 top:508,
@@ -106,7 +106,7 @@
                 originY: 'center',
             });   
 
-            var motor_current_text1 = new fabric.Text('1号直枪电机电流', {
+            var motor_current_text1 = new fabric.Text('1号枪电机电流', {
                 fontSize: 15,
                 left:450,
                 top:400,
@@ -115,7 +115,7 @@
                 originY: 'center',
             });   
 
-            var motor_current_text2 = new fabric.Text('2号直枪电机电流', {
+            var motor_current_text2 = new fabric.Text('2号枪电机电流', {
                 fontSize: 15,
                 left:450,
                 top:436,
@@ -125,7 +125,7 @@
             });   
 
 
-            var motor_current_text3 = new fabric.Text('3号旋枪电机电流', {
+            var motor_current_text3 = new fabric.Text('3号枪电机电流', {
                 fontSize: 15,
                 left:450,
                 top:472,
@@ -134,7 +134,7 @@
                 originY: 'center',
             });  
 
-            var motor_current_text4 = new fabric.Text('4号直枪电机电流', {
+            var motor_current_text4 = new fabric.Text('4号枪电机电流', {
                 fontSize: 15,
                 left:450,
                 top:508,
@@ -359,6 +359,10 @@
                 var accumulated_running_time_s = data['accumulated_running_time']['s'];
                 var current_time = data['current_time'];
 
+                var mantual_auto = data['mantual_auto'];
+
+                var access_control = data['access_control'];
+
                 var injector_1_current_value = new fabric.Text(injector_1_current_value_str, {
                     fontSize: 15,
                     left:300,
@@ -513,6 +517,75 @@
                     originX:  'center',
                     originY: 'center',
                 });
+
+
+                // mantual_auto group
+
+                var mantual_auto_bg = new fabric.Rect(
+                    {  //创建我们的正方形
+                        left:100,
+                        top:100,
+                        fill:mantual_auto == '1'? 'blue':'green',
+                        width:50,
+                        height:20,
+                        originX:  'center',
+                        originY: 'center',
+                    });
+
+                var mantual_auto_text = new fabric.Text(mantual_auto=='1'?'手动':'自动', {
+                        fontSize: 15,
+                        left:100,
+                        top:100,
+                        fill: 'white',
+                        fontWeight:'bold',
+                        originX:  'center',
+                        originY: 'center',
+                });
+
+
+                var mantual_auto_group = new fabric.Group([mantual_auto_bg, mantual_auto_text], {
+                        left: 850,
+                        top: 500,
+                        angle: 0,
+                        originX:  'center',
+                        originY: 'center',
+                })
+                canvas.add(mantual_auto_group);
+
+
+                // access control group
+                var access_control_bg = new fabric.Rect(
+                    {  //创建我们的正方形
+                        left:100,
+                        top:100,
+                        fill:access_control == '1'? 'blue':'green',
+                        width:50,
+                        height:20,
+                        originX:  'center',
+                        originY: 'center',
+                    });
+
+                var access_control_text = new fabric.Text(access_control=='1'?'开':'关', {
+                        fontSize: 15,
+                        left:100,
+                        top:100,
+                        fill: 'white',
+                        fontWeight:'bold',
+                        originX:  'center',
+                        originY: 'center',
+                });
+
+
+                var access_control_group = new fabric.Group([access_control_bg, access_control_text], {
+                        left: 1000,
+                        top: 500,
+                        angle: 0,
+                        originX:  'center',
+                        originY: 'center',
+                })
+
+
+                canvas.add(access_control_group);
 
                 var realtime_value_group = new fabric.Group([injector_1_current_value, injector_2_current_value, injector_3_current_value, injector_4_current_value, motor_1_current_value, motor_2_current_value, motor_3_current_value, motor_4_current_value, material_temprature_value, line_speed_value, current_running_time_h_value, current_running_time_min_value, current_running_time_s_value, accumulated_running_time_h_value, accumulated_running_time_min_value, accumulated_running_time_s_value, canleder_date], {
                         left: 652,
