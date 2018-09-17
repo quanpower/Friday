@@ -216,12 +216,16 @@ def plc_unpacking(packet_data):
     current_running_time = packet_data[248:252]
 
 
-    current_value1_str = "%.2f" % struct.unpack('<f', injector_1_current)[0]
-    current_value2_str = "%.2f" % struct.unpack('<f', injector_2_current)[0]
-    current_value3_str = "%.2f" % struct.unpack('<f', injector_3_current)[0]
-    current_value4_str = "%.2f" % struct.unpack('<f', injector_4_current)[0]
-    current_value5_str = "0.0"
-    current_value6_str = "0.0"
+    injector_1_current_value_str = "%.2f" % struct.unpack('<f', injector_1_current)[0]
+    injector_2_current_value_str = "%.2f" % struct.unpack('<f', injector_2_current)[0]
+    injector_3_current_value_str = "%.2f" % struct.unpack('<f', injector_3_current)[0]
+    injector_4_current_value_str = "%.2f" % struct.unpack('<f', injector_4_current)[0]
+
+
+    motor_1_current_value_str = "%.2f" % struct.unpack('<f', motor_1_current)[0]
+    motor_2_current_value_str = "%.2f" % struct.unpack('<f', motor_2_current)[0]
+    motor_3_current_value_str = "%.2f" % struct.unpack('<f', motor_3_current)[0]
+    motor_4_current_value_str = "%.2f" % struct.unpack('<f', motor_4_current)[0]
 
 
     input_pressure_value_str = "%.2f" % random.uniform(2.1,2.4)
@@ -318,22 +322,27 @@ def plc_unpacking(packet_data):
 
 
     data = {
-        'current_value':{    
-            'current_value_1': current_value1_str,
-            'current_value_2': current_value2_str,
-            'current_value_3': current_value3_str,
-            'current_value_4': current_value4_str,
-            'current_value_5': current_value5_str,
-            'current_value_6': current_value6_str,
+        'injector_current_value':{    
+            'injector_1_current_value_str': injector_1_current_value_str,
+            'injector_2_current_value_str': injector_2_current_value_str,
+            'injector_3_current_value_str': injector_3_current_value_str,
+            'injector_4_current_value_str': injector_4_current_value_str,
         },
+
+        'motor_current_value':{    
+            'motor_1_current_value_str': motor_1_current_value_str,
+            'motor_2_current_value_str': motor_2_current_value_str,
+            'motor_3_current_value_str': motor_3_current_value_str,
+            'motor_4_current_value_str': motor_4_current_value_str,
+        },
+
         'work_status':{
             'work_status_1':work_status_1,
             'work_status_2':work_status_2,
             'work_status_3':work_status_3,
             'work_status_4':work_status_4,
-            'work_status_5':'0',
-            'work_status_6':'0',
         },
+
         'input_pressure':input_pressure_value_str,
         'material_temprature':material_temprature_value_str,
         'line_speed':line_speed_value_str,
