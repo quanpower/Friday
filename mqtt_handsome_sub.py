@@ -224,11 +224,9 @@ def plc_unpacking(packet_data):
     current_value6_str = "0.0"
 
 
-    input_pressure_value_str = "%.2f" % random.uniform(1.1,1.4)
-    material_temprature_value_str = "%.2f" % random.uniform(21.1,25.4)
+    input_pressure_value_str = "%.2f" % random.uniform(2.1,2.4)
+    material_temprature_value_str = "%.2f" % random.uniform(28.1,28.4)
     line_speed_value_str = "%.2f" % struct.unpack('<f', line_speed)[0]
-
-
 
 
     comprehensive_alarm_str = str(struct.unpack('i', comprehensive_alarm)[0])
