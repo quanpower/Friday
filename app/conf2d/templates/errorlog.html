@@ -359,6 +359,7 @@
                 console.log(data);
 
                 var emergency_button = data['emergency_button'];
+                var pressure_detect = data['pressure_detect'];
 
                 
                 var current_time = data['current_time'];
@@ -397,7 +398,7 @@
 
               var normal  = oImg;
 
-                fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/normal.png') }}", function(oImg) {
+                fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/error.png') }}", function(oImg) {
               oImg.set({
                     left: 650,
                     top: 320,
@@ -447,9 +448,14 @@
             normal_png_clone(720,305);
 
             normal_png_clone(900,145);
-            normal_png_clone(900,177);
+            pressure_detect == '1'?1normal_png_clone(900,177): error_png_clone(900,177);
             normal_png_clone(900,209);
             normal_png_clone(900,241);
+
+
+            console.log('emergency_button');
+            console.log(emergency_button);
+            
             emergency_button == '1'? normal_png_clone(900,273): error_png_clone(900,273);
             normal_png_clone(900,305);
 
