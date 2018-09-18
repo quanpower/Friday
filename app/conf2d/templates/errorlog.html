@@ -247,7 +247,18 @@
             });
 
 
-            var group_current_text = new fabric.Group([text1, text2, text3, text4, text5,penqiang_1,penqiang_2,penqiang_3,penqiang_4,penqiang_5,penqiang_6,zhuji_1,zhuji_2,zhuji_3,zhuji_4,zhuji_5,zhuji_6,dianji_1,dianji_2,guocheng_1,guocheng_2,guocheng_3,guocheng_4], {
+            var guocheng_5 = new fabric.Text('急停按下', {
+                fontSize: 15,
+                left:760,
+                top:278,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+
+            var group_current_text = new fabric.Group([text1, text2, text3, text4, text5,penqiang_1,penqiang_2,penqiang_3,penqiang_4,penqiang_5,penqiang_6,zhuji_1,zhuji_2,zhuji_3,zhuji_4,zhuji_5,zhuji_6,dianji_1,dianji_2,guocheng_1,guocheng_2,guocheng_3,guocheng_4,guocheng_5], {
                 left: 620,
                 top: 205,
                 angle: 0,
@@ -333,59 +344,7 @@
             canvas.add(group_alarm_text);
 
 
-            fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/normal.png') }}", function(oImg) {
-              oImg.set({
-                    left: 650,
-                    top: 320,
-                    originX:  'center',
-                    originY: 'center',
-                });
-              oImg.scale(0.4);
 
-              var normal  = oImg;
-
-            var normal_png_clone = function(left_value,top_value){
-                normal.clone(function(c){
-                    canvas.add(c.set({left: left_value, top: top_value, angle: 0}));
-                });
-            };
-
-            normal_png_clone(340,145);
-            normal_png_clone(340,177);
-            normal_png_clone(340,209);
-            normal_png_clone(340,241);
-            normal_png_clone(340,273);
-            normal_png_clone(340,305);
-
-
-
-            normal_png_clone(530,145);
-            normal_png_clone(530,177);
-            normal_png_clone(530,209);
-            normal_png_clone(530,241);
-            normal_png_clone(530,273);
-            normal_png_clone(530,305);
-
-
-
-
-            normal_png_clone(720,145);
-            normal_png_clone(720,177);
-            normal_png_clone(720,209);
-            normal_png_clone(720,241);
-            normal_png_clone(720,273);
-            normal_png_clone(720,305);
-
-
-            normal_png_clone(900,145);
-            normal_png_clone(900,177);
-            normal_png_clone(900,209);
-            normal_png_clone(900,241);
-            normal_png_clone(900,273);
-            normal_png_clone(900,305);
-
-
-            });
 
             console.log('------group_current_text----');
             console.log(group_current_text);
@@ -398,6 +357,8 @@
             $.getJSON('error_log', function(data){
                 console.log('----realtime data-----');
                 console.log(data);
+
+                var emergency_button = data['emergency_button'];
 
                 
                 var current_time = data['current_time'];
@@ -424,6 +385,77 @@
 
                 canvas.add(realtime_value_group);
 
+
+            fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/normal.png') }}", function(oImg) {
+              oImg.set({
+                    left: 650,
+                    top: 320,
+                    originX:  'center',
+                    originY: 'center',
+                });
+              oImg.scale(0.4);
+
+              var normal  = oImg;
+
+                fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/normal.png') }}", function(oImg) {
+              oImg.set({
+                    left: 650,
+                    top: 320,
+                    originX:  'center',
+                    originY: 'center',
+                });
+              oImg.scale(0.4);
+
+              var error  = oImg;
+
+
+
+
+
+            var normal_png_clone = function(left_value,top_value){
+                normal.clone(function(c){
+                    canvas.add(c.set({left: left_value, top: top_value, angle: 0}));
+                });
+            };
+
+
+
+            var error_png_clone = function(left_value,top_value){
+                error.clone(function(c){
+                    canvas.add(c.set({left: left_value, top: top_value, angle: 0}));
+                });
+            };
+            normal_png_clone(340,145);
+            normal_png_clone(340,177);
+            normal_png_clone(340,209);
+            normal_png_clone(340,241);
+            normal_png_clone(340,273);
+            normal_png_clone(340,305);
+
+            normal_png_clone(530,145);
+            normal_png_clone(530,177);
+            normal_png_clone(530,209);
+            normal_png_clone(530,241);
+            normal_png_clone(530,273);
+            normal_png_clone(530,305);
+
+            normal_png_clone(720,145);
+            normal_png_clone(720,177);
+            normal_png_clone(720,209);
+            normal_png_clone(720,241);
+            normal_png_clone(720,273);
+            normal_png_clone(720,305);
+
+            normal_png_clone(900,145);
+            normal_png_clone(900,177);
+            normal_png_clone(900,209);
+            normal_png_clone(900,241);
+            emergency_button == '1'? normal_png_clone(900,273): error_png_clone(900,273);
+            normal_png_clone(900,305);
+
+
+            });
+        });
                 // realtime_value_group.item(0).set({'fill': 'red'});
 
 
@@ -480,8 +512,6 @@
                             });
                           oImg.scale(0.4);
                           var tel = oImg;
-
-
 
 
                                         // add value_space

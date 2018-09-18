@@ -361,6 +361,8 @@ def plc_unpacking(packet_data):
         'current_time':datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         'mantual_auto':mantual_auto_str,
         'access_control': access_control_str,
+        'emergency_button':emergency_button_str,
+        'pressure_detect':pressure_detect_str,
     }
 
     return data
