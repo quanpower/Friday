@@ -1,0 +1,686 @@
+{% extends "fabric_base.html" %}
+
+{% block title %} Fabric {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+{% endblock stylesheets %}
+
+{% block content %}
+    
+    <canvas id="c" width="1300" height="650"></canvas>
+
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super() }}
+
+    <!-- fabric.js -->
+    <script src="{{ url_for('static', filename='vendors/fabric.js/dist/fabric.js') }}"></script>
+
+
+
+    <script type="text/javascript">
+        var canvas =new fabric.Canvas('c'); //利用fabric找到我们的画布
+
+
+        var draw_text = function(){
+
+            var text1 = new fabric.Text('喷枪', {
+                fontSize: 15,
+                left:250,
+                top:120,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+            var text2 = new fabric.Text('主机', {
+                fontSize: 15,
+                left:400,
+                top:120,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+            var text3 = new fabric.Text('电机', {
+                fontSize: 15,
+                left:600,
+                top:120,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+            var text4 = new fabric.Text('过程', {
+                fontSize: 15,
+                left:800,
+                top:120,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+            var text5 = new fabric.Text('故障', {
+                fontSize: 15,
+                left:950,
+                top:120,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+            var penqiang_1 = new fabric.Text('1号位喷枪熄弧', {
+                fontSize: 15,
+                left:200,
+                top:150,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+            var penqiang_2 = new fabric.Text('2号位喷枪熄弧', {
+                fontSize: 15,
+                left:200,
+                top:182,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+            var penqiang_3 = new fabric.Text('3号位喷枪熄弧', {
+                fontSize: 15,
+                left:200,
+                top:214,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+            var penqiang_4 = new fabric.Text('4号位喷枪熄弧', {
+                fontSize: 15,
+                left:200,
+                top:246,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+            var penqiang_5 = new fabric.Text('5号位喷枪熄弧', {
+                fontSize: 15,
+                left:200,
+                top:278,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+            var penqiang_6 = new fabric.Text('6号位喷枪熄弧', {
+                fontSize: 15,
+                left:200,
+                top:310,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+
+            var zhuji_1 = new fabric.Text('1号位主机故障', {
+                fontSize: 15,
+                left:400,
+                top:150,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+            var zhuji_2 = new fabric.Text('2号位主机故障', {
+                fontSize: 15,
+                left:400,
+                top:182,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+            var zhuji_3 = new fabric.Text('3号位主机故障', {
+                fontSize: 15,
+                left:400,
+                top:214,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+            var zhuji_4 = new fabric.Text('4号位主机故障', {
+                fontSize: 15,
+                left:400,
+                top:246,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+            var zhuji_5 = new fabric.Text('5号位主机故障', {
+                fontSize: 15,
+                left:400,
+                top:278,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+            var zhuji_6 = new fabric.Text('6号位主机故障', {
+                fontSize: 15,
+                left:400,
+                top:310,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+            var dianji_1 = new fabric.Text('5号位旋枪电机故障', {
+                fontSize: 15,
+                left:600,
+                top:150,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+            var dianji_2 = new fabric.Text('6号位旋枪电机故障', {
+                fontSize: 15,
+                left:600,
+                top:182,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+
+            var guocheng_1 = new fabric.Text('材料温度过高', {
+                fontSize: 15,
+                left:760,
+                top:150,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+            var guocheng_2 = new fabric.Text('输入气压过低', {
+                fontSize: 15,
+                left:760,
+                top:182,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+            var guocheng_3 = new fabric.Text('工作室门未关', {
+                fontSize: 15,
+                left:760,
+                top:214,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+            var guocheng_4 = new fabric.Text('物料停止运行', {
+                fontSize: 15,
+                left:760,
+                top:246,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+            var group_current_text = new fabric.Group([text1, text2, text3, text4, text5,penqiang_1,penqiang_2,penqiang_3,penqiang_4,penqiang_5,penqiang_6,zhuji_1,zhuji_2,zhuji_3,zhuji_4,zhuji_5,zhuji_6,dianji_1,dianji_2,guocheng_1,guocheng_2,guocheng_3,guocheng_4], {
+                left: 620,
+                top: 205,
+                angle: 0,
+                originX:  'center',
+                originY: 'center',
+            })
+
+            canvas.add(group_current_text);
+
+
+
+
+            var errorlog = new fabric.Text('故障报警历史记录', {
+                fontSize: 15,
+                left:600,
+                top:370,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+
+            var alarm_no = new fabric.Text('MCGS序号', {
+                fontSize: 15,
+                left:230,
+                top:400,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+
+            var alarm_obj = new fabric.Text('报警对象', {
+                fontSize: 15,
+                left:400,
+                top:400,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+            var alarm_time = new fabric.Text('报警时间', {
+                fontSize: 15,
+                left:550,
+                top:400,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+            var alarm_end_time = new fabric.Text('报警结束时间', {
+                fontSize: 15,
+                left:700,
+                top:400,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+            var alarm_description = new fabric.Text('报警描述', {
+                fontSize: 15,
+                left:850,
+                top:400,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
+
+
+
+            var group_alarm_text = new fabric.Group([errorlog, alarm_no,alarm_obj,alarm_time,alarm_end_time,alarm_description], {
+                left: 600,
+                top: 370,
+                angle: 0,
+                originX:  'center',
+                originY: 'center',
+            })
+
+            canvas.add(group_alarm_text);
+
+
+            fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/normal.png') }}", function(oImg) {
+              oImg.set({
+                    left: 650,
+                    top: 320,
+                    originX:  'center',
+                    originY: 'center',
+                });
+              oImg.scale(0.4);
+
+              var normal  = oImg;
+
+            var normal_png_clone = function(left_value,top_value){
+                normal.clone(function(c){
+                    canvas.add(c.set({left: left_value, top: top_value, angle: 0}));
+                });
+            };
+
+            normal_png_clone(340,145);
+            normal_png_clone(340,177);
+            normal_png_clone(340,209);
+            normal_png_clone(340,241);
+            normal_png_clone(340,273);
+            normal_png_clone(340,305);
+
+
+
+            normal_png_clone(530,145);
+            normal_png_clone(530,177);
+            normal_png_clone(530,209);
+            normal_png_clone(530,241);
+            normal_png_clone(530,273);
+            normal_png_clone(530,305);
+
+
+
+
+            normal_png_clone(720,145);
+            normal_png_clone(720,177);
+            normal_png_clone(720,209);
+            normal_png_clone(720,241);
+            normal_png_clone(720,273);
+            normal_png_clone(720,305);
+
+
+            normal_png_clone(900,145);
+            normal_png_clone(900,177);
+            normal_png_clone(900,209);
+            normal_png_clone(900,241);
+            normal_png_clone(900,273);
+            normal_png_clone(900,305);
+
+
+            });
+
+            console.log('------group_current_text----');
+            console.log(group_current_text);
+
+        };
+
+
+        var get_value_json = function(){
+
+            $.getJSON('error_log', function(data){
+                console.log('----realtime data-----');
+                console.log(data);
+
+                
+                var current_time = data['current_time'];
+                var canleder_date = new fabric.Text(current_time, {
+                    fontSize: 15,
+                    left:260,
+                    top:40,
+                    fill: 'white',
+                    fontWeight:'bold',
+                    originX:  'center',
+                    originY: 'center',
+                });
+
+
+
+                var realtime_value_group = new fabric.Group([ canleder_date], {
+                        left: 320,
+                        top: 40,
+                        angle: 0,
+                        fill: 'blue',
+                        originX:  'center',
+                        originY: 'center',
+                });
+
+                canvas.add(realtime_value_group);
+
+                // realtime_value_group.item(0).set({'fill': 'red'});
+
+
+                console.log('get json ok!');
+                // canvas.clear().renderAll();
+
+            });//get json
+            
+        };
+
+
+
+        var update_values = function(){
+
+            // add bg & logo
+            fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/bg.png') }}", function(oImg) {
+              oImg.set({
+                    left: 650,
+                    top: 320,
+                    originX:  'center',
+                    originY: 'center',
+                });
+              oImg.scale(0.4);
+
+              var bg = oImg;
+
+                fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/handsome_logo.png') }}", function(oImg) {
+                  oImg.set({
+                        left: 650,
+                        top: 50,
+                        originX:  'center',
+                        originY: 'center',
+                    });
+                  oImg.scale(0.4);
+                  var logo = oImg;
+
+                    // add canleder
+                    fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/14.png') }}", function(oImg) {
+                      oImg.set({
+                            left: 300,
+                            top: 50,
+                            originX:  'center',
+                            originY: 'center',
+                        });
+                      oImg.scale(0.4);
+                      var canleder = oImg;
+                        // add tel
+                        fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/15.png') }}", function(oImg) {
+                          oImg.set({
+                                left: 1000,
+                                top: 50,
+                                originX:  'center',
+                                originY: 'center',
+                            });
+                          oImg.scale(0.4);
+                          var tel = oImg;
+
+
+
+
+                                        // add value_space
+                                        fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/16_1.png') }}", function(oImg) {
+                                                oImg.set({
+                                                    left: 650,
+                                                    top: 220,
+                                                    originX:  'center',
+                                                    originY: 'center',
+                                                });
+
+                                                oImg.scale(0.4);
+
+                                                var error_type = oImg;
+
+
+                                                fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/24_1.png') }}", function(oImg) {
+                                                oImg.set({
+                                                    left: 650,
+                                                    top: 465,
+                                                    originX:  'center',
+                                                    originY: 'center',
+                                                });
+
+                                                oImg.scale(0.4);
+
+                                                var error_log1 = oImg;
+
+
+                                                    fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/25_1.png') }}", function(oImg) {
+                                                        oImg.set({
+                                                            left: 650,
+                                                            top: 465,
+                                                            originX:  'center',
+                                                            originY: 'center',
+                                                        });
+
+                                                        oImg.scale(0.4);
+
+                                                        var error_log2 = oImg;
+
+                                                        var tel_number = new fabric.Text('021-6989-9610',{
+                                                                fontSize: 15,
+                                                                left:1000,
+                                                                top:50,
+                                                                fill: 'white',
+                                                                fontWeight:'bold',
+                                                                originX:  'center',
+                                                                originY: 'center',
+                                                        });
+
+                                                        // add group_bg_logo
+                                                        var group_bg_logo = new fabric.Group([bg, logo, canleder, tel, error_type, error_log1,error_log2, tel_number], {
+                                                            left: 650,
+                                                            top: 310,
+                                                            angle: 0,
+                                                            originX: 'center',
+                                                            originY: 'center',
+                                                        });
+
+                                                        canvas.add(group_bg_logo);
+
+                                                        group_bg_logo.sendToBack();
+
+
+                                                        // draw text
+                                                        draw_text();
+
+                                                    });
+                                                });
+                                        });
+                                    });
+
+                    });
+                });
+            });
+
+
+            // add buttons-1
+            fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/28.png') }}", function(oImg) {
+              oImg.set({
+                    left: 300,
+                    top: 320,
+                    originX:  'center',
+                    originY: 'center',
+                });
+              oImg.scale(0.4);
+
+              var reset = oImg;
+
+                fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/27.png') }}", function(oImg) {
+                  oImg.set({
+                        left: 450,
+                        top: 320,
+                        originX:  'center',
+                        originY: 'center',
+                    });
+                  oImg.scale(0.4);
+
+                  var erasure = oImg;
+
+                    fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/26.png') }}", function(oImg) {
+                      oImg.set({
+                            left: 600,
+                            top: 320,
+                            originX:  'center',
+                            originY: 'center',
+                        });
+                      oImg.scale(0.4);
+
+                      var start = oImg;
+
+                        fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/25.png') }}", function(oImg) {
+                          oImg.set({
+                                left: 750,
+                                top: 320,
+                                originX:  'center',
+                                originY: 'center',
+                            });
+                          oImg.scale(0.4);
+
+                          var stop = oImg;
+
+
+                            var group_buttons_1 = new fabric.Group([reset, erasure, start, stop], {
+                                left: 550,
+                                top: 490,
+                                angle: 0
+                            })
+
+                            // canvas.add(group_buttons_1);
+
+                        });
+
+                    });
+
+                });
+
+            });
+
+            // add buttons-2
+            // add home_button
+
+            fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/4.png') }}", function(oImg) {
+              oImg.set({
+                    left: 300,
+                    top: 570,
+                    originX:  'center',
+                    originY: 'center',
+                });
+              oImg.scale(0.4);
+              var home = oImg;
+
+              canvas.add(home);
+
+
+              // add alarm_button
+                fabric.Image.fromURL("{{ url_for('static', filename='images/handsome/6.png') }}", function(oImg) {
+                  oImg.set({
+                        left: 1000,
+                        top: 570,
+                        originX:  'center',
+                        originY: 'center',
+                    });
+                  oImg.scale(0.4);
+
+                  var alarm = oImg;
+                  canvas.add(alarm);
+
+
+                    home.on('selected', function(){
+                        console.log('home button touched!');
+                        window.location.href="http://www.smartlinkcloud.com:8008";
+                    });
+
+                    alarm.on('selected', function(){
+                        console.log('alarm button touched!');
+                        window.location.href="fabric";
+                    });
+
+                });
+            });
+
+            // // draw text
+            // draw_text();
+
+            // get value_json
+            get_value_json();
+
+            canvas.clear().renderAll();
+
+        };
+
+        update_values();
+
+        // console.log(JSON.stringify(canvas.toJSON()));
+
+        setInterval(update_values, 5000);
+
+    </script>
+
+{% endblock javascripts %}
