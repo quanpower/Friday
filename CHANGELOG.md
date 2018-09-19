@@ -16,12 +16,45 @@
 ## [Unreleased]
 ---
 
+## [0.1.9] - 2018-09-18
+### Added
+- add go.js for diagram graph
+
+
+## [0.1.8] - 2018-09-10
+### Added
+- i18n 国际化
+
+### Changed
+- update antd pro to 2.0
+
+
+## [0.1.7] - 2018-09-05
+### Added
+- add gunicorn
+- add node-red
+
+### Moved
+- mns
+
+
+## [0.1.6] - 2018-08-30
+### Added
+- html5 gentelella admin
+- edit fabric template
+
+
+## [0.1.5] - 2018-08-25
+### Added
+- html5 gentelella admin
+- edit fabric template
+
 
 ## [0.1.4] - 2018-08-20
 ### Added
 - fabric.js.
 - pixi.js.
-
+- add three.js for 3D
 
 
 ## [0.1.3] - 2018-08-13
@@ -31,7 +64,6 @@
 
 ### Moved
 - Alarm页
-
 
 
 ## [0.1.2] - 2018-08-08
