@@ -127,7 +127,7 @@ class Pie extends Component {
       style,
       height,
       forceFit = true,
-      percent = 0,
+      percent,
       color,
       inner = 0.75,
       animate = true,
@@ -167,7 +167,7 @@ class Pie extends Component {
       },
     };
 
-    if (percent) {
+    if (percent || percent === 0) {
       selected = false;
       tooltip = false;
       formatColor = value => {
@@ -227,7 +227,7 @@ class Pie extends Component {
                 tooltip={tooltip && tooltipFormat}
                 type="intervalStack"
                 position="percent"
-                color={['x', percent ? formatColor : defaultColors]}
+                color={['x', percent || percent === 0 ? formatColor : defaultColors]}
                 selected={selected}
               />
             </Chart>

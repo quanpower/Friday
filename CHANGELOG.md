@@ -46,15 +46,13 @@
 
 ## [0.1.5] - 2018-08-25
 ### Added
-- html5 gentelella admin
-- edit fabric template
+- add three.js for 3D
 
 
 ## [0.1.4] - 2018-08-20
 ### Added
 - fabric.js.
 - pixi.js.
-- add three.js for 3D
 
 
 ## [0.1.3] - 2018-08-13
