@@ -14,6 +14,9 @@ export default {
         dva: {
           hmr: true,
         },
+        targets: {
+          ie: 11,
+        },
         locale: {
           enable: true, // default false
           default: 'zh-CN', // default zh-CN
@@ -22,7 +25,6 @@ export default {
         dynamicImport: {
           loadingComponent: './components/PageLoading/index',
         },
-        polyfills: ['ie11'],
         ...(!process.env.TEST && os.platform() === 'darwin'
           ? {
               dll: {
@@ -34,7 +36,16 @@ export default {
           : {}),
       },
     ],
+    [
+      'umi-plugin-ga',
+      {
+        code: 'UA-72788897-6',
+      },
+    ],
   ],
+  targets: {
+    ie: 11,
+  },
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
   },
@@ -48,10 +59,18 @@ export default {
   externals: {
     '@antv/data-set': 'DataSet',
   },
+  // proxy: {
+  //   '/server/api/': {
+  //     target: 'https://preview.pro.ant.design/',
+  //     changeOrigin: true,
+  //     pathRewrite: { '^/server': '' },
+  //   },
+  // },
   ignoreMomentLocale: true,
   lessLoaderOptions: {
     javascriptEnabled: true,
   },
+  disableRedirectHoist: true,
   cssLoaderOptions: {
     modules: true,
     getLocalIdent: (context, localIdentName, localName) => {
