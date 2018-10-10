@@ -75,6 +75,36 @@ export default {
   'menu.dashboard.analysis': '分析页',
   'menu.dashboard.monitor': '监控页',
   'menu.dashboard.workplace': '工作台',
+
+  'menu.dashboard.dashboard': '仪表盘',
+  'menu.dashboard.display': '数据展示',
+  'menu.dashboard.display.digital': '数显表',
+  'menu.dashboard.display.bar': '棒状图',
+  'menu.dashboard.display.line': '曲线图',
+  'menu.dashboard.history': '历史记录',
+  'menu.dashboard.workplace': '工作台',
+
+  'menu.product': '产品管理',
+  'menu.product.product-list': '产品列表',
+  'menu.product.product-profile': '产品详情',
+
+  'menu.device': '设备管理',
+  'menu.device.device-list': '设备详情',
+  'menu.device.device-profile': '设备详情',
+
+  'menu.configuration': '组态管理',
+  'menu.configuration.svg-display': '组态展示',
+  'menu.configuration.svg-editor': '组态编辑',
+
+  'menu.project': '项目管理',
+  'menu.project.project': '项目列表',
+  
+  'menu.version': '版本管理',
+  'menu.version.changelog': '修改记录',
+  'menu.version.todolist': '计划列表',
+  'menu.version.buglist': 'Bug列表',
+  'menu.version.bugprofile': 'Bug详情',
+
   'menu.form': '表单页',
   'menu.form.basicform': '基础表单',
   'menu.form.stepform': '分步表单',
@@ -106,8 +136,6 @@ export default {
   'menu.account.settings': '个人设置',
   'menu.account.trigger': '触发报错',
   'menu.account.logout': '退出登录',
-  'app.login.message-invalid-credentials': '账户或密码错误（admin/888888）',
-  'app.login.message-invalid-verification-code': '验证码错误',
   'app.login.tab-login-credentials': '账户密码登录',
   'app.login.tab-login-mobile': '手机号登录',
   'app.login.remember-me': '自动登录',
