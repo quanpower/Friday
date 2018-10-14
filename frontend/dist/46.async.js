@@ -1,1 +1,115 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([[46],{s8Kb:function(e,t,a){"use strict";var r=a("284h"),l=a("TqRt");Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0,a("IzEo");var d=l(a("bx4M"));a("+L6B");var o=l(a("2/Rp"));a("Pwec");var n=l(a("CtXQ")),u=r(a("q1tI")),s=a("LLXN"),i=l(a("ALo4")),f=l(a("zHco")),m=u.default.createElement(u.Fragment,null,u.default.createElement("div",{style:{fontSize:16,color:"rgba(0, 0, 0, 0.85)",fontWeight:"500",marginBottom:16}},u.default.createElement(s.FormattedMessage,{id:"app.result.error.hint-title",defaultMessage:"The content you submitted has the following error:"})),u.default.createElement("div",{style:{marginBottom:16}},u.default.createElement(n.default,{style:{color:"#f5222d",marginRight:8},type:"close-circle-o"}),u.default.createElement(s.FormattedMessage,{id:"app.result.error.hint-text1",defaultMessage:"Your account has been frozen"}),u.default.createElement("a",{style:{marginLeft:16}},u.default.createElement(s.FormattedMessage,{id:"app.result.error.hint-btn1",defaultMessage:"Thaw immediately"}),u.default.createElement(n.default,{type:"right"}))),u.default.createElement("div",null,u.default.createElement(n.default,{style:{color:"#f5222d",marginRight:8},type:"close-circle-o"}),u.default.createElement(s.FormattedMessage,{id:"app.result.error.hint-text2",defaultMessage:"Your account is not yet eligible to apply"}),u.default.createElement("a",{style:{marginLeft:16}},u.default.createElement(s.FormattedMessage,{id:"app.result.error.hint-btn2",defaultMessage:"Upgrade immediately"}),u.default.createElement(n.default,{type:"right"})))),c=u.default.createElement(o.default,{type:"primary"},u.default.createElement(s.FormattedMessage,{id:"app.result.error.btn-text",defaultMessage:"Return to modify"})),p=function(){return u.default.createElement(f.default,null,u.default.createElement(d.default,{bordered:!1},u.default.createElement(i.default,{type:"error",title:(0,s.formatMessage)({id:"app.result.error.title"}),description:(0,s.formatMessage)({id:"app.result.error.description"}),extra:m,actions:c,style:{marginTop:48,marginBottom:16}})))};t.default=p}}]);
+(window['webpackJsonp'] = window['webpackJsonp'] || []).push([
+  [46],
+  {
+    GsTM: function(e, t, r) {
+      'use strict';
+      var n = r('TqRt'),
+        a = r('284h');
+      Object.defineProperty(t, '__esModule', { value: !0 }), (t.default = void 0), r('IzEo');
+      var u = n(r('bx4M'));
+      r('T2oS');
+      var i = n(r('W9HT'));
+      r('+L6B');
+      var l,
+        o,
+        d = n(r('2/Rp')),
+        c = n(r('lwsE')),
+        f = n(r('W8MJ')),
+        s = n(r('a1gu')),
+        g = n(r('Nsbk')),
+        p = n(r('7W2i')),
+        E = a(r('q1tI')),
+        y = r('MuoO'),
+        v = n(r('uUKN')),
+        h = ((l = (0, y.connect)(function(e) {
+          return { isloading: e.error.isloading };
+        })),
+        l(
+          (o = (function(e) {
+            function t() {
+              var e, r;
+              (0, c.default)(this, t);
+              for (var n = arguments.length, a = new Array(n), u = 0; u < n; u++)
+                a[u] = arguments[u];
+              return (
+                (r = (0, s.default)(this, (e = (0, g.default)(t)).call.apply(e, [this].concat(a)))),
+                (r.state = { isloading: !1 }),
+                (r.triggerError = function(e) {
+                  r.setState({ isloading: !0 });
+                  var t = r.props.dispatch;
+                  t({ type: 'error/query', payload: { code: e } });
+                }),
+                r
+              );
+            }
+            return (
+              (0, p.default)(t, e),
+              (0, f.default)(t, [
+                {
+                  key: 'render',
+                  value: function() {
+                    var e = this,
+                      t = this.state.isloading;
+                    return E.default.createElement(
+                      u.default,
+                      null,
+                      E.default.createElement(
+                        i.default,
+                        { spinning: t, wrapperClassName: v.default.trigger },
+                        E.default.createElement(
+                          d.default,
+                          {
+                            type: 'danger',
+                            onClick: function() {
+                              return e.triggerError(401);
+                            },
+                          },
+                          '\u89e6\u53d1401'
+                        ),
+                        E.default.createElement(
+                          d.default,
+                          {
+                            type: 'danger',
+                            onClick: function() {
+                              return e.triggerError(403);
+                            },
+                          },
+                          '\u89e6\u53d1403'
+                        ),
+                        E.default.createElement(
+                          d.default,
+                          {
+                            type: 'danger',
+                            onClick: function() {
+                              return e.triggerError(500);
+                            },
+                          },
+                          '\u89e6\u53d1500'
+                        ),
+                        E.default.createElement(
+                          d.default,
+                          {
+                            type: 'danger',
+                            onClick: function() {
+                              return e.triggerError(404);
+                            },
+                          },
+                          '\u89e6\u53d1404'
+                        )
+                      )
+                    );
+                  },
+                },
+              ]),
+              t
+            );
+          })(E.PureComponent))
+        ) || o),
+        w = h;
+      t.default = w;
+    },
+    uUKN: function(e, t, r) {
+      e.exports = { trigger: 'antd-pro-pages-exception-style-trigger' };
+    },
+  },
+]);

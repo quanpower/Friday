@@ -1,1 +1,117 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([[15],{llDe:function(e,t,a){"use strict";var l=a("TqRt"),n=a("284h");Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0,a("IzEo");var o=l(a("bx4M"));a("14J3");var r=l(a("BMrR"));a("jCWc");var i,d,s=l(a("kPKH")),u=l(a("lwsE")),c=l(a("W8MJ")),f=l(a("a1gu")),p=l(a("Nsbk")),m=l(a("7W2i")),v=n(a("q1tI")),h=a("MuoO"),y=(l(a("ZhIB")),a("KTCi"),l(a("YR7N")),l(a("LOQS")),a("+n12"),a("4XXU")),g=l(a("6Ayx")),E=(i=(0,h.connect)(function(e){var t=e.survey,a=e.loading;return{survey:t,loading:a.effects["survey/fetchDeviceDaqRealtime"]}}),i(d=function(e){function t(){return(0,u.default)(this,t),(0,f.default)(this,(0,p.default)(t).apply(this,arguments))}return(0,m.default)(t,e),(0,c.default)(t,[{key:"componentDidMount",value:function(){var e=this;console.log("this.props"),console.log(this.props);var t=this.props.match.params.device_id;console.log(t),this.props.dispatch({type:"survey/fetchDeviceDaqRealtime",payload:{device_id:t}}),this.timer=setInterval(function(){e.props.dispatch({type:"survey/fetchDeviceDaqRealtime",payload:{device_id:t}})},1e4),console.log("component did mount!")}},{key:"componentWillUnmount",value:function(){var e=this.props.dispatch;e({type:"survey/clear"})}},{key:"render",value:function(){var e=this.props,t=e.survey,a=e.loading;console.log("--survey,loading--"),console.log(t),console.log(a);t.currentPower;var l=t.deviceDaqRealtime,n=(t.deviceDaqDigital,t.realtimeBars);t.deviceDaqHistory,t.historyLines;return v.default.createElement(v.Fragment,null,v.default.createElement(o.default,{loading:a,bordered:!1,bodyStyle:{padding:0}},v.default.createElement("div",{className:g.default.salesCard},v.default.createElement(r.default,null,v.default.createElement(s.default,{xl:24,lg:12,md:12,sm:24,xs:24},v.default.createElement("div",{className:g.default.salesBar},console.log("deviceDaqRealtime:",l),console.log("realtimeBars:",n),v.default.createElement(y.BarChart,{width:600,height:300,data:l,margin:{top:5,right:30,left:20,bottom:5}},v.default.createElement(y.CartesianGrid,{strokeDasharray:"3 3"}),v.default.createElement(y.XAxis,{dataKey:"name"}),v.default.createElement(y.YAxis,null),v.default.createElement(y.Tooltip,null),v.default.createElement(y.Legend,null),n.map(function(e,t){return v.default.createElement(y.Bar,{dataKey:e.dataKey,fill:e.fill})}))))))))}}]),t}(v.Component))||d);t.default=E}}]);
+(window['webpackJsonp'] = window['webpackJsonp'] || []).push([
+  [15],
+  {
+    BOD2: function(e, t, a) {
+      e.exports = {
+        container: 'antd-pro-layouts-user-layout-container',
+        lang: 'antd-pro-layouts-user-layout-lang',
+        content: 'antd-pro-layouts-user-layout-content',
+        top: 'antd-pro-layouts-user-layout-top',
+        header: 'antd-pro-layouts-user-layout-header',
+        logo: 'antd-pro-layouts-user-layout-logo',
+        title: 'antd-pro-layouts-user-layout-title',
+        desc: 'antd-pro-layouts-user-layout-desc',
+      };
+    },
+    jH8a: function(e, t, a) {
+      'use strict';
+      var l = a('284h'),
+        u = a('TqRt');
+      Object.defineProperty(t, '__esModule', { value: !0 }), (t.default = void 0);
+      var r = u(a('lwsE')),
+        n = u(a('W8MJ')),
+        o = u(a('a1gu')),
+        d = u(a('Nsbk')),
+        s = u(a('7W2i'));
+      a('Pwec');
+      var c = u(a('CtXQ')),
+        f = l(a('q1tI')),
+        i = a('LLXN'),
+        m = u(a('mOP9')),
+        p = u(a('ggcP')),
+        y = u(a('bfXr')),
+        g = u(a('BOD2')),
+        h = u(a('mxmt')),
+        v = [
+          { key: 'help', title: (0, i.formatMessage)({ id: 'layout.user.link.help' }), href: '' },
+          {
+            key: 'privacy',
+            title: (0, i.formatMessage)({ id: 'layout.user.link.privacy' }),
+            href: '',
+          },
+          { key: 'terms', title: (0, i.formatMessage)({ id: 'layout.user.link.terms' }), href: '' },
+        ],
+        E = f.default.createElement(
+          f.Fragment,
+          null,
+          'Copyright ',
+          f.default.createElement(c.default, { type: 'copyright' }),
+          ' 2018 \u4e0a\u6d77\u6570\u822a\u6d4b\u63a7\u6280\u672f\u90e8\u51fa\u54c1\u51fa\u54c1'
+        ),
+        k = (function(e) {
+          function t() {
+            return (
+              (0, r.default)(this, t),
+              (0, o.default)(this, (0, d.default)(t).apply(this, arguments))
+            );
+          }
+          return (
+            (0, s.default)(t, e),
+            (0, n.default)(t, [
+              {
+                key: 'render',
+                value: function() {
+                  var e = this.props.children;
+                  return f.default.createElement(
+                    'div',
+                    { className: g.default.container },
+                    f.default.createElement(
+                      'div',
+                      { className: g.default.lang },
+                      f.default.createElement(y.default, null)
+                    ),
+                    f.default.createElement(
+                      'div',
+                      { className: g.default.content },
+                      f.default.createElement(
+                        'div',
+                        { className: g.default.top },
+                        f.default.createElement(
+                          'div',
+                          { className: g.default.header },
+                          f.default.createElement(
+                            m.default,
+                            { to: '/' },
+                            f.default.createElement('img', {
+                              alt: 'logo',
+                              className: g.default.logo,
+                              src: h.default,
+                            }),
+                            f.default.createElement(
+                              'span',
+                              { className: g.default.title },
+                              'Ant Design'
+                            )
+                          )
+                        ),
+                        f.default.createElement(
+                          'div',
+                          { className: g.default.desc },
+                          '\u667a\u8054\u4e91--\u5de5\u4e1a\u7269\u8054\u7f51\u884c\u4e1a\u89e3\u51b3\u65b9\u6848\u4e13\u5bb6\uff01'
+                        )
+                      ),
+                      e
+                    ),
+                    f.default.createElement(p.default, { links: v, copyright: E })
+                  );
+                },
+              },
+            ]),
+            t
+          );
+        })(f.default.PureComponent),
+        N = k;
+      t.default = N;
+    },
+  },
+]);

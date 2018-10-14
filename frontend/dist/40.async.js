@@ -1,1 +1,254 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([[40],{CqRV:function(e,t,a){"use strict";var l=a("TqRt"),n=a("284h");Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0,a("Mwp2");var d=l(a("VXEj"));a("+BJd");var u=l(a("mr32"));a("IzEo");var r=l(a("bx4M")),f=l(a("pVnL"));a("14J3");var c=l(a("BMrR"));a("jCWc");var i=l(a("kPKH"));a("+L6B");var m=l(a("2/Rp"));a("Telt");var o=l(a("Tckk"));a("Pwec");var s=l(a("CtXQ")),p=l(a("lwsE")),E=l(a("W8MJ")),h=l(a("a1gu")),v=l(a("Nsbk")),g=l(a("7W2i"));a("y8nQ");var y=l(a("Vl3Y"));a("OaEy");var x,w,O,b=l(a("2fM7")),k=n(a("q1tI")),M=l(a("wd/R")),C=a("MuoO"),z=l(a("+px+")),I=l(a("SaYD")),j=l(a("hBcb")),F=b.default.Option,N=y.default.Item,R=5,T=(x=y.default.create(),w=(0,C.connect)(function(e){var t=e.list,a=e.loading;return{list:t,loading:a.models.list}}),x(O=w(O=function(e){function t(){var e,a;(0,p.default)(this,t);for(var l=arguments.length,n=new Array(l),d=0;d<l;d++)n[d]=arguments[d];return a=(0,h.default)(this,(e=(0,v.default)(t)).call.apply(e,[this].concat(n))),a.setOwner=function(){var e=a.props.form;e.setFieldsValue({owner:["wzj"]})},a.fetchMore=function(){var e=a.props.dispatch;e({type:"list/appendFetch",payload:{count:R}})},a}return(0,g.default)(t,e),(0,E.default)(t,[{key:"componentDidMount",value:function(){var e=this.props.dispatch;e({type:"list/fetch",payload:{count:5}})}},{key:"render",value:function(){var e=this.props,t=e.form,a=e.list.list,l=e.loading,n=t.getFieldDecorator,p=[{id:"wzj",name:"\u6211\u81ea\u5df1"},{id:"wjh",name:"\u5434\u5bb6\u8c6a"},{id:"zxx",name:"\u5468\u661f\u661f"},{id:"zly",name:"\u8d75\u4e3d\u9896"},{id:"ym",name:"\u59da\u660e"}],E=function(e){var t=e.type,a=e.text;return k.default.createElement("span",null,k.default.createElement(s.default,{type:t,style:{marginRight:8}}),a)},h=function(e){var t=e.data,a=t.content,l=t.updatedAt,n=t.avatar,d=t.owner,u=t.href;return k.default.createElement("div",{className:j.default.listContent},k.default.createElement("div",{className:j.default.description},a),k.default.createElement("div",{className:j.default.extra},k.default.createElement(o.default,{src:n,size:"small"}),k.default.createElement("a",{href:u},d)," \u53d1\u5e03\u5728",k.default.createElement("a",{href:u},u),k.default.createElement("em",null,(0,M.default)(l).format("YYYY-MM-DD HH:mm"))))},v={wrapperCol:{xs:{span:24},sm:{span:24},md:{span:12}}},g=a.length>0?k.default.createElement("div",{style:{textAlign:"center",marginTop:16}},k.default.createElement(m.default,{onClick:this.fetchMore,style:{paddingLeft:48,paddingRight:48}},l?k.default.createElement("span",null,k.default.createElement(s.default,{type:"loading"})," \u52a0\u8f7d\u4e2d..."):"\u52a0\u8f7d\u66f4\u591a")):null;return k.default.createElement(k.Fragment,null,k.default.createElement(r.default,{bordered:!1},k.default.createElement(y.default,{layout:"inline"},k.default.createElement(I.default,{title:"\u6240\u5c5e\u7c7b\u76ee",block:!0,style:{paddingBottom:11}},k.default.createElement(N,null,n("category")(k.default.createElement(z.default,{onChange:this.handleFormSubmit,expandable:!0},k.default.createElement(z.default.Option,{value:"cat1"},"\u7c7b\u76ee\u4e00"),k.default.createElement(z.default.Option,{value:"cat2"},"\u7c7b\u76ee\u4e8c"),k.default.createElement(z.default.Option,{value:"cat3"},"\u7c7b\u76ee\u4e09"),k.default.createElement(z.default.Option,{value:"cat4"},"\u7c7b\u76ee\u56db"),k.default.createElement(z.default.Option,{value:"cat5"},"\u7c7b\u76ee\u4e94"),k.default.createElement(z.default.Option,{value:"cat6"},"\u7c7b\u76ee\u516d"),k.default.createElement(z.default.Option,{value:"cat7"},"\u7c7b\u76ee\u4e03"),k.default.createElement(z.default.Option,{value:"cat8"},"\u7c7b\u76ee\u516b"),k.default.createElement(z.default.Option,{value:"cat9"},"\u7c7b\u76ee\u4e5d"),k.default.createElement(z.default.Option,{value:"cat10"},"\u7c7b\u76ee\u5341"),k.default.createElement(z.default.Option,{value:"cat11"},"\u7c7b\u76ee\u5341\u4e00"),k.default.createElement(z.default.Option,{value:"cat12"},"\u7c7b\u76ee\u5341\u4e8c"))))),k.default.createElement(I.default,{title:"owner",grid:!0},k.default.createElement(c.default,null,k.default.createElement(i.default,{lg:16,md:24,sm:24,xs:24},k.default.createElement(N,null,n("owner",{initialValue:["wjh","zxx"]})(k.default.createElement(b.default,{mode:"multiple",style:{maxWidth:286,width:"100%"},placeholder:"\u9009\u62e9 owner"},p.map(function(e){return k.default.createElement(F,{key:e.id,value:e.id},e.name)}))),k.default.createElement("a",{className:j.default.selfTrigger,onClick:this.setOwner},"\u53ea\u770b\u81ea\u5df1\u7684"))))),k.default.createElement(I.default,{title:"\u5176\u5b83\u9009\u9879",grid:!0,last:!0},k.default.createElement(c.default,{gutter:16},k.default.createElement(i.default,{xl:8,lg:10,md:12,sm:24,xs:24},k.default.createElement(N,(0,f.default)({},v,{label:"\u6d3b\u8dc3\u7528\u6237"}),n("user",{})(k.default.createElement(b.default,{onChange:this.handleFormSubmit,placeholder:"\u4e0d\u9650",style:{maxWidth:200,width:"100%"}},k.default.createElement(F,{value:"lisa"},"\u674e\u4e09"))))),k.default.createElement(i.default,{xl:8,lg:10,md:12,sm:24,xs:24},k.default.createElement(N,(0,f.default)({},v,{label:"\u597d\u8bc4\u5ea6"}),n("rate",{})(k.default.createElement(b.default,{onChange:this.handleFormSubmit,placeholder:"\u4e0d\u9650",style:{maxWidth:200,width:"100%"}},k.default.createElement(F,{value:"good"},"\u4f18\u79c0"))))))))),k.default.createElement(r.default,{style:{marginTop:24},bordered:!1,bodyStyle:{padding:"8px 32px 32px 32px"}},k.default.createElement(d.default,{size:"large",loading:0===a.length&&l,rowKey:"id",itemLayout:"vertical",loadMore:g,dataSource:a,renderItem:function(e){return k.default.createElement(d.default.Item,{key:e.id,actions:[k.default.createElement(E,{type:"star-o",text:e.star}),k.default.createElement(E,{type:"like-o",text:e.like}),k.default.createElement(E,{type:"message",text:e.message})],extra:k.default.createElement("div",{className:j.default.listItemExtra})},k.default.createElement(d.default.Item.Meta,{title:k.default.createElement("a",{className:j.default.listItemMetaTitle,href:e.href},e.title),description:k.default.createElement("span",null,k.default.createElement(u.default,null,"Ant Design"),k.default.createElement(u.default,null,"\u8bbe\u8ba1\u8bed\u8a00"),k.default.createElement(u.default,null,"\u8682\u8681\u91d1\u670d"))}),k.default.createElement(h,{data:e}))}})))}}]),t}(k.Component))||O)||O),D=T;t.default=D}}]);
+(window['webpackJsonp'] = window['webpackJsonp'] || []).push([
+  [40],
+  {
+    cfSo: function(e, t, a) {
+      e.exports = { title: 'antd-pro-pages-profile-basic-profile-title' };
+    },
+    hJFj: function(e, t, a) {
+      'use strict';
+      var n = a('TqRt'),
+        r = a('284h');
+      Object.defineProperty(t, '__esModule', { value: !0 }), (t.default = void 0), a('IzEo');
+      var l = n(a('bx4M'));
+      a('g9YV');
+      var d = n(a('wCAj'));
+      a('/zsF');
+      var i = n(a('PArb')),
+        u = n(a('lwsE')),
+        o = n(a('W8MJ')),
+        c = n(a('a1gu')),
+        f = n(a('Nsbk')),
+        s = n(a('7W2i'));
+      a('Awhp');
+      var m,
+        p,
+        g = n(a('KrTs')),
+        E = r(a('q1tI')),
+        h = a('MuoO'),
+        y = n(a('+kNj')),
+        k = n(a('zHco')),
+        v = n(a('cfSo')),
+        x = y.default.Description,
+        b = [
+          { title: '\u65f6\u95f4', dataIndex: 'time', key: 'time' },
+          { title: '\u5f53\u524d\u8fdb\u5ea6', dataIndex: 'rate', key: 'rate' },
+          {
+            title: '\u72b6\u6001',
+            dataIndex: 'status',
+            key: 'status',
+            render: function(e) {
+              return 'success' === e
+                ? E.default.createElement(g.default, { status: 'success', text: '\u6210\u529f' })
+                : E.default.createElement(g.default, {
+                    status: 'processing',
+                    text: '\u8fdb\u884c\u4e2d',
+                  });
+            },
+          },
+          { title: '\u64cd\u4f5c\u5458ID', dataIndex: 'operator', key: 'operator' },
+          { title: '\u8017\u65f6', dataIndex: 'cost', key: 'cost' },
+        ],
+        I = ((m = (0, h.connect)(function(e) {
+          var t = e.profile,
+            a = e.loading;
+          return { profile: t, loading: a.effects['profile/fetchBasic'] };
+        })),
+        m(
+          (p = (function(e) {
+            function t() {
+              return (
+                (0, u.default)(this, t),
+                (0, c.default)(this, (0, f.default)(t).apply(this, arguments))
+              );
+            }
+            return (
+              (0, s.default)(t, e),
+              (0, o.default)(t, [
+                {
+                  key: 'componentDidMount',
+                  value: function() {
+                    var e = this.props.dispatch;
+                    e({ type: 'profile/fetchBasic' });
+                  },
+                },
+                {
+                  key: 'render',
+                  value: function() {
+                    var e = this.props,
+                      t = e.profile,
+                      a = e.loading,
+                      n = t.basicGoods,
+                      r = t.basicProgress,
+                      u = [];
+                    if (n.length) {
+                      var o = 0,
+                        c = 0;
+                      n.forEach(function(e) {
+                        (o += Number(e.num)), (c += Number(e.amount));
+                      }),
+                        (u = n.concat({ id: '\u603b\u8ba1', num: o, amount: c }));
+                    }
+                    var f = function(e, t, a) {
+                        var r = { children: e, props: {} };
+                        return a === n.length && (r.props.colSpan = 0), r;
+                      },
+                      s = [
+                        {
+                          title: '\u5546\u54c1\u7f16\u53f7',
+                          dataIndex: 'id',
+                          key: 'id',
+                          render: function(e, t, a) {
+                            return a < n.length
+                              ? E.default.createElement('a', { href: '' }, e)
+                              : {
+                                  children: E.default.createElement(
+                                    'span',
+                                    { style: { fontWeight: 600 } },
+                                    '\u603b\u8ba1'
+                                  ),
+                                  props: { colSpan: 4 },
+                                };
+                          },
+                        },
+                        {
+                          title: '\u5546\u54c1\u540d\u79f0',
+                          dataIndex: 'name',
+                          key: 'name',
+                          render: f,
+                        },
+                        {
+                          title: '\u5546\u54c1\u6761\u7801',
+                          dataIndex: 'barcode',
+                          key: 'barcode',
+                          render: f,
+                        },
+                        {
+                          title: '\u5355\u4ef7',
+                          dataIndex: 'price',
+                          key: 'price',
+                          align: 'right',
+                          render: f,
+                        },
+                        {
+                          title: '\u6570\u91cf\uff08\u4ef6\uff09',
+                          dataIndex: 'num',
+                          key: 'num',
+                          align: 'right',
+                          render: function(e, t, a) {
+                            return a < n.length
+                              ? e
+                              : E.default.createElement('span', { style: { fontWeight: 600 } }, e);
+                          },
+                        },
+                        {
+                          title: '\u91d1\u989d',
+                          dataIndex: 'amount',
+                          key: 'amount',
+                          align: 'right',
+                          render: function(e, t, a) {
+                            return a < n.length
+                              ? e
+                              : E.default.createElement('span', { style: { fontWeight: 600 } }, e);
+                          },
+                        },
+                      ];
+                    return E.default.createElement(
+                      k.default,
+                      { title: '\u57fa\u7840\u8be6\u60c5\u9875' },
+                      E.default.createElement(
+                        l.default,
+                        { bordered: !1 },
+                        E.default.createElement(
+                          y.default,
+                          {
+                            size: 'large',
+                            title: '\u9000\u6b3e\u7533\u8bf7',
+                            style: { marginBottom: 32 },
+                          },
+                          E.default.createElement(
+                            x,
+                            { term: '\u53d6\u8d27\u5355\u53f7' },
+                            '1000000000'
+                          ),
+                          E.default.createElement(
+                            x,
+                            { term: '\u72b6\u6001' },
+                            '\u5df2\u53d6\u8d27'
+                          ),
+                          E.default.createElement(
+                            x,
+                            { term: '\u9500\u552e\u5355\u53f7' },
+                            '1234123421'
+                          ),
+                          E.default.createElement(x, { term: '\u5b50\u8ba2\u5355' }, '3214321432')
+                        ),
+                        E.default.createElement(i.default, { style: { marginBottom: 32 } }),
+                        E.default.createElement(
+                          y.default,
+                          {
+                            size: 'large',
+                            title: '\u7528\u6237\u4fe1\u606f',
+                            style: { marginBottom: 32 },
+                          },
+                          E.default.createElement(
+                            x,
+                            { term: '\u7528\u6237\u59d3\u540d' },
+                            '\u4ed8\u5c0f\u5c0f'
+                          ),
+                          E.default.createElement(
+                            x,
+                            { term: '\u8054\u7cfb\u7535\u8bdd' },
+                            '18100000000'
+                          ),
+                          E.default.createElement(
+                            x,
+                            { term: '\u5e38\u7528\u5feb\u9012' },
+                            '\u83dc\u9e1f\u4ed3\u50a8'
+                          ),
+                          E.default.createElement(
+                            x,
+                            { term: '\u53d6\u8d27\u5730\u5740' },
+                            '\u6d59\u6c5f\u7701\u676d\u5dde\u5e02\u897f\u6e56\u533a\u4e07\u5858\u8def18\u53f7'
+                          ),
+                          E.default.createElement(x, { term: '\u5907\u6ce8' }, '\u65e0')
+                        ),
+                        E.default.createElement(i.default, { style: { marginBottom: 32 } }),
+                        E.default.createElement(
+                          'div',
+                          { className: v.default.title },
+                          '\u9000\u8d27\u5546\u54c1'
+                        ),
+                        E.default.createElement(d.default, {
+                          style: { marginBottom: 24 },
+                          pagination: !1,
+                          loading: a,
+                          dataSource: u,
+                          columns: s,
+                          rowKey: 'id',
+                        }),
+                        E.default.createElement(
+                          'div',
+                          { className: v.default.title },
+                          '\u9000\u8d27\u8fdb\u5ea6'
+                        ),
+                        E.default.createElement(d.default, {
+                          style: { marginBottom: 16 },
+                          pagination: !1,
+                          loading: a,
+                          dataSource: r,
+                          columns: b,
+                        })
+                      )
+                    );
+                  },
+                },
+              ]),
+              t
+            );
+          })(E.Component))
+        ) || p),
+        w = I;
+      t.default = w;
+    },
+  },
+]);

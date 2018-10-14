@@ -1,1 +1,67 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([[18],{aEZZ:function(a,e,s){"use strict";var t=s("TqRt"),n=s("284h");Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0,s("14J3");var r=t(s("BMrR"));s("jCWc");var o=t(s("kPKH"));s("+L6B");var l,d,i=t(s("2/Rp")),p=t(s("lwsE")),c=t(s("W8MJ")),u=t(s("a1gu")),h=t(s("Nsbk")),f=t(s("7W2i")),g=n(s("q1tI")),y=s("MuoO"),m=(t(s("ZhIB")),t(s("lVjH")),l=(0,y.connect)(function(a){var e=a.alarm,s=a.loading;return{alarm:e,loading:s.effects["alarm/fetchDaqAlarm"]}}),l(d=function(a){function e(){return(0,p.default)(this,e),(0,u.default)(this,(0,h.default)(e).apply(this,arguments))}return(0,f.default)(e,a),(0,c.default)(e,[{key:"componentDidMount",value:function(){var a=this;console.log("this.props"),console.log(this.props);var e=this.props.match.params.device_id;console.log(e),this.props.dispatch({type:"alarm/fetchDaqAlarm",payload:{device_id:e}}),this.timer=setInterval(function(){a.props.dispatch({type:"alarm/fetchDaqAlarm",payload:{device_id:e}})},1e4),console.log("component did mount!")}},{key:"componentWillUnmount",value:function(){var a=this.props.dispatch;a({type:"alarm/clear"})}},{key:"render",value:function(){var a=this.props,e=a.alarm,s=a.loading;console.log("--alarm,loading--"),console.log(e),console.log(s);var t=e.deviceDaqAlarm;return g.default.createElement(g.Fragment,null,g.default.createElement(r.default,{gutter:24},t.map(function(a,e){return g.default.createElement(o.default,null,g.default.createElement(i.default,{type:a.type,icon:a.icon,size:"large"}," ",a.channel))})))}}]),e}(g.Component))||d);e.default=m},lVjH:function(a,e,s){a.exports={iconGroup:"antd-pro-pages-dashboard-analysis-iconGroup",rankingList:"antd-pro-pages-dashboard-analysis-rankingList",active:"antd-pro-pages-dashboard-analysis-active",salesExtra:"antd-pro-pages-dashboard-analysis-salesExtra",currentDate:"antd-pro-pages-dashboard-analysis-currentDate",salesCard:"antd-pro-pages-dashboard-analysis-salesCard",salesBar:"antd-pro-pages-dashboard-analysis-salesBar",salesRank:"antd-pro-pages-dashboard-analysis-salesRank",salesCardExtra:"antd-pro-pages-dashboard-analysis-salesCardExtra",salesTypeRadio:"antd-pro-pages-dashboard-analysis-salesTypeRadio",offlineCard:"antd-pro-pages-dashboard-analysis-offlineCard",trendText:"antd-pro-pages-dashboard-analysis-trendText",rankingTitle:"antd-pro-pages-dashboard-analysis-rankingTitle",salesExtraWrap:"antd-pro-pages-dashboard-analysis-salesExtraWrap"}}}]);
+(window['webpackJsonp'] = window['webpackJsonp'] || []).push([
+  [18],
+  {
+    UKiy: function(e, t, a) {
+      'use strict';
+      var r = a('TqRt');
+      Object.defineProperty(t, '__esModule', { value: !0 }), (t.default = void 0), a('+L6B');
+      var s = r(a('2/Rp')),
+        l = r(a('q1tI')),
+        i = a('LLXN'),
+        u = r(a('mOP9')),
+        d = r(a('ALo4')),
+        n = r(a('ltW9')),
+        c = l.default.createElement(
+          'div',
+          { className: n.default.actions },
+          l.default.createElement(
+            'a',
+            { href: '' },
+            l.default.createElement(
+              s.default,
+              { size: 'large', type: 'primary' },
+              l.default.createElement(i.FormattedMessage, {
+                id: 'app.register-result.view-mailbox',
+              })
+            )
+          ),
+          l.default.createElement(
+            u.default,
+            { to: '/' },
+            l.default.createElement(
+              s.default,
+              { size: 'large' },
+              l.default.createElement(i.FormattedMessage, { id: 'app.register-result.back-home' })
+            )
+          )
+        ),
+        o = function(e) {
+          var t = e.location;
+          return l.default.createElement(d.default, {
+            className: n.default.registerResult,
+            type: 'success',
+            title: l.default.createElement(
+              'div',
+              { className: n.default.title },
+              l.default.createElement(i.FormattedMessage, {
+                id: 'app.register-result.msg',
+                values: { email: t.state ? t.state.account : 'AntDesign@example.com' },
+              })
+            ),
+            description: (0, i.formatMessage)({ id: 'app.register-result.activation-email' }),
+            actions: c,
+            style: { marginTop: 56 },
+          });
+        },
+        p = o;
+      t.default = p;
+    },
+    ltW9: function(e, t, a) {
+      e.exports = {
+        registerResult: 'antd-pro-pages-user-register-result-registerResult',
+        title: 'antd-pro-pages-user-register-result-title',
+        actions: 'antd-pro-pages-user-register-result-actions',
+      };
+    },
+  },
+]);

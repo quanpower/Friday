@@ -23,135 +23,231 @@ export default [
         path: '/dashboard',
         name: 'dashboard',
         icon: 'dashboard',
-        routes: [
-          {
-            path: '/dashboard/dashboard',
-            name: 'dashboard',
-            component: './Dashboard/Dashboard',
-          },
-          {
-            path: '/dashboard/display',
-            // redirect: '/display/digital/2',
-            // component: './Dashboard/Display/Display',
-            name: 'display',
-
-            routes: [
-              {
-                path: '/display/digital/:device_id',
-                // redirect: '/display/digital/2',
-                name: 'digital',
-                icon: 'dashboard',
-
-                component: './Dashboard/Display/Digital',
-              },
-              {
-                path: '/display/bar/:device_id',
-                // redirect: '/display/bar/2',
-
-                name: 'bar',
-                icon: 'bar-chart',
-
-                component: './Dashboard/Display/Bar',
-              },
-              {
-                path: '/display/line/:device_id',
-                // redirect: '/display/line/2',
-
-                name: 'line',
-                icon: 'area-chart',
-                component: './Dashboard/Display/Line',
-              },
-            ]
-          },
-          {
-            path: '/dashboard/history/:device_id',
-            // redirect: '/dashboard/history/2',
-
-            name: 'history',
-            component: './Dashboard/Monitor',
-          },
-          {
-            path: '/dashboard/alarm/:device_id',
-            name: 'alarm',
-            component: './Dashboard/Alarm',
-            hideInMenu: true,
-
-          },
-        ],
+        component: './Dashboard/Dashboard',
       },
 
-      // prouct
+      // equipment
       {
-        path: '/product',
+        path: '/equipment',
         icon: 'laptop',
-        name: 'product',
+        name: 'equipment',
         routes: [
           {
-            path: '/product/product-list',
+            path: '/equipment/product-list',
             name: 'product-list',
             component: './Product/ProductList',
           },
           {
-            path: '/product/product-profile/:product_id',
-            // redirect: '/product/product-profile/2',
+            path: '/equipment/product-profile/2',
             name: 'product-profile',
+            hideInMenu: true,
             component: './Product/ProductProfile',
           },
-        ],
-      },
-
-
-      // device
-      {
-        path: '/device',
-        icon: 'tablet',
-        name: 'device',
-        routes: [
           {
-            path: '/device/device-list',
-            name: 'device-list',
-            component: './Device/DeviceList',
+            path: '/equipment/product-profile/:product_id',
+            name: 'product-profile',
+            hideInMenu: true,
+            component: './Product/ProductProfile',
           },
           {
-            path: '/device/device-profile/:device_id',
-            // redirect: '/device/device-profile/2',
-
-            name: 'device-profile',
-            component: './Device/DeviceProfile',
+            path: '/equipment/device',
+            name: 'device',
+            routes: [
+              {
+                path: '/equipment/device/device-list',
+                name: 'device-list',
+                component: './Device/DeviceList',
+              },
+              {
+                path: '/equipment/device/device-profile/:device_id',
+                name: 'device-profile',
+                component: './Device/DeviceProfile',
+              },
+              {
+                path: '/equipment/device/device-connect/:device_id',
+                name: 'device-connect',
+                component: './Device/DeviceProfile',
+              },
+              {
+                path: '/equipment/device/device-ebom/:device_id',
+                name: 'device-ebom',
+                component: './Device/DeviceProfile',
+              },
+            ],
           },
-        ],
-      },
-
-      // configuration
-      {
-        path: '/configuration',
-        icon: 'block',
-        name: 'configuration',
-        routes: [
           {
-            path: '/configuration/svg/display',
-            name: 'svg-display',
-            component: './Configuration/Svg/Display',
-          },
-         {
-            path: '/configuration/svg/editor',
-            name: 'svg-editor',
-            component: './Configuration/Svg/Editor',
-          },
-        ],
-      },
-
-      //project
-
-      {
-        path: '/projects',
-        icon: 'schedule',
-        name: 'project',
-        routes: [
-          {
-            path: '/projects',
-            name: 'project',
+            path: '/equipment/group',
+            name: 'device-group',
             component: './Project/ProjectList',
+          },
+        ],
+      },
+
+      // status
+      {
+        path: '/status',
+        icon: 'block',
+        name: 'status',
+        routes: [
+          {
+            path: '/conf2d/fabric',
+            name: 'configure',
+          },
+          {
+            path: '/conf2d/errorlog',
+            name: 'errorlog',
+          },
+          {
+            path: '/status/history/:device_id',
+            // redirect: '/dashboard/history/2',
+            name: 'history',
+            component: './Dashboard/Monitor',
+          },
+          {
+            path: '/status/warning/:device_id',
+            name: 'warning',
+            component: './Dashboard/Monitor',
+          },
+        ],
+      },
+
+      //Operations
+
+      {
+        path: '/operations',
+        icon: 'schedule',
+        name: 'operations',
+        routes: [
+          {
+            path: '/operations/ticket',
+            name: 'ticket',
+            component: './Project/ProjectList',
+          },
+          {
+            path: '/operations/maintenance-record',
+            name: 'maintenance-record',
+            component: './Project/ProjectList',
+          },
+          {
+            path: '/operations/spare-parts-management',
+            name: 'spare-parts-management',
+            component: './Project/ProjectList',
+          },
+          {
+            path: '/operations/maintenance-tips',
+            name: 'maintenance-tips',
+            component: './Project/ProjectList',
+          },
+        ],
+      },
+
+      //Big Data Analytics
+
+      {
+        path: '/analytics',
+        icon: 'schedule',
+        name: 'analytics',
+        routes: [
+          {
+            path: '/analytics/data-source-config',
+            name: 'data-source-config',
+            component: './Project/ProjectList',
+          },
+          {
+            path: '/analytics/kpi',
+            name: 'kpi',
+            component: './Project/ProjectList',
+          },
+          {
+            path: '/analytics/energy',
+            name: 'energy',
+            component: './Project/ProjectList',
+          },
+          {
+            path: '/analytics/spatial-data-analysis',
+            name: 'spatial-data-analysis',
+            component: './Project/ProjectList',
+          },
+          {
+            path: '/analytics/stream-data-analysis',
+            name: 'stream-data-analysis',
+            component: './Project/ProjectList',
+          },
+        ],
+      },
+
+      //customer management
+
+      {
+        path: '/customer-management',
+        icon: 'schedule',
+        name: 'customer-management',
+        routes: [
+          {
+            path: '/customer-management/authorization',
+            name: 'authorization',
+            component: './Project/ProjectList',
+          },
+          {
+            path: '/customer-management/profile',
+            name: 'user-profile',
+            component: './Project/ProjectList',
+          },
+        ],
+      },
+
+      //extension module
+
+      {
+        path: '/extensions',
+        icon: 'schedule',
+        name: 'extensions',
+        routes: [
+          {
+            path: '/extensions/security',
+            name: 'security',
+            component: './Project/ProjectList',
+          },
+          {
+            path: '/extensions/expert-system',
+            name: 'expert-system',
+            component: './Project/ProjectList',
+          },
+
+          //Edge
+
+          {
+            path: '/extensions/edge',
+            icon: 'schedule',
+            name: 'edge',
+            routes: [
+              {
+                path: '/extensions/edge/group',
+                name: 'edge-group',
+                component: './Project/ProjectList',
+              },
+              {
+                path: '/extensions/edge/driver',
+                name: 'edge-driver',
+                component: './Project/ProjectList',
+              },
+            ],
+          },
+
+          //Rule engine
+
+          {
+            path: '/extensions/rule-engine',
+            icon: 'schedule',
+            name: 'rule-engine',
+            routes: [
+              {
+                path: '/extensions/rule-engine/node-red',
+
+                name: 'node-red',
+                component: './Project/ProjectList',
+              },
+            ],
           },
         ],
       },

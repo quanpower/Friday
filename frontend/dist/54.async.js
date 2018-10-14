@@ -1,1 +1,131 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([[54],{FSIE:function(e,t,a){"use strict";var l=a("TqRt"),r=a("284h");Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0,a("Mwp2");var u=l(a("VXEj"));a("IzEo");var n,d,c=l(a("bx4M")),i=l(a("lwsE")),f=l(a("W8MJ")),s=l(a("a1gu")),o=l(a("Nsbk")),m=l(a("7W2i")),p=r(a("q1tI")),v=l(a("wd/R")),E=a("MuoO"),w=l(a("pUXw")),b=l(a("wgDz")),h=(n=(0,E.connect)(function(e){var t=e.list;return{list:t}}),n(d=function(e){function t(){return(0,i.default)(this,t),(0,s.default)(this,(0,o.default)(t).apply(this,arguments))}return(0,m.default)(t,e),(0,f.default)(t,[{key:"render",value:function(){var e=this.props.list.list;return p.default.createElement(u.default,{className:b.default.coverCardList,rowKey:"id",grid:{gutter:24,xxl:3,xl:2,lg:2,md:2,sm:2,xs:1},dataSource:e,renderItem:function(e){return p.default.createElement(u.default.Item,null,p.default.createElement(c.default,{className:b.default.card,hoverable:!0,cover:p.default.createElement("img",{alt:e.title,src:e.cover})},p.default.createElement(c.default.Meta,{title:p.default.createElement("a",null,e.title),description:e.subDescription}),p.default.createElement("div",{className:b.default.cardItemContent},p.default.createElement("span",null,(0,v.default)(e.updatedAt).fromNow()),p.default.createElement("div",{className:b.default.avatarList},p.default.createElement(w.default,{size:"mini"},e.members.map(function(t){return p.default.createElement(w.default.Item,{key:"".concat(e.id,"-avatar-").concat(t.id),src:t.avatar,tips:t.name})}))))))}})}}]),t}(p.PureComponent))||d),I=h;t.default=I}}]);
+(window['webpackJsonp'] = window['webpackJsonp'] || []).push([
+  [54],
+  {
+    JE8d: function(e, t, a) {
+      'use strict';
+      var n = a('284h'),
+        i = a('TqRt');
+      Object.defineProperty(t, '__esModule', { value: !0 }), (t.default = void 0), a('Mwp2');
+      var d = i(a('VXEj'));
+      a('Pwec');
+      var s = i(a('CtXQ')),
+        l = i(a('lwsE')),
+        r = i(a('W8MJ')),
+        u = i(a('a1gu')),
+        o = i(a('Nsbk')),
+        c = i(a('7W2i')),
+        f = n(a('q1tI')),
+        g = a('LLXN'),
+        p = (function(e) {
+          function t() {
+            var e, a;
+            (0, l.default)(this, t);
+            for (var n = arguments.length, i = new Array(n), d = 0; d < n; d++) i[d] = arguments[d];
+            return (
+              (a = (0, u.default)(this, (e = (0, o.default)(t)).call.apply(e, [this].concat(i)))),
+              (a.getData = function() {
+                return [
+                  {
+                    title: (0, g.formatMessage)({ id: 'app.settings.binding.taobao' }, {}),
+                    description: (0, g.formatMessage)(
+                      { id: 'app.settings.binding.taobao-description' },
+                      {}
+                    ),
+                    actions: [
+                      f.default.createElement(
+                        'a',
+                        null,
+                        f.default.createElement(g.FormattedMessage, {
+                          id: 'app.settings.binding.bind',
+                          defaultMessage: 'Bind',
+                        })
+                      ),
+                    ],
+                    avatar: f.default.createElement(s.default, {
+                      type: 'taobao',
+                      className: 'taobao',
+                    }),
+                  },
+                  {
+                    title: (0, g.formatMessage)({ id: 'app.settings.binding.alipay' }, {}),
+                    description: (0, g.formatMessage)(
+                      { id: 'app.settings.binding.alipay-description' },
+                      {}
+                    ),
+                    actions: [
+                      f.default.createElement(
+                        'a',
+                        null,
+                        f.default.createElement(g.FormattedMessage, {
+                          id: 'app.settings.binding.bind',
+                          defaultMessage: 'Bind',
+                        })
+                      ),
+                    ],
+                    avatar: f.default.createElement(s.default, {
+                      type: 'alipay',
+                      className: 'alipay',
+                    }),
+                  },
+                  {
+                    title: (0, g.formatMessage)({ id: 'app.settings.binding.dingding' }, {}),
+                    description: (0, g.formatMessage)(
+                      { id: 'app.settings.binding.dingding-description' },
+                      {}
+                    ),
+                    actions: [
+                      f.default.createElement(
+                        'a',
+                        null,
+                        f.default.createElement(g.FormattedMessage, {
+                          id: 'app.settings.binding.bind',
+                          defaultMessage: 'Bind',
+                        })
+                      ),
+                    ],
+                    avatar: f.default.createElement(s.default, {
+                      type: 'dingding',
+                      className: 'dingding',
+                    }),
+                  },
+                ];
+              }),
+              a
+            );
+          }
+          return (
+            (0, c.default)(t, e),
+            (0, r.default)(t, [
+              {
+                key: 'render',
+                value: function() {
+                  return f.default.createElement(
+                    f.Fragment,
+                    null,
+                    f.default.createElement(d.default, {
+                      itemLayout: 'horizontal',
+                      dataSource: this.getData(),
+                      renderItem: function(e) {
+                        return f.default.createElement(
+                          d.default.Item,
+                          { actions: e.actions },
+                          f.default.createElement(d.default.Item.Meta, {
+                            avatar: e.avatar,
+                            title: e.title,
+                            description: e.description,
+                          })
+                        );
+                      },
+                    })
+                  );
+                },
+              },
+            ]),
+            t
+          );
+        })(f.Component),
+        m = p;
+      t.default = m;
+    },
+  },
+]);

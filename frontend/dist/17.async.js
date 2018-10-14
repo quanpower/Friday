@@ -1,1 +1,444 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([[17],{"6p3G":function(e,t,a){"use strict";var n=a("TqRt"),r=a("284h");Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0,a("jCWc");var i=n(a("kPKH"));a("IzEo");var o=n(a("bx4M"));a("14J3");var l=n(a("BMrR"));a("g9YV");var u,c,d=n(a("wCAj")),s=n(a("lwsE")),f=n(a("W8MJ")),m=n(a("a1gu")),v=n(a("Nsbk")),p=n(a("7W2i")),h=r(a("q1tI")),g=a("MuoO"),y=(n(a("ZhIB")),n(a("LOQS")),n(a("Yaqk")),n(a("U2E3")),n(a("HZnN"))),E=(n(a("XFmb")),y.default.Secured,(new Date).getTime(),new Promise(function(e){setTimeout(function(){return e()},1e3)}),u=(0,g.connect)(function(e){var t=e.survey,a=e.loading;return{survey:t,loading:a.effects["survey/fetchDeviceDaqRecord"]}}),u(c=function(e){function t(){return(0,s.default)(this,t),(0,m.default)(this,(0,v.default)(t).apply(this,arguments))}return(0,p.default)(t,e),(0,f.default)(t,[{key:"componentDidMount",value:function(){var e=this;console.log("monitor this.props:"),console.log(this.props);var t=this.props.match.params.device_id;console.log(t),this.props.dispatch({type:"survey/fetchDeviceDaqRecord",payload:{device_id:t}}),this.timer=setInterval(function(){e.props.dispatch({type:"survey/fetchDeviceDaqRecord",payload:{device_id:t}})},1e4)}},{key:"render",value:function(){var e=this.props,t=e.survey,a=(e.loading,t.recordColumns),n=t.deviceDaqRecord;return h.default.createElement(h.Fragment,null,h.default.createElement(l.default,{gutter:24},h.default.createElement(i.default,{xl:24,lg:24,md:24,sm:24,xs:24,style:{marginBottom:24}},h.default.createElement(o.default,{title:"\u5386\u53f2\u8bb0\u5f55",bordered:!1},h.default.createElement(l.default,null,h.default.createElement(d.default,{columns:a,dataSource:n}))))))}}]),t}(h.PureComponent))||c);t.default=E},U2E3:function(e,t,a){"use strict";var n=a("284h"),r=a("TqRt");Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;var i=r(a("RIqP")),o=r(a("lwsE")),l=r(a("W8MJ")),u=r(a("a1gu")),c=r(a("Nsbk")),d=r(a("7W2i")),s=n(a("q1tI")),f=a("KTCi"),m=r(a("LOQS")),v=r(a("cHiq"));function p(e){return 1*e<10?"0".concat(e):e}function h(){for(var e=[],t=0;t<24;t+=1)e.push({x:"".concat(p(t),":00"),y:Math.floor(200*Math.random())+50*t});return e}var g=function(e){function t(){var e,a;(0,o.default)(this,t);for(var n=arguments.length,r=new Array(n),i=0;i<n;i++)r[i]=arguments[i];return a=(0,u.default)(this,(e=(0,c.default)(t)).call.apply(e,[this].concat(r))),a.state={activeData:h()},a.loopData=function(){a.requestRef=requestAnimationFrame(function(){a.timer=setTimeout(function(){a.setState({activeData:h()},function(){a.loopData()})},1e3)})},a}return(0,d.default)(t,e),(0,l.default)(t,[{key:"componentDidMount",value:function(){this.loopData()}},{key:"componentWillUnmount",value:function(){clearTimeout(this.timer),cancelAnimationFrame(this.requestRef)}},{key:"render",value:function(){var e=this.state.activeData,t=void 0===e?[]:e;return s.default.createElement("div",{className:v.default.activeChart},s.default.createElement(m.default,{subTitle:"\u76ee\u6807\u8bc4\u4f30",total:"\u6709\u671b\u8fbe\u5230\u9884\u671f"}),s.default.createElement("div",{style:{marginTop:32}},s.default.createElement(f.MiniArea,{animate:!1,line:!0,borderWidth:2,height:84,scale:{y:{tickCount:3}},yAxis:{tickLine:!1,label:!1,title:!1,line:!1},data:t})),t&&s.default.createElement("div",{className:v.default.activeChartGrid},s.default.createElement("p",null,(0,i.default)(t).sort()[t.length-1].y+200," \u4ebf\u5143"),s.default.createElement("p",null,(0,i.default)(t).sort()[Math.floor(t.length/2)].y," \u4ebf\u5143")),t&&s.default.createElement("div",{className:v.default.activeChartLegend},s.default.createElement("span",null,"00:00"),s.default.createElement("span",null,t[Math.floor(t.length/2)].x),s.default.createElement("span",null,t[t.length-1].x)))}}]),t}(s.Component);t.default=g},XFmb:function(e,t,a){e.exports={mapChart:"antd-pro-pages-dashboard-monitor-mapChart",pieCard:"antd-pro-pages-dashboard-monitor-pieCard"}},Yaqk:function(e,t,a){"use strict";var n=a("284h"),r=a("TqRt");Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;var i=r(a("QILm")),o=r(a("lwsE")),l=r(a("W8MJ")),u=r(a("a1gu")),c=r(a("Nsbk")),d=r(a("7W2i")),s=n(a("q1tI"));function f(e){return 1*e<10?"0".concat(e):e}var m=function(e){var t=0,a=0;try{a="[object Date]"===Object.prototype.toString.call(e.target)?e.target.getTime():new Date(e.target).getTime()}catch(e){throw new Error("invalid target prop",e)}return t=a-(new Date).getTime(),{lastTime:t<0?0:t}},v=function(e){function t(e){var a;(0,o.default)(this,t),a=(0,u.default)(this,(0,c.default)(t).call(this,e)),a.timer=0,a.interval=1e3,a.defaultFormat=function(e){var t=36e5,a=6e4,n=Math.floor(e/t),r=Math.floor((e-n*t)/a),i=Math.floor((e-n*t-r*a)/1e3);return s.default.createElement("span",null,f(n),":",f(r),":",f(i))},a.tick=function(){var e=a.props.onEnd,t=a.state.lastTime;a.timer=setTimeout(function(){t<a.interval?(clearTimeout(a.timer),a.setState({lastTime:0},function(){e&&e()})):(t-=a.interval,a.setState({lastTime:t},function(){a.tick()}))},a.interval)};var n=m(e),r=n.lastTime;return a.state={lastTime:r},a}return(0,d.default)(t,e),(0,l.default)(t,[{key:"componentDidMount",value:function(){this.tick()}},{key:"componentDidUpdate",value:function(e){var t=this.props.target;t!==e.target&&(clearTimeout(this.timer),this.tick())}},{key:"componentWillUnmount",value:function(){clearTimeout(this.timer)}},{key:"render",value:function(){var e=this.props,t=e.format,a=void 0===t?this.defaultFormat:t,n=(e.onEnd,(0,i.default)(e,["format","onEnd"])),r=this.state.lastTime,o=a(r);return s.default.createElement("span",n,o)}}],[{key:"getDerivedStateFromProps",value:function(e,t){var a=m(e),n=a.lastTime;return t.lastTime!==n?{lastTime:n}:null}}]),t}(s.Component),p=v;t.default=p},cHiq:function(e,t,a){e.exports={activeChart:"antd-pro-components-active-chart-index-activeChart",activeChartGrid:"antd-pro-components-active-chart-index-activeChartGrid",activeChartLegend:"antd-pro-components-active-chart-index-activeChartLegend"}}}]);
+(window['webpackJsonp'] = window['webpackJsonp'] || []).push([
+  [17],
+  {
+    '5WY0': function(e, t, a) {
+      e.exports = {
+        main: 'antd-pro-pages-user-register-main',
+        getCaptcha: 'antd-pro-pages-user-register-getCaptcha',
+        submit: 'antd-pro-pages-user-register-submit',
+        login: 'antd-pro-pages-user-register-login',
+        error: 'antd-pro-pages-user-register-error',
+        success: 'antd-pro-pages-user-register-success',
+        warning: 'antd-pro-pages-user-register-warning',
+        'progress-pass': 'antd-pro-pages-user-register-progress-pass',
+        progress: 'antd-pro-pages-user-register-progress',
+      };
+    },
+    cq3J: function(e, t, a) {
+      'use strict';
+      var r = a('TqRt'),
+        s = a('284h');
+      Object.defineProperty(t, '__esModule', { value: !0 }), (t.default = void 0), a('14J3');
+      var l = r(a('BMrR'));
+      a('+L6B');
+      var i = r(a('2/Rp'));
+      a('jCWc');
+      var n = r(a('kPKH'));
+      a('Q9mQ');
+      var o = r(a('diRs'));
+      a('MXD1');
+      var d = r(a('CFYs')),
+        u = r(a('MVZn')),
+        f = r(a('lwsE')),
+        c = r(a('W8MJ')),
+        m = r(a('a1gu')),
+        p = r(a('Nsbk')),
+        g = r(a('7W2i'));
+      a('5NDa');
+      var h = r(a('5rEg'));
+      a('OaEy');
+      var v = r(a('2fM7'));
+      a('y8nQ');
+      var E,
+        w,
+        M,
+        b = r(a('Vl3Y')),
+        y = s(a('q1tI')),
+        k = a('MuoO'),
+        F = a('LLXN'),
+        P = r(a('mOP9')),
+        S = r(a('usdK')),
+        C = r(a('5WY0')),
+        q = b.default.Item,
+        N = v.default.Option,
+        x = h.default.Group,
+        D = {
+          ok: y.default.createElement(
+            'div',
+            { className: C.default.success },
+            y.default.createElement(F.FormattedMessage, {
+              id: 'validation.password.strength.strong',
+            })
+          ),
+          pass: y.default.createElement(
+            'div',
+            { className: C.default.warning },
+            y.default.createElement(F.FormattedMessage, {
+              id: 'validation.password.strength.medium',
+            })
+          ),
+          poor: y.default.createElement(
+            'div',
+            { className: C.default.error },
+            y.default.createElement(F.FormattedMessage, {
+              id: 'validation.password.strength.short',
+            })
+          ),
+        },
+        z = { ok: 'success', pass: 'normal', poor: 'exception' },
+        W = ((E = (0, k.connect)(function(e) {
+          var t = e.register,
+            a = e.loading;
+          return { register: t, submitting: a.effects['register/submit'] };
+        })),
+        (w = b.default.create()),
+        E(
+          (M =
+            w(
+              (M = (function(e) {
+                function t() {
+                  var e, a;
+                  (0, f.default)(this, t);
+                  for (var r = arguments.length, s = new Array(r), l = 0; l < r; l++)
+                    s[l] = arguments[l];
+                  return (
+                    (a = (0, m.default)(
+                      this,
+                      (e = (0, p.default)(t)).call.apply(e, [this].concat(s))
+                    )),
+                    (a.state = { count: 0, confirmDirty: !1, visible: !1, help: '', prefix: '86' }),
+                    (a.onGetCaptcha = function() {
+                      var e = 59;
+                      a.setState({ count: e }),
+                        (a.interval = setInterval(function() {
+                          (e -= 1), a.setState({ count: e }), 0 === e && clearInterval(a.interval);
+                        }, 1e3));
+                    }),
+                    (a.getPasswordStatus = function() {
+                      var e = a.props.form,
+                        t = e.getFieldValue('password');
+                      return t && t.length > 9 ? 'ok' : t && t.length > 5 ? 'pass' : 'poor';
+                    }),
+                    (a.handleSubmit = function(e) {
+                      e.preventDefault();
+                      var t = a.props,
+                        r = t.form,
+                        s = t.dispatch;
+                      r.validateFields({ force: !0 }, function(e, t) {
+                        if (!e) {
+                          var r = a.state.prefix;
+                          s({
+                            type: 'register/submit',
+                            payload: (0, u.default)({}, t, { prefix: r }),
+                          });
+                        }
+                      });
+                    }),
+                    (a.handleConfirmBlur = function(e) {
+                      var t = e.target.value,
+                        r = a.state.confirmDirty;
+                      a.setState({ confirmDirty: r || !!t });
+                    }),
+                    (a.checkConfirm = function(e, t, r) {
+                      var s = a.props.form;
+                      t && t !== s.getFieldValue('password')
+                        ? r((0, F.formatMessage)({ id: 'validation.password.twice' }))
+                        : r();
+                    }),
+                    (a.checkPassword = function(e, t, r) {
+                      var s = a.state,
+                        l = s.visible,
+                        i = s.confirmDirty;
+                      if (t)
+                        if (
+                          (a.setState({ help: '' }),
+                          l || a.setState({ visible: !!t }),
+                          t.length < 6)
+                        )
+                          r('error');
+                        else {
+                          var n = a.props.form;
+                          t && i && n.validateFields(['confirm'], { force: !0 }), r();
+                        }
+                      else
+                        a.setState({
+                          help: (0, F.formatMessage)({ id: 'validation.password.required' }),
+                          visible: !!t,
+                        }),
+                          r('error');
+                    }),
+                    (a.changePrefix = function(e) {
+                      a.setState({ prefix: e });
+                    }),
+                    (a.renderPasswordProgress = function() {
+                      var e = a.props.form,
+                        t = e.getFieldValue('password'),
+                        r = a.getPasswordStatus();
+                      return t && t.length
+                        ? y.default.createElement(
+                            'div',
+                            { className: C.default['progress-'.concat(r)] },
+                            y.default.createElement(d.default, {
+                              status: z[r],
+                              className: C.default.progress,
+                              strokeWidth: 6,
+                              percent: 10 * t.length > 100 ? 100 : 10 * t.length,
+                              showInfo: !1,
+                            })
+                          )
+                        : null;
+                    }),
+                    a
+                  );
+                }
+                return (
+                  (0, g.default)(t, e),
+                  (0, c.default)(t, [
+                    {
+                      key: 'componentDidUpdate',
+                      value: function() {
+                        var e = this.props,
+                          t = e.form,
+                          a = e.register,
+                          r = t.getFieldValue('mail');
+                        'ok' === a.status &&
+                          S.default.push({
+                            pathname: '/user/register-result',
+                            state: { account: r },
+                          });
+                      },
+                    },
+                    {
+                      key: 'componentWillUnmount',
+                      value: function() {
+                        clearInterval(this.interval);
+                      },
+                    },
+                    {
+                      key: 'render',
+                      value: function() {
+                        var e = this.props,
+                          t = e.form,
+                          a = e.submitting,
+                          r = t.getFieldDecorator,
+                          s = this.state,
+                          d = s.count,
+                          u = s.prefix,
+                          f = s.help,
+                          c = s.visible;
+                        return y.default.createElement(
+                          'div',
+                          { className: C.default.main },
+                          y.default.createElement(
+                            'h3',
+                            null,
+                            y.default.createElement(F.FormattedMessage, {
+                              id: 'app.register.register',
+                            })
+                          ),
+                          y.default.createElement(
+                            b.default,
+                            { onSubmit: this.handleSubmit },
+                            y.default.createElement(
+                              q,
+                              null,
+                              r('mail', {
+                                rules: [
+                                  {
+                                    required: !0,
+                                    message: (0, F.formatMessage)({
+                                      id: 'validation.email.required',
+                                    }),
+                                  },
+                                  {
+                                    type: 'email',
+                                    message: (0, F.formatMessage)({
+                                      id: 'validation.email.wrong-format',
+                                    }),
+                                  },
+                                ],
+                              })(
+                                y.default.createElement(h.default, {
+                                  size: 'large',
+                                  placeholder: (0, F.formatMessage)({
+                                    id: 'form.email.placeholder',
+                                  }),
+                                })
+                              )
+                            ),
+                            y.default.createElement(
+                              q,
+                              { help: f },
+                              y.default.createElement(
+                                o.default,
+                                {
+                                  content: y.default.createElement(
+                                    'div',
+                                    { style: { padding: '4px 0' } },
+                                    D[this.getPasswordStatus()],
+                                    this.renderPasswordProgress(),
+                                    y.default.createElement(
+                                      'div',
+                                      { style: { marginTop: 10 } },
+                                      y.default.createElement(F.FormattedMessage, {
+                                        id: 'validation.password.strength.msg',
+                                      })
+                                    )
+                                  ),
+                                  overlayStyle: { width: 240 },
+                                  placement: 'right',
+                                  visible: c,
+                                },
+                                r('password', { rules: [{ validator: this.checkPassword }] })(
+                                  y.default.createElement(h.default, {
+                                    size: 'large',
+                                    type: 'password',
+                                    placeholder: (0, F.formatMessage)({
+                                      id: 'form.password.placeholder',
+                                    }),
+                                  })
+                                )
+                              )
+                            ),
+                            y.default.createElement(
+                              q,
+                              null,
+                              r('confirm', {
+                                rules: [
+                                  {
+                                    required: !0,
+                                    message: (0, F.formatMessage)({
+                                      id: 'validation.confirm-password.required',
+                                    }),
+                                  },
+                                  { validator: this.checkConfirm },
+                                ],
+                              })(
+                                y.default.createElement(h.default, {
+                                  size: 'large',
+                                  type: 'password',
+                                  placeholder: (0, F.formatMessage)({
+                                    id: 'form.confirm-password.placeholder',
+                                  }),
+                                })
+                              )
+                            ),
+                            y.default.createElement(
+                              q,
+                              null,
+                              y.default.createElement(
+                                x,
+                                { compact: !0 },
+                                y.default.createElement(
+                                  v.default,
+                                  {
+                                    size: 'large',
+                                    value: u,
+                                    onChange: this.changePrefix,
+                                    style: { width: '20%' },
+                                  },
+                                  y.default.createElement(N, { value: '86' }, '+86'),
+                                  y.default.createElement(N, { value: '87' }, '+87')
+                                ),
+                                r('mobile', {
+                                  rules: [
+                                    {
+                                      required: !0,
+                                      message: (0, F.formatMessage)({
+                                        id: 'validation.phone-number.required',
+                                      }),
+                                    },
+                                    {
+                                      pattern: /^\d{10}$/,
+                                      message: (0, F.formatMessage)({
+                                        id: 'validation.phone-number.wrong-format',
+                                      }),
+                                    },
+                                  ],
+                                })(
+                                  y.default.createElement(h.default, {
+                                    size: 'large',
+                                    style: { width: '80%' },
+                                    placeholder: (0, F.formatMessage)({
+                                      id: 'form.phone-number.placeholder',
+                                    }),
+                                  })
+                                )
+                              )
+                            ),
+                            y.default.createElement(
+                              q,
+                              null,
+                              y.default.createElement(
+                                l.default,
+                                { gutter: 8 },
+                                y.default.createElement(
+                                  n.default,
+                                  { span: 16 },
+                                  r('captcha', {
+                                    rules: [
+                                      {
+                                        required: !0,
+                                        message: (0, F.formatMessage)({
+                                          id: 'validation.verification-code.required',
+                                        }),
+                                      },
+                                    ],
+                                  })(
+                                    y.default.createElement(h.default, {
+                                      size: 'large',
+                                      placeholder: (0, F.formatMessage)({
+                                        id: 'form.verification-code.placeholder',
+                                      }),
+                                    })
+                                  )
+                                ),
+                                y.default.createElement(
+                                  n.default,
+                                  { span: 8 },
+                                  y.default.createElement(
+                                    i.default,
+                                    {
+                                      size: 'large',
+                                      disabled: d,
+                                      className: C.default.getCaptcha,
+                                      onClick: this.onGetCaptcha,
+                                    },
+                                    d
+                                      ? ''.concat(d, ' s')
+                                      : (0, F.formatMessage)({
+                                          id: 'app.register.get-verification-code',
+                                        })
+                                  )
+                                )
+                              )
+                            ),
+                            y.default.createElement(
+                              q,
+                              null,
+                              y.default.createElement(
+                                i.default,
+                                {
+                                  size: 'large',
+                                  loading: a,
+                                  className: C.default.submit,
+                                  type: 'primary',
+                                  htmlType: 'submit',
+                                },
+                                y.default.createElement(F.FormattedMessage, {
+                                  id: 'app.register.register',
+                                })
+                              ),
+                              y.default.createElement(
+                                P.default,
+                                { className: C.default.login, to: '/User/Login' },
+                                y.default.createElement(F.FormattedMessage, {
+                                  id: 'app.register.sing-in',
+                                })
+                              )
+                            )
+                          )
+                        );
+                      },
+                    },
+                  ]),
+                  t
+                );
+              })(y.Component))
+            ) || M)
+        ) || M),
+        I = W;
+      t.default = I;
+    },
+  },
+]);
