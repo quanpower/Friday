@@ -16,11 +16,15 @@ const { Description } = DescriptionList;
 export default class ProductProfile extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
+    const { product_id } = this.props.match.params;
+
+    console.log(this.props);
+    console.log(product_id);
 
     dispatch({
       type: 'products/fetchProductProfile',
       payload: {
-          product_id: 2,
+          product_id: product_id,
         },
     });
 

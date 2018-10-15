@@ -18,7 +18,7 @@ export default [
     authority: ['admin', 'user'],
     routes: [
       // dashboard
-      { path: '/', redirect: '/dashboard/dashboard' },
+      { path: '/', redirect: '/dashboard' },
       {
         path: '/dashboard',
         name: 'dashboard',
@@ -36,12 +36,6 @@ export default [
             path: '/equipment/product-list',
             name: 'product-list',
             component: './Product/ProductList',
-          },
-          {
-            path: '/equipment/product-profile/2',
-            name: 'product-profile',
-            hideInMenu: true,
-            component: './Product/ProductProfile',
           },
           {
             path: '/equipment/product-profile/:product_id',

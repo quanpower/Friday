@@ -72,6 +72,7 @@ class Product(db.Model):
     product_name = db.Column(db.String(100),nullable = False)
     product_key = db.Column(db.String(100),nullable = False)
     product_secret = db.Column(db.String(100))
+    product_pic = db.Column(db.String(500))
     data_format = db.Column(db.Integer, nullable = False)
     node_type = db.Column(db.Integer, nullable = False)
     aliyun_commodity_code = db.Column(db.String(100))
