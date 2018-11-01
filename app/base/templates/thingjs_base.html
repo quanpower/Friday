@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+      {% block meta %}
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/ico" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+      {% endblock meta %}
+
+      <title>SmartLinkCloud | {% block title %}{% endblock %}</title>
+
+      {% block stylesheets %}
+
+      {% endblock stylesheets %}
+      <!-- Custom Theme Style -->
+
+    {% endblock head %}
+  </head>
+
+  <body class="{% block body_class %}nav-md {% endblock body_class %}">
+    {% block body %}
+      <div class="container body">
+        <div class="main_container">
+
+
+
+          {% block content %}
+            <!-- {{ content }} -->
+          {% endblock content %}
+
+        </div>
+      </div>
+
+      {% block javascripts %}
+
+      {% endblock %}
+
+    {% endblock body %}
+  </body>
+</html>

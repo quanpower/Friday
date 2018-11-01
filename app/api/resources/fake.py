@@ -5,6 +5,36 @@ import datetime
 import json
 
 
+COUNTERS = {
+    '1': {'counter': 10},
+    '2': {'counter': 20},
+    '3': {'counter': 30},
+}
+
+
+def abort_if_device_doesnt_exist(device_id):
+    if device_id not in COUNTERS:
+        abort(404, message="Device {} doesn't exist".format(device_id))
+
+parser = reqparse.RequestParser()
+parser.add_argument('switch')
+
+
+# Todo
+# shows a single todo item and lets you delete a todo item
+class Counter(Resource):
+    def get(self, device_id):
+        abort_if_device_doesnt_exist(device_id)
+        return COUNTERS[device_id]
+
+    def post(self, device_id):
+        args = parser.parse_args()
+        if args['switch'] == 'start':
+            counter = {'counter': 0}
+            COUNTERS[device_id] = counter
+            return counter, 201
+        return 'invaild'
+
 
 
 class FakeList(Resource):

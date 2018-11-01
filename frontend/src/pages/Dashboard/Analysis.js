@@ -140,8 +140,8 @@ class Analysis extends Component {
   }
 
   render() {
-    const { rangePickerValue, salesType, loading: propsLoding, currentTabKey } = this.state;
-    const { chart, loading: stateLoading } = this.props;
+    const { rangePickerValue, salesType, loading: stateLoading, currentTabKey } = this.state;
+    const { chart, loading: propsLoading } = this.props;
     const {
       visitData,
       visitData2,
@@ -153,7 +153,7 @@ class Analysis extends Component {
       salesTypeDataOnline,
       salesTypeDataOffline,
     } = chart;
-    const loading = propsLoding || stateLoading;
+    const loading = propsLoading || stateLoading;
     let salesPieData;
     if (salesType === 'all') {
       salesPieData = salesTypeData;
@@ -501,8 +501,16 @@ class Analysis extends Component {
                       <ul className={styles.rankingList}>
                         {this.rankingListData.map((item, i) => (
                           <li key={item.title}>
-                            <span className={i < 3 ? styles.active : ''}>{i + 1}</span>
-                            <span>{item.title}</span>
+                            <span
+                              className={`${styles.rankingItemNumber} ${
+                                i < 3 ? styles.active : ''
+                              }`}
+                            >
+                              {i + 1}
+                            </span>
+                            <span className={styles.rankingItemTitle} title={item.title}>
+                              {item.title}
+                            </span>
                             <span>{numeral(item.total).format('0,0')}</span>
                           </li>
                         ))}

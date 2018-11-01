@@ -8,7 +8,6 @@ import Ellipsis from '@/components/Ellipsis';
 
 import styles from './ProductList.less';
 
-
 /* eslint react/no-array-index-key: 0 */
 @connect(({ products, loading }) => ({
   products,
@@ -21,9 +20,11 @@ export default class ProductList extends PureComponent {
     });
   }
 
-
   render() {
-    const { products: { products = [] }, loading } = this.props;
+    const {
+      products: { products = [] },
+      loading,
+    } = this.props;
 
     const cardList = products ? (
       <List
@@ -32,7 +33,6 @@ export default class ProductList extends PureComponent {
         grid={{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }}
         dataSource={products}
         renderItem={item => (
-
           <List.Item>
             <Card
               className={styles.card}
@@ -40,7 +40,7 @@ export default class ProductList extends PureComponent {
               cover={<img alt={item.product_name} src={item.product_avatar} height={154} />}
             >
               <Card.Meta
-                title={<a href={`product-profile/${item.id}`}>{item.product_name}</a>}
+                title={<a href={`#/equipment/product-profile/${item.id}`}>{item.product_name}</a>}
                 description={<Ellipsis lines={2}>{item.product_description}</Ellipsis>}
               />
               <div className={styles.cardItemContent}>
@@ -62,7 +62,6 @@ export default class ProductList extends PureComponent {
         )}
       />
     ) : null;
-
 
     return (
       <div className={styles.coverCardList}>

@@ -84,12 +84,21 @@ export default [
         name: 'status',
         routes: [
           {
-            path: '/conf2d/fabric',
+            // path: '/status/fabric',
+            path: 'http://localhost:5000/conf2d/fabric',
             name: 'configure',
+            // component: './Status/Status',
+
           },
           {
-            path: '/conf2d/errorlog',
+            path: 'http://localhost:5000/conf2d/errorlog',
             name: 'errorlog',
+            component: './Status/Errorlog',
+
+          },
+          {
+            path: 'http://localhost:5000/conf3d/storehouse',
+            name: 'storehouse',
           },
           {
             path: '/status/history/:device_id',
@@ -101,6 +110,8 @@ export default [
             path: '/status/warning/:device_id',
             name: 'warning',
             component: './Dashboard/Monitor',
+            hideInMenu: true,
+
           },
         ],
       },
@@ -297,7 +308,6 @@ export default [
             routes: [
               {
                 path: '/form/step-form',
-                name: 'stepform',
                 redirect: '/form/step-form/info',
               },
               {
