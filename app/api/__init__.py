@@ -44,5 +44,5 @@ api_resource.add_resource(ChangeLog, '/version/changelog', endpoint='changelog')
 api_resource.add_resource(TodoList, '/version/todolist', endpoint='todolist')
 api_resource.add_resource(Bugs, '/version/bugs', endpoint='bugs')
 
-api_resource.add_resource(Counter, '/counter/<device_id>', endpoint='bugs')
+api_resource.add_resource(Counter, '/counter/<device_id>', endpoint='counter')
 
