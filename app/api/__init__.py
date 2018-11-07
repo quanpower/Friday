@@ -6,7 +6,7 @@ api = Blueprint('api', __name__)
 from flask_restful import Api
 from app.api.resources import Login, Logout, GetUser, Register, Users, Projects, Products, ProductProfile, Devices, DeviceProfile, \
 DeviceDaqRealtime, DeviceDaqAlarm, DeviceDaqHistory, DeviceDaqRecord, AutoInit, FakeNotices, ChangeLog, TodoList, Bugs, \
-AddUser, AddProject, AddProduct, AddDevice, Counter
+AddUser, AddProject, AddProduct, AddDevice, MaintenanceRecord, Counter
 
 
 api_resource = Api(api)
@@ -43,6 +43,7 @@ api_resource.add_resource(FakeNotices, '/notices', endpoint='notices')
 api_resource.add_resource(ChangeLog, '/version/changelog', endpoint='changelog')
 api_resource.add_resource(TodoList, '/version/todolist', endpoint='todolist')
 api_resource.add_resource(Bugs, '/version/bugs', endpoint='bugs')
+api_resource.add_resource(MaintenanceRecord, '/profile/advanced', endpoint='maintenance_record')
 
 api_resource.add_resource(Counter, '/counter/<device_id>', endpoint='counter')
 

@@ -12,6 +12,65 @@ COUNTERS = {
 }
 
 
+
+advancedOperation1 = [
+  {
+    'key': 'op1',
+    'type': '喷嘴更换',
+    'name': '曲丽丽',
+    'status': 'agree',
+    'updatedAt': '2017-10-03  19:23:12',
+    'memo': '-',
+  },
+  {
+    'key': 'op2',
+    'type': '电机维修',
+    'name': '付小小',
+    'status': 'reject',
+    'updatedAt': '2017-10-03  19:23:12',
+    'memo': '不通过原因',
+  },
+  {
+    'key': 'op3',
+    'type': '控制器维修',
+    'name': '周毛毛',
+    'status': 'agree',
+    'updatedAt': '2017-10-03  19:23:12',
+    'memo': '-',
+  },
+
+]
+
+advancedOperation2 = [
+  {
+    'key': 'op1',
+    'type': '订购关系生效',
+    'name': '曲丽丽',
+    'status': 'agree',
+    'updatedAt': '2018-11-03  19:23:12',
+    'memo': '-',
+  },
+]
+
+advancedOperation3 = [
+  {
+    'key': 'op1',
+    'type': '系统升级',
+    'name': '汗牙牙',
+    'status': 'agree',
+    'updatedAt': '2018-11-03  19:23:12',
+    'memo': '-',
+  },
+]
+
+
+getProfileAdvancedData = {
+  'advancedOperation1': advancedOperation1,
+  'advancedOperation2':advancedOperation2,
+  'advancedOperation3':advancedOperation3
+}
+
+
 def abort_if_device_doesnt_exist(device_id):
     if device_id not in COUNTERS:
         abort(404, message="Device {} doesn't exist".format(device_id))
@@ -34,6 +93,14 @@ class Counter(Resource):
             COUNTERS[device_id] = counter
             return counter, 201
         return 'invaild'
+
+class MaintenanceRecord(Resource):
+    def get(self):
+        
+        return json.dumps(getProfileAdvancedData)
+
+    def post(self):
+        pass
 
 
 

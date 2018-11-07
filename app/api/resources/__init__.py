@@ -3,7 +3,7 @@ from .daq import Projects, Products, ProductProfile, Devices, DeviceProfile, Dev
 
 from .auto_init import AutoInit
 from .add_mannual import AddUser, AddProject, AddProduct, AddDevice
-from .fake import FakeNotices, Counter
+from .fake import FakeNotices, Counter, MaintenanceRecord
 from .version import ChangeLog, TodoList
 from .bug import Bugs
 
@@ -31,5 +31,6 @@ __all__ = [
     'ChangeLog',
     'TodoList',
     'Bugs',
-    'Counter'
+    'Counter',
+    'MaintenanceRecord',
 ]
