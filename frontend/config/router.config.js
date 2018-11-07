@@ -106,9 +106,55 @@ export default [
             name: '3D',
           },
           {
-            path: '/status/history/:device_id',
+            path: '/status/digital/:device_id',
             // redirect: '/dashboard/history/2',
+            name: 'digital',
+            hideInMenu: true,
+
+            component: './Display/Digital',
+          },        
+          {
+            path: '/status/bar/:device_id',
+            // redirect: '/dashboard/history/2',
+            name: 'bar',
+            hideInMenu: true,
+
+            component: './Display/Bar',
+          },
+          {
+            path: '/status/line/:device_id',
+            // redirect: '/dashboard/history/2',
+            name: 'line',
+            hideInMenu: true,
+            component: './Display/Line',
+          },
+
+          {
+            path: '/status/digital/2',
+            name: 'digital',
+            component: './Display/Digital',
+          },        
+          {
+            path: '/status/bar/2',
+            name: 'bar',
+            component: './Display/Bar',
+          },
+          {
+            path: '/status/line/2',
+            name: 'line',
+            component: './Display/Line',
+          },
+          {
+            path: '/status/gauge/2',
+            name: 'gauge',
+            component: './Display/Gauge',
+          },          
+
+          {
+            path: '/status/history/:device_id',
             name: 'history',
+            hideInMenu: true,
+
             component: './Dashboard/Monitor',
           },
           {
@@ -129,7 +175,7 @@ export default [
         name: 'operations',
         routes: [
           {
-            path: 'http://www.smartlinkcloud.com:8009/tickets',
+            path: 'http://www.smartlinkcloud.com:6688/tickets',
             name: 'ticket',
           },
           {
@@ -146,6 +192,8 @@ export default [
           {
             path: '/operations/maintenance-tips',
             name: 'maintenance-tips',
+            hideInMenu: true,
+
             component: './Project/ProjectList',
           },
         ],
@@ -161,27 +209,32 @@ export default [
           {
             path: '/analytics/data-source-config',
             name: 'data-source-config',
+            hideInMenu: true,
+
             component: './Project/ProjectList',
           },
           {
             path: '/analytics/kpi',
             name: 'kpi',
-            component: './Project/ProjectList',
+            component: './DataAnalytics/KPI',
           },
           {
             path: '/analytics/energy',
             name: 'energy',
-            component: './Project/ProjectList',
+
+            component: './DataAnalytics/Energy',
           },
           {
             path: '/analytics/spatial-data-analysis',
             name: 'spatial-data-analysis',
-            component: './Project/ProjectList',
+
+            component: './DataAnalytics/Spatial',
           },
           {
             path: '/analytics/stream-data-analysis',
             name: 'stream-data-analysis',
-            component: './Project/ProjectList',
+
+            component: './DataAnalytics/Stream',
           },
         ],
       },
@@ -240,6 +293,18 @@ export default [
                 path: '/extensions/edge/driver',
                 name: 'edge-driver',
                 component: './Project/ProjectList',
+                routes: [
+                  {
+                    path: '/extensions/edge/driver/opc-ua',
+                    name: 'opc-ua',
+                    component: './Project/ProjectList',
+                  },
+                  {
+                    path: '/extensions/edge/driver/modbus',
+                    name: 'modbus',
+                    component: './Project/ProjectList',
+                  },
+                ]
               },
             ],
           },
@@ -252,7 +317,7 @@ export default [
             name: 'rule-engine',
             routes: [
               {
-                path: '/extensions/rule-engine/node-red',
+                path: 'http://www.smartlinkcloud.com:1880',
 
                 name: 'node-red',
                 component: './Project/ProjectList',

@@ -4,17 +4,17 @@
 -----
 
 
-## 2018/09/17--2018/09/23
+## 2018/11/05--2018/11/12
 
 ### ToAdd
-- 使用go.js 生成2d组件.
+- customer manage.
 
 
 ### ToChange
-- ~~利用fabric绘制设备监控模拟图.~~
-- ~~利用fabric绘制设备监控报警图.~~
+- ~~edit tickets system~~
+- ~~redash~~
 
 ### ToRemove
-- ~~Alarm Page.~~
+- ~~data source config.~~
 
 

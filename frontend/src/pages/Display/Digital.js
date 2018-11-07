@@ -52,7 +52,7 @@ export default class Analysis extends Component {
     //     device_id: '20180704',
     //   },
     // });
-    router.push('/dashboard/display/digital/2')
+    
 
     console.log('this.props')
     console.log(this.props);

@@ -16,6 +16,66 @@
 ## [Unreleased]
 ---
 
+## [0.3.0] - 2018-11-07
+### Added
+- add Spatial Data Analysis 
+- add Stream Data Analysis
+
+
+## [0.2.9] - 2018-11-05
+### Added
+- add data source config
+- redash
+
+## [0.2.8] - 2018-11-02
+### Added
+- add data analysis
+- add echarts
+
+
+## [0.2.7] - 2018-10-28
+### Added
+- add edge manage
+- add opcua,modbus driver
+
+
+## [0.2.6] - 2018-10-23
+### Added
+- add edge manage
+- add opcua,modbus driver
+
+
+## [0.2.5] - 2018-10-19
+### Added
+- add maintenance record
+
+
+## [0.2.4] - 2018-10-15
+### Added
+- add tickets system v0.1
+- add ticket demo
+
+
+## [0.2.3] - 2018-10-03
+### Added
+- add 3D demo 
+
+
+## [0.2.2] - 2018-09-29
+### Added
+- add project manage
+
+
+## [0.2.1] - 2018-09-26
+### Changed
+- edit device list
+
+
+## [0.2.0] - 2018-09-23
+### Added
+- add things.js for 3d
+
+
 ## [0.1.9] - 2018-09-18
 ### Added
 - add go.js for diagram graph

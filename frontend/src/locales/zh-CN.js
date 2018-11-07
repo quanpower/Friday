@@ -97,6 +97,11 @@ export default {
   'menu.status.errorlog': '报警记录',
   'menu.status.history': '历史记录',
   'menu.status.warning': 'warning',
+  'menu.status.3D': '3D演示',
+  'menu.status.bar': '棒状图',
+  'menu.status.digital': '数显表',
+  'menu.status.line': '曲线图',
+  'menu.status.gauge': '计量表',
 
   'menu.operations': '运维管理',
   'menu.operations.ticket': '维护工单',

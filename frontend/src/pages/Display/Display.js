@@ -28,7 +28,6 @@ import NumberInfo from '@/components/NumberInfo';
 import { getTimeDistance } from '@/utils/utils';
 import {BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 // import ReactEcharts from 'echarts-for-react';
-
 import styles from './Display.less';
 
 
@@ -39,7 +38,7 @@ const Yuan = ({ children }) => (
 
 @connect(({ survey, loading }) => ({
   survey,
-  loading: loading.effects['survey/fetchDeviceDaqHistory'],
+  loading: loading.effects['survey/fetchDeviceDaqRealtime'],
 }))
 
 export default class Analysis extends Component {
@@ -58,7 +57,7 @@ export default class Analysis extends Component {
     console.log(device_id);
 
     this.props.dispatch({
-      type: 'survey/fetchDeviceDaqHistory',
+      type: 'survey/fetchDeviceDaqRealtime',
       payload: {
         device_id: device_id,
       },
@@ -67,7 +66,7 @@ export default class Analysis extends Component {
     this.timer = setInterval(() => {
 
       this.props.dispatch({
-        type: 'survey/fetchDeviceDaqHistory',
+        type: 'survey/fetchDeviceDaqRealtime',
         payload: {
           device_id: device_id,
         },
@@ -114,23 +113,27 @@ export default class Analysis extends Component {
             <Row>
               <Col xl={24} lg={12} md={12} sm={24} xs={24}>
                 <div className={styles.salesBar}>
-                  <LineChart width={600} height={300} data={deviceDaqHistory}
-                          margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-                     <XAxis dataKey="time"/>
-                     <YAxis/>
-                     <CartesianGrid strokeDasharray="3 3"/>
-                     <Tooltip/>
-                     <Legend />
+                      {console.log('deviceDaqRealtime:', deviceDaqRealtime)}
+                      {console.log('realtimeBars:', realtimeBars)}
 
-                      {historyLines.map((item, i) => (
-                        <Line type={item.type} dataKey={item.dataKey} stroke={item.stroke} />
+                      <BarChart width={600} height={300} data={deviceDaqRealtime}
+                            margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                       <CartesianGrid strokeDasharray="3 3"/>
+                       <XAxis dataKey="name"/>
+                       <YAxis/>
+                       <Tooltip/>
+                       <Legend />
+
+                      {realtimeBars.map((item, i) => (
+                        <Bar dataKey={item.dataKey} fill={item.fill} />
                       ))}
 
-                  </LineChart>
+                      </BarChart>
                 </div>
               </Col>
 
             </Row>
+
           </div>
         </Card>
 
