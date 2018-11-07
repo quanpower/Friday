@@ -61,7 +61,6 @@ export async function queryTags() {
 export async function queryBasicProfile() {
   return request('/api/profile/basic');
 }
-
 export async function queryAdvancedProfile() {
   return request('/api/profile/advanced');
 }
@@ -184,3 +183,6 @@ export async function postBugs(params) {
   });
 }
 
+export async function queryMaintenanceRecord() {
+  return request('/api/operation/maintenance-record');
+}

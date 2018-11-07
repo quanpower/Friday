@@ -69,10 +69,11 @@ const columns = [
   },
 ];
 
-@connect(({ profile, loading }) => ({
-  profile,
-  loading: loading.effects['profile/fetchAdvanced'],
+@connect(({ operation, loading }) => ({
+  operation,
+  loading: loading.effects['operation/fetchAdvanced'],
 }))
+
 class AdvancedProfile extends Component {
   state = {
     operationkey: 'tab1',
@@ -81,7 +82,7 @@ class AdvancedProfile extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'profile/fetchAdvanced',
+      type: 'operation/fetchAdvanced',
     });
 
   }
@@ -96,8 +97,9 @@ class AdvancedProfile extends Component {
 
   render() {
     const { stepDirection, operationkey } = this.state;
-    const { profile, loading } = this.props;
-    const { advancedOperation1, advancedOperation2, advancedOperation3 } = profile;
+    const { operation, loading } = this.props;
+    const { advancedOperation1, advancedOperation2, advancedOperation3 } = operation;
+    
     const contentList = {
       tab1: (
         <Table

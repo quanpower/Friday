@@ -44,7 +44,7 @@ advancedOperation1 = [
 advancedOperation2 = [
   {
     'key': 'op1',
-    'type': '订购关系生效',
+    'type': '电机保养',
     'name': '曲丽丽',
     'status': 'agree',
     'updatedAt': '2018-11-03  19:23:12',
@@ -97,7 +97,7 @@ class Counter(Resource):
 class MaintenanceRecord(Resource):
     def get(self):
         
-        return json.dumps(getProfileAdvancedData)
+        return jsonify(getProfileAdvancedData)
 
     def post(self):
         pass
