@@ -30,7 +30,7 @@ class Counter(Resource):
     def post(self, device_id):
         args = parser.parse_args()
         if args['switch'] == 'start':
-            counter = {'counter': 0}
+            counter = {'status':'reseted', 'counter': 0}
             COUNTERS[device_id] = counter
             return counter, 201
         return 'invaild'

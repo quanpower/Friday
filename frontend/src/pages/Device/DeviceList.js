@@ -1,103 +1,342 @@
 import React, { PureComponent } from 'react';
-import numeral from 'numeral';
+import { findDOMNode } from 'react-dom';
+import moment from 'moment';
 import { connect } from 'dva';
-import { Row, Col, Form, Card, Select, Icon, Avatar, List, Tooltip, Dropdown, Menu } from 'antd';
+import {
+  List,
+  Card,
+  Row,
+  Col,
+  Radio,
+  Input,
+  Progress,
+  Button,
+  Icon,
+  Dropdown,
+  Menu,
+  Avatar,
+  Modal,
+  Form,
+  DatePicker,
+  Select,
+  Badge,
+} from 'antd';
 
+import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import Result from '@/components/Result';
 
 import styles from './DeviceList.less';
 
+const FormItem = Form.Item;
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
+const SelectOption = Select.Option;
+const { Search, TextArea } = Input;
 
-/* eslint react/no-array-index-key: 0 */
 @connect(({ devices, loading }) => ({
   devices,
   loading: loading.models.devices,
 }))
-export default class DeviceList extends PureComponent {
+@Form.create()
+class DeviceList extends PureComponent {
+  state = { visible: false, done: false };
+
+  formLayout = {
+    labelCol: { span: 7 },
+    wrapperCol: { span: 13 },
+  };
+
   componentDidMount() {
-    this.props.dispatch({
+    const { dispatch } = this.props;
+    dispatch({
       type: 'devices/fetchDevices',
     });
   }
 
+  showModal = () => {
+    this.setState({
+      visible: true,
+      current: undefined,
+    });
+  };
+
+  showEditModal = item => {
+    this.setState({
+      visible: true,
+      current: item,
+    });
+  };
+
+  handleDone = () => {
+    setTimeout(() => this.addBtn.blur(), 0);
+    this.setState({
+      done: false,
+      visible: false,
+    });
+  };
+
+  handleCancel = () => {
+    setTimeout(() => this.addBtn.blur(), 0);
+    this.setState({
+      visible: false,
+    });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const { dispatch, form } = this.props;
+    const { current } = this.state;
+    const id = current ? current.id : '';
+
+    setTimeout(() => this.addBtn.blur(), 0);
+    form.validateFields((err, fieldsValue) => {
+      if (err) return;
+      this.setState({
+        done: true,
+      });
+      dispatch({
+        type: 'list/submit',
+        payload: { id, ...fieldsValue },
+      });
+    });
+  };
+
+  deleteItem = id => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'list/submit',
+      payload: { id },
+    });
+  };
 
   render() {
-    const { devices: { devices }, loading, form } = this.props;
-    
-    const CardInfo = ({ status, updateAt }) => (
-      <div className={styles.cardInfo}>
-        <div>
-          <p>当前状态</p>
-          <p>{status}</p>
+    const {
+      devices: { devices },
+      loading,
+    } = this.props;
+    const {
+      form: { getFieldDecorator },
+    } = this.props;
+    const { visible, done, current = {} } = this.state;
+
+    const editAndDelete = (key, currentItem) => {
+      if (key === 'edit') this.showEditModal(currentItem);
+      else if (key === 'delete') {
+        Modal.confirm({
+          title: '删除设备',
+          content: '确定删除该设备吗？',
+          okText: '确认',
+          cancelText: '取消',
+          onOk: () => this.deleteItem(currentItem.id),
+        });
+      }
+    };
+
+    const modalFooter = done
+      ? { footer: null, onCancel: this.handleDone }
+      : { okText: '保存', onOk: this.handleSubmit, onCancel: this.handleCancel };
+
+    const Info = ({ title, value, bordered }) => (
+      <div className={styles.headerInfo}>
+        <span>{title}</span>
+        <p>{value}</p>
+        {bordered && <em />}
+      </div>
+    );
+
+    const extraContent = (
+      <div className={styles.extraContent}>
+        <RadioGroup defaultValue="all">
+          <RadioButton value="all">全部</RadioButton>
+          <RadioButton value="progress">进行中</RadioButton>
+          <RadioButton value="waiting">等待中</RadioButton>
+        </RadioGroup>
+        <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
+      </div>
+    );
+
+    const paginationProps = {
+      showSizeChanger: true,
+      showQuickJumper: true,
+      pageSize: 5,
+      total: 50,
+    };
+
+    //todo: use status
+
+    const ListContent = ( { owner, gmt_create, status } ) => (
+      <div className={styles.listContent}>
+        <div className={styles.listContentItem}>
+          <span>所有人</span>
+          <p>{owner}</p>
         </div>
-        <div>
-          <p>更新时间</p>
-          <p>{updateAt}</p>
+        <div className={styles.listContentItem}>
+          <span>添加时间</span>
+          <p>{moment(gmt_create).format('YYYY-MM-DD HH:mm')}</p>
+        </div>
+        <div className={styles.listContentItem}>
+
+          <Badge status="success" text="online" />
         </div>
       </div>
     );
 
-    const itemMenu = (
-      <Menu>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
-            1st menu item
-          </a>
-        </Menu.Item>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-            2nd menu item
-          </a>
-        </Menu.Item>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
-            3d menu item
-          </a>
-        </Menu.Item>
-      </Menu>
+    const MoreBtn = props => (
+      <Dropdown
+        overlay={
+          <Menu onClick={({ key }) => editAndDelete(key, props.current)}>
+            <Menu.Item key="edit">编辑</Menu.Item>
+            <Menu.Item key="delete">删除</Menu.Item>
+          </Menu>
+        }
+      >
+        <a>
+          更多 <Icon type="down" />
+        </a>
+      </Dropdown>
     );
+
+    const getModalContent = () => {
+      if (done) {
+        return (
+          <Result
+            type="success"
+            title="操作成功"
+            description="一系列的信息描述，很短同样也可以带标点。"
+            actions={
+              <Button type="primary" onClick={this.handleDone}>
+                知道了
+              </Button>
+            }
+            className={styles.formResult}
+          />
+        );
+      }
+      return (
+        <Form onSubmit={this.handleSubmit}>
+          <FormItem label="任务名称" {...this.formLayout}>
+            {getFieldDecorator('title', {
+              rules: [{ required: true, message: '请输入任务名称' }],
+              initialValue: current.title,
+            })(<Input placeholder="请输入" />)}
+          </FormItem>
+          <FormItem label="开始时间" {...this.formLayout}>
+            {getFieldDecorator('createdAt', {
+              rules: [{ required: true, message: '请选择开始时间' }],
+              initialValue: current.createdAt ? moment(current.createdAt) : null,
+            })(
+              <DatePicker
+                showTime
+                placeholder="请选择"
+                format="YYYY-MM-DD HH:mm:ss"
+                style={{ width: '100%' }}
+              />
+            )}
+          </FormItem>
+          <FormItem label="任务负责人" {...this.formLayout}>
+            {getFieldDecorator('owner', {
+              rules: [{ required: true, message: '请选择任务负责人' }],
+              initialValue: current.owner,
+            })(
+              <Select placeholder="请选择">
+                <SelectOption value="付晓晓">付晓晓</SelectOption>
+                <SelectOption value="周毛毛">周毛毛</SelectOption>
+              </Select>
+            )}
+          </FormItem>
+          <FormItem {...this.formLayout} label="产品描述">
+            {getFieldDecorator('subDescription', {
+              rules: [{ message: '请输入至少五个字符的产品描述！', min: 5 }],
+              initialValue: current.subDescription,
+            })(<TextArea rows={4} placeholder="请输入至少五个字符" />)}
+          </FormItem>
+        </Form>
+      );
+    };
 
     return (
-      <div className={styles.filterCardList}>
+      <PageHeaderWrapper>
+        <div className={styles.standardList}>
+          <Card bordered={false}>
+            <Row>
+              <Col sm={8} xs={24}>
+                <Info title="我的设备" value="32个" bordered />
+              </Col>
+              <Col sm={8} xs={24}>
+                <Info title="本周新增" value="8个" bordered />
+              </Col>
+              <Col sm={8} xs={24}>
+                <Info title="当前在线" value="24个" />
+              </Col>
+            </Row>
+          </Card>
 
-
-        <List
-          rowKey="id"
-          style={{ marginTop: 24 }}
-          grid={{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }}
-          loading={loading}
-          dataSource={devices}
-          renderItem={item => (
-            <List.Item key={item.id}>
-              <Card
-                hoverable
-                bodyStyle={{ paddingBottom: 20 }}
-                actions={[
-                  <Tooltip title="下载">
-                    <Icon type="download" />
-                  </Tooltip>,
-                  <Tooltip title="编辑">
-                    <Icon type="edit" />
-                  </Tooltip>,
-                  <Tooltip title="分享">
-                    <Icon type="share-alt" />
-                  </Tooltip>,
-                  <Dropdown overlay={itemMenu}>
-                    <Icon type="ellipsis" />
-                  </Dropdown>,
-                ]}
-              >
-                <Card.Meta avatar={<Avatar size="small" src={item.avatar} />} title={item.name} />
-                <div className={styles.cardItemContent}>
-                  <CardInfo
-                    status={item.status}
-                    updateAt={item.gmt_online}
+          <Card
+            className={styles.listCard}
+            bordered={false}
+            title="设备列表"
+            style={{ marginTop: 24 }}
+            bodyStyle={{ padding: '0 32px 40px 32px' }}
+            extra={extraContent}
+          >
+            <Button
+              type="dashed"
+              style={{ width: '100%', marginBottom: 8 }}
+              icon="plus"
+              onClick={this.showModal}
+              ref={component => {
+                /* eslint-disable */
+                this.addBtn = findDOMNode(component);
+                /* eslint-enable */
+              }}
+            >
+              添加
+            </Button>
+            <List
+              size="large"
+              rowKey="id"
+              loading={loading}
+              pagination={paginationProps}
+              dataSource={devices}
+              renderItem={item => (
+                <List.Item
+                  actions={[
+                    <a
+                      onClick={e => {
+                        e.preventDefault();
+                        this.showEditModal(item);
+                      }}
+                    >
+                      编辑
+                    </a>,
+                    <MoreBtn current={item} />,
+                  ]}
+                >
+                  <List.Item.Meta
+                    avatar={<Avatar src={item.avatar} shape="square" size="large" />}
+                    title={<a href={`device-profile/${item.id}`}>{item.name}</a>}
+                    description={item.device_name}
                   />
-                </div>
-              </Card>
-            </List.Item>
-          )}
-        />
-      </div>
+                  <ListContent owner={item.owner} gmt_create={item.gmt_create} status={item.status}  />
+                </List.Item>
+              )}
+            />
+          </Card>
+        </div>
+        <Modal
+          title={done ? null : `设备${current ? '编辑' : '添加'}`}
+          className={styles.standardListForm}
+          width={640}
+          bodyStyle={done ? { padding: '72px 0' } : { padding: '28px 0 0' }}
+          destroyOnClose
+          visible={visible}
+          {...modalFooter}
+        >
+          {getModalContent()}
+        </Modal>
+      </PageHeaderWrapper>
     );
   }
 }
+
+export default DeviceList;

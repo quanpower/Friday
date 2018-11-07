@@ -84,12 +84,14 @@ export default {
   'menu.equipment': 'equipment',
   'menu.equipment.product-list': 'product-list',
   'menu.equipment.product-profile': 'product-profile',
-  'menu.equipment.device': 'device',
-  'menu.equipment.device.device-list': 'device-list',
-  'menu.equipment.device.device-profile': 'device-profile',
+  'menu.equipment.device-list': 'device-list',
+  'menu.equipment.device-profile': 'device-profile',
   'menu.equipment.device.device-connect': 'device-connect',
   'menu.equipment.device.device-ebom': 'device-ebom',
   'menu.equipment.device-group': 'device-group',
+
+  'menu.project': 'project',
+  'menu.project.project-list': 'project-list',
 
   'menu.status': 'status',
   'menu.status.configure': 'configure',

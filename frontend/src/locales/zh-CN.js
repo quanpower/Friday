@@ -83,12 +83,14 @@ export default {
   'menu.equipment': '设备管理',
   'menu.equipment.product-list': '产品列表',
   'menu.equipment.product-profile': '产品详情',
-  'menu.equipment.device': '设备管理',
-  'menu.equipment.device.device-list': '设备列表',
-  'menu.equipment.device.device-profile': '设备详情',
+  'menu.equipment.device-list': '设备列表',
+  'menu.equipment.device-profile': '设备详情',
   'menu.equipment.device.device-connect': '设备连接',
   'menu.equipment.device.device-ebom': '设备E-BOM',
   'menu.equipment.device-group': '设备分组',
+
+  'menu.project': '项目管理',
+  'menu.project.project-list': '项目列表',
 
   'menu.status': '状态监控',
   'menu.status.configure': '组态展示',

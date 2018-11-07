@@ -16,22 +16,23 @@ const { Description } = DescriptionList;
 export default class DeviceProfile extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
+    const { device_id } = this.props.match.params;
     dispatch({
       type: 'devices/fetchDeviceProfile',
       payload: {
-          device_id: 1,
+          device_id: device_id,
         },
     });
 
-    this.timer = setInterval(() => {
-    dispatch({
-      type: 'devices/fetchDeviceProfile',
-      payload: {
-          device_id: 1,
-        },
-    });
+    // this.timer = setInterval(() => {
+    // dispatch({
+    //   type: 'devices/fetchDeviceProfile',
+    //   payload: {
+    //       device_id: device_id,
+    //     },
+    // });
 
-    }, 10000);
+    // }, 10000);
 
   }
 

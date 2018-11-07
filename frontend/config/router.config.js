@@ -43,37 +43,42 @@ export default [
             hideInMenu: true,
             component: './Product/ProductProfile',
           },
+
           {
-            path: '/equipment/device',
-            name: 'device',
-            routes: [
-              {
-                path: '/equipment/device/device-list',
-                name: 'device-list',
-                component: './Device/DeviceList',
-              },
-              {
-                path: '/equipment/device/device-profile/:device_id',
-                name: 'device-profile',
-                component: './Device/DeviceProfile',
-              },
-              {
-                path: '/equipment/device/device-connect/:device_id',
-                name: 'device-connect',
-                component: './Device/DeviceProfile',
-              },
-              {
-                path: '/equipment/device/device-ebom/:device_id',
-                name: 'device-ebom',
-                component: './Device/DeviceProfile',
-              },
-            ],
+            path: '/equipment/device-list',
+            name: 'device-list',
+            component: './Device/DeviceList',
           },
+
+          {
+            path: '/equipment/device-profile/:device_id',
+            name: 'device-profile',
+            hideInMenu: true,
+            component: './Device/DeviceProfile',
+          },
+
           {
             path: '/equipment/group',
             name: 'device-group',
+            hideInMenu: true,
+
             component: './Project/ProjectList',
           },
+        ],
+      },
+
+       // project
+      {
+        path: '/project',
+        icon: 'laptop',
+        name: 'project',
+        routes: [
+          {
+            path: '/project/project-list',
+            name: 'project-list',
+            component: './Project/ProjectList',
+          },
+
         ],
       },
 
@@ -85,20 +90,20 @@ export default [
         routes: [
           {
             // path: '/status/fabric',
-            path: 'http://localhost:5000/conf2d/fabric',
+            path: 'http://www.smartlinkcloud.com:8008/conf2d/fabric',
             name: 'configure',
             // component: './Status/Status',
 
           },
           {
-            path: 'http://localhost:5000/conf2d/errorlog',
+            path: 'http://www.smartlinkcloud.com:8008/conf2d/errorlog',
             name: 'errorlog',
             component: './Status/Errorlog',
 
           },
           {
-            path: 'http://localhost:5000/conf3d/storehouse',
-            name: 'storehouse',
+            path: 'http://www.smartlinkcloud.com:8008/conf3d/storehouse',
+            name: '3D',
           },
           {
             path: '/status/history/:device_id',
@@ -124,19 +129,19 @@ export default [
         name: 'operations',
         routes: [
           {
-            path: '/operations/ticket',
+            path: 'http://www.smartlinkcloud.com:8009/tickets',
             name: 'ticket',
-            component: './Project/ProjectList',
           },
           {
             path: '/operations/maintenance-record',
             name: 'maintenance-record',
-            component: './Project/ProjectList',
+            component: './Operation/MaintenanceRecord',
           },
           {
             path: '/operations/spare-parts-management',
             name: 'spare-parts-management',
             component: './Project/ProjectList',
+            hideInMenu: true,
           },
           {
             path: '/operations/maintenance-tips',
@@ -450,6 +455,7 @@ export default [
           },
         ],
       },
+      
       {
         name: 'account',
         icon: 'user',
@@ -478,6 +484,7 @@ export default [
               },
             ],
           },
+
           {
             path: '/account/settings',
             name: 'settings',

@@ -40,7 +40,7 @@ export default class ProductList extends PureComponent {
               cover={<img alt={item.product_name} src={item.product_avatar} height={154} />}
             >
               <Card.Meta
-                title={<a href={`#/equipment/product-profile/${item.id}`}>{item.product_name}</a>}
+                title={<a href={`product-profile/${item.id}`}>{item.product_name}</a>}
                 description={<Ellipsis lines={2}>{item.product_description}</Ellipsis>}
               />
               <div className={styles.cardItemContent}>

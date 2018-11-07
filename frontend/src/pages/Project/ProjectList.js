@@ -1,144 +1,136 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
-import {
-  List,
-  Card,
-  Row,
-  Col,
-  Radio,
-  Input,
-  Progress,
-  Button,
-  Icon,
-  Dropdown,
-  Menu,
-  Avatar,
-} from 'antd';
+import { Row, Col, Form, Card, Select, List } from 'antd';
 
-import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import TagSelect from '@/components/TagSelect';
+import AvatarList from '@/components/AvatarList';
+import Ellipsis from '@/components/Ellipsis';
+import StandardFormRow from '@/components/StandardFormRow';
 
 import styles from './ProjectList.less';
 
-const RadioButton = Radio.Button;
-const RadioGroup = Radio.Group;
-const { Search } = Input;
+const { Option } = Select;
+const FormItem = Form.Item;
+
+/* eslint react/no-array-index-key: 0 */
 
 @connect(({ projects, loading }) => ({
   projects,
   loading: loading.models.projects,
 }))
-
-export default class ProjectList extends PureComponent {
+@Form.create({
+  onValuesChange({ dispatch }, changedValues, allValues) {
+    // 表单项变化时请求数据
+    // eslint-disable-next-line
+    console.log(changedValues, allValues);
+    // 模拟查询表单生效
+    dispatch({
+      type: 'list/fetch',
+      payload: {
+        count: 8,
+      },
+    });
+  },
+})
+class CoverCardList extends PureComponent {
   componentDidMount() {
-    this.props.dispatch({
-      type: 'projects/fetchProjects'
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'projects/fetchProjects',
+      // payload: {
+      //   count: 8,
+      // },
     });
   }
 
   render() {
-    console.log(this.props)
+    const {
+      projects: { projects=[] },
+      loading,
+      form,
+    } = this.props;
+    const { getFieldDecorator } = form;
 
-    const { projects: { projects }, loading } = this.props;
+    const cardList = projects ? (
+      <List
+        rowKey="id"
+        loading={loading}
+        grid={{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }}
+        dataSource={projects}
+        renderItem={item => (
+          <List.Item>
+            <Card
+              className={styles.card}
+              hoverable
+              cover={<img alt={item.title} src={item.avatar} />}
+            >
+              <Card.Meta
+                title={<a>{item.title}</a>}
+                description={<Ellipsis lines={2}>{item.description}</Ellipsis>}
+              />
+              <div className={styles.cardItemContent}>
+                <span>{moment(item.updatedAt).fromNow()}</span>
+                
 
-    console.log(projects)
+              </div>
+            </Card>
+          </List.Item>
+        )}
+      />
+    ) : null;
 
-    const Info = ({ title, value, bordered }) => (
-      <div className={styles.headerInfo}>
-        <span>{title}</span>
-        <p>{value}</p>
-        {bordered && <em />}
-      </div>
-    );
-
-    const extraContent = (
-      <div className={styles.extraContent}>
-        <RadioGroup defaultValue="all">
-          <RadioButton value="all">全部</RadioButton>
-          <RadioButton value="progress">进行中</RadioButton>
-          <RadioButton value="waiting">等待中</RadioButton>
-        </RadioGroup>
-        <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
-      </div>
-    );
-
-    const paginationProps = {
-      showSizeChanger: true,
-      showQuickJumper: true,
-      pageSize: 5,
-      total: 50,
+    const formItemLayout = {
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+      },
     };
 
-    const ListContent = ({ data: { owner, createdAt, percent, status } }) => (
-      <div className={styles.listContent}>
-        <div className={styles.listContentItem}>
-          <span>Owner</span>
-          <p>{owner}</p>
-        </div>
-        <div className={styles.listContentItem}>
-          <span>开始时间</span>
-          <p>{moment(createdAt).format('YYYY-MM-DD HH:mm')}</p>
-        </div>
-        <div className={styles.listContentItem}>
-          <Progress percent={percent} status={status} strokeWidth={6} style={{ width: 180 }} />
-        </div>
-      </div>
-    );
-
-    const menu = (
-      <Menu>
-        <Menu.Item>
-          <a>编辑</a>
-        </Menu.Item>
-        <Menu.Item>
-          <a>删除</a>
-        </Menu.Item>
-      </Menu>
-    );
-
-    const MoreBtn = () => (
-      <Dropdown overlay={menu}>
-        <a>
-          更多 <Icon type="down" />
-        </a>
-      </Dropdown>
-    );
-
     return (
-      <PageHeaderWrapper>
-        <div className={styles.standardList}>
-
-          <Card
-            className={styles.listCard}
-            bordered={false}
-            title="项目列表"
-            style={{ marginTop: 24 }}
-            bodyStyle={{ padding: '0 32px 40px 32px' }}
-            extra={extraContent}
-          >
-            <Button type="dashed" style={{ width: '100%', marginBottom: 8 }} icon="plus">
-              添加
-            </Button>
-            <List
-              size="large"
-              rowKey="id"
-              loading={loading}
-              pagination={paginationProps}
-              dataSource={projects}
-              renderItem={item => (
-                <List.Item actions={[<a>编辑</a>, <MoreBtn />]}>
-                  <List.Item.Meta
-                    avatar={<Avatar src={item.logo} shape="square" size="large" />}
-                    title={<a href={item.href}>{item.title}</a>}
-                    description={item.subDescription}
-                  />
-                  <ListContent data={item} />
-                </List.Item>
-              )}
-            />
-          </Card>
-        </div>
-      </PageHeaderWrapper>
+      <div className={styles.coverCardList}>
+        <Card bordered={false}>
+          <Form layout="inline">
+            <StandardFormRow title="所属类目" block style={{ paddingBottom: 11 }}>
+              <FormItem>
+                {getFieldDecorator('category')(
+                  <TagSelect expandable>
+                    <TagSelect.Option value="cat1">智能仪表</TagSelect.Option>
+                    <TagSelect.Option value="cat2">智慧工厂</TagSelect.Option>
+                    <TagSelect.Option value="cat3">环保项目</TagSelect.Option>
+                  </TagSelect>
+                )}
+              </FormItem>
+            </StandardFormRow>
+            <StandardFormRow title="其它选项" grid last>
+              <Row gutter={16}>
+                <Col lg={8} md={10} sm={10} xs={24}>
+                  <FormItem {...formItemLayout} label="作者">
+                    {getFieldDecorator('author', {})(
+                      <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
+                        <Option value="lisa">王昭君</Option>
+                      </Select>
+                    )}
+                  </FormItem>
+                </Col>
+                <Col lg={8} md={10} sm={10} xs={24}>
+                  <FormItem {...formItemLayout} label="好评度">
+                    {getFieldDecorator('rate', {})(
+                      <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
+                        <Option value="good">优秀</Option>
+                        <Option value="normal">普通</Option>
+                      </Select>
+                    )}
+                  </FormItem>
+                </Col>
+              </Row>
+            </StandardFormRow>
+          </Form>
+        </Card>
+        <div className={styles.cardList}>{cardList}</div>
+      </div>
     );
   }
 }
+
+export default CoverCardList;
