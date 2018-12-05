@@ -1,12 +1,6 @@
-from app.home import blueprint
+from app.tickets import blueprint
 from flask import render_template
 from flask_security import login_required
-
-
-@blueprint.route('/index')
-@login_required
-def index():
-    return render_template('index.html')
 
 
 @blueprint.route('/<template>')

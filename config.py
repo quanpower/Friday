@@ -22,6 +22,15 @@ class Config:
     FLASKY_COMMENTS_PER_PAGE = 30
     FLASKY_SLOW_DB_QUERY_TIME = 0.5
 
+
+    #Flask-security
+    SECURITY_TRACKABLE = True
+    SECURITY_REGISTERABLE = True
+    SECURITY_CHANGEABLE = True
+    SECURITY_SEND_REGISTER_EMAIL = False
+    SECURITY_PASSWORD_HASH = 'bcrypt'
+    SECURITY_PASSWORD_SALT = 'smartlinkcloud'
+
     @staticmethod
     def init_app(app):
         pass

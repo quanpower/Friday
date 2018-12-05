@@ -195,6 +195,7 @@ class Products(Resource):
                 # todo:add product_avatar to database
                 # 'product_avatar': 'http://image.cn.made-in-china.com/2f0j01NMlQWPFanirm/%E6%97%A0%E7%BA%B8%E8%AE%B0%E5%BD%95%E4%BB%AA.jpg',
                 # 'product_avatar': 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536274077257&di=e78e9726a2c63a53ed28c2b85c41a6cf&imgtype=0&src=http%3A%2F%2Fimg2.everychina.com%2Fimg%2F55%2Fd2%2F99e0c324514dfd7d3d0be1026e01-600x600c0-8b6b%2Fgsm_rtu_remote_control_and_alarm_4digi_in_4relay_output.jpg',
+                # 'product_avatar': 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539579523063&di=28c5ff0e19bf6fb65d9f04bbe4bd64aa&imgtype=0&src=http%3A%2F%2Fhcff.com.cn%2FFileLoad%2F2012110714779.JPG',
                 'product_avatar':product_pic,
                 'product_name':product_name,
                 'product_key':product_key,

@@ -1,31 +1,27 @@
 from flask import render_template, redirect, request, url_for
-from flask_login import (
-    current_user,
-    login_required,
-    login_user,
-    logout_user
-)
+from flask_security import login_required
 from .forms import LoginForm, CreateAccountForm
 
 
-from app import db, login_manager
+from app import db #login_manager
 from app.base import blueprint
 from app.models import User
 
 
 @blueprint.route('/')
+@login_required
 def route_default():
-    return redirect(url_for('base_blueprint.login'))
+    return redirect(url_for('home_blueprint.index'))
 
 
-@blueprint.route('/<template>')
+# @blueprint.route('/<template>')
 # @login_required
-def route_template(template):
-    return render_template(template + '.html')
+# def route_template(template):
+#     return render_template(template + '.html')
 
 
 @blueprint.route('/fixed_<template>')
-# @login_required
+@login_required
 def route_fixed_template(template):
     return render_template('fixed/fixed_{}.html'.format(template))
 
@@ -37,38 +33,38 @@ def route_errors(error):
 ## Login & Registration
 
 
-@blueprint.route('/login', methods=['GET', 'POST'])
-def login():
-    login_form = LoginForm(request.form)
-    create_account_form = CreateAccountForm(request.form)
-    if 'login' in request.form:
-        username = str(request.form['username'])
-        password = str(request.form['password'])
-        user = User.query.filter_by(username=username).first()
-        if user and password == user.password:
-            login_user(user)
-            return redirect(url_for('base_blueprint.route_default'))
-        return render_template('errors/page_403.html')
-    elif 'create_account' in request.form:
-        login_form = LoginForm(request.form)
-        user = User(**request.form)
-        db.session.add(user)
-        db.session.commit()
-        return redirect(url_for('base_blueprint.login'))
-    if not current_user.is_authenticated:
-        return render_template(
-            'login/login.html',
-            login_form=login_form,
-            create_account_form=create_account_form
-        )
-    return redirect(url_for('home_blueprint.index'))
+# @blueprint.route('/login', methods=['GET', 'POST'])
+# def login():
+#     login_form = LoginForm(request.form)
+#     create_account_form = CreateAccountForm(request.form)
+#     if 'login' in request.form:
+#         username = str(request.form['username'])
+#         password = str(request.form['password'])
+#         user = User.query.filter_by(username=username).first()
+#         if user and password == user.password:
+#             login_user(user)
+#             return redirect(url_for('base_blueprint.route_default'))
+#         return render_template('errors/page_403.html')
+#     elif 'create_account' in request.form:
+#         login_form = LoginForm(request.form)
+#         user = User(**request.form)
+#         db.session.add(user)
+#         db.session.commit()
+#         return redirect(url_for('base_blueprint.login'))
+#     if not current_user.is_authenticated:
+#         return render_template(
+#             'login/login.html',
+#             login_form=login_form,
+#             create_account_form=create_account_form
+#         )
+#     return redirect(url_for('home_blueprint.index'))
 
 
-@blueprint.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('base_blueprint.login'))
+# @blueprint.route('/logout')
+# @login_required
+# def logout():
+#     logout_user()
+#     return redirect(url_for('base_blueprint.login'))
 
 
 @blueprint.route('/shutdown')
@@ -79,12 +75,12 @@ def shutdown():
     func()
     return 'Server shutting down...'
 
+
 ## Errors
 
-
-@login_manager.unauthorized_handler
-def unauthorized_handler():
-    return render_template('errors/page_403.html'), 403
+# @login_manager.unauthorized_handler
+# def unauthorized_handler():
+#     return render_template('errors/page_403.html'), 403
 
 
 @blueprint.errorhandler(403)

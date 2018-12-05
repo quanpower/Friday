@@ -9,7 +9,7 @@ from config import config
 from flask_admin import Admin, BaseView, expose
 from flask_admin.contrib.fileadmin import FileAdmin
 from flask_babelex import Babel
-from flask_security import SQLAlchemyUserDatastore, Security
+from flask_security import SQLAlchemyUserDatastore, Security, UserMixin, RoleMixin, login_required
 from importlib import import_module
 from logging import basicConfig, DEBUG, getLogger, StreamHandler
 
@@ -27,8 +27,8 @@ security = Security()
 
 
 # flask-login
-login_manager = LoginManager()
-login_manager.login_view = 'auth.login'
+# login_manager = LoginManager()
+# login_manager.login_view = 'base.login'
 
 # # flask-admin add views
 # from app.admin import TestAdminView,  TemperatureModelView 
@@ -44,7 +44,6 @@ login_manager.login_view = 'auth.login'
 
 
 path = op.join(op.dirname(__file__), 'static')
-print(path)
 flas_admin.add_view(FileAdmin(path, '/static/', name='Static Files'))
 
 def create_app(config_name):
@@ -75,7 +74,7 @@ def configure_extensions(app):
     mail.init_app(app)
     moment.init_app(app)
     db.init_app(app)
-    login_manager.init_app(app)
+    # login_manager.init_app(app)
     pagedown.init_app(app)
     babel.init_app(app)
     flas_admin.init_app(app)
@@ -86,18 +85,18 @@ def configure_extensions(app):
     security.init_app(app, user_datastore)
 
 
-
 def register_blueprints(app):
     """register all blueprints for application
     """
-    for module_name in ('base', 'forms', 'ui', 'home', 'tables', 'additional', 'data', 'conf2d', 'conf3d'):
+    for module_name in ('base', 'forms', 'ui', 'home', 'tables', 'additional', 'data', 'conf2d', 'conf3d', 'equipment', 'tickets'):
         module = import_module('app.{}.routes'.format(module_name))
         app.register_blueprint(module.blueprint)
+        print('---register module:' + module_name)
 
-    from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
-    from .auth import auth as auth_blueprint
-    app.register_blueprint(auth_blueprint, url_prefix='/auth')
+    # from .main import main as main_blueprint
+    # app.register_blueprint(main_blueprint)
+    # from .auth import auth as auth_blueprint
+    # app.register_blueprint(auth_blueprint, url_prefix='/auth')
     from .api import api as api_blueprint
     app.register_blueprint(api_blueprint, url_prefix='/api')
 
@@ -107,6 +106,8 @@ def configure_database(app):
     @app.before_first_request
     def initialize_database():
         db.create_all()
+        # user_datastore.create_user(email='252527676@qq.com', password='123456')
+        # db.session.commit()
 
     @app.teardown_request
     def shutdown_session(exception=None):
@@ -117,8 +118,4 @@ def configure_logs(app):
     basicConfig(filename='error.log', level=DEBUG)
     logger = getLogger()
     logger.addHandler(StreamHandler())
-
-
-
-
 

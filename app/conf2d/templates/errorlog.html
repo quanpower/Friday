@@ -1,4 +1,4 @@
-{% extends "fabric_base.html" %}
+{% extends "base_site.html" %}
 
 {% block title %} Fabric {% endblock title %}
 
@@ -18,7 +18,9 @@
     <!-- fabric.js -->
     <script src="{{ url_for('static', filename='vendors/fabric.js/dist/fabric.js') }}"></script>
 
-
+    <script type="text/javascript">
+     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
 
     <script type="text/javascript">
         var canvas =new fabric.Canvas('c'); //利用fabric找到我们的画布
@@ -690,7 +692,7 @@
 
                     home.on('selected', function(){
                         console.log('home button touched!');
-                        window.location.href="http://www.smartlinkcloud.com:8008";
+                        window.location.href="/home/index3";
                     });
 
                     alarm.on('selected', function(){

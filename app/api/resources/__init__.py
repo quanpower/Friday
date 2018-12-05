@@ -5,7 +5,6 @@ from .auto_init import AutoInit
 from .add_mannual import AddUser, AddProject, AddProduct, AddDevice
 from .fake import FakeNotices, Counter, MaintenanceRecord
 from .version import ChangeLog, TodoList
-from .bug import Bugs
 
 __all__ = [
     'Register',
@@ -30,7 +29,6 @@ __all__ = [
     'FakeNotices',
     'ChangeLog',
     'TodoList',
-    'Bugs',
     'Counter',
     'MaintenanceRecord',
 ]

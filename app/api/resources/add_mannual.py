@@ -8,8 +8,8 @@ import random
 import datetime, time
 import bitstring
 
-from app.models import User, Role, Project, Product, Device, Daq, Alarm, \
-BugOrderOfSeverity, BugPriority, Models, Version, TestingEnvironment, BugStatus, BugComment, Bug
+from app.models import User, Role, Project, Product, Device, Daq, Alarm
+
 
 time_now = datetime.datetime.now()
 

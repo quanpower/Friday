@@ -1,4 +1,4 @@
-{% extends "base_site.html" %}
+{% extends "fabric_base.html" %}
 
 {% block title %} Fabric {% endblock title %}
 
@@ -18,10 +18,6 @@
     <!-- fabric.js -->
     <script src="{{ url_for('static', filename='vendors/fabric.js/dist/fabric.js') }}"></script>
 
-    <script type="text/javascript">
-     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-    </script>
-
 
 
     <script type="text/javascript">
@@ -32,7 +28,7 @@
 
             var text1 = new fabric.Text('1#喷头', {
                 fontSize: 15,
-                left:250,
+                left:180,
                 top:120,
                 fill: 'white',
                 originX:  'center',
@@ -42,7 +38,7 @@
 
             var text2 = new fabric.Text('2#喷头', {
                 fontSize: 15,
-                left:450,
+                left:330,
                 top:120,
                 fill: 'white',
                 originX:  'center',
@@ -52,7 +48,7 @@
 
             var text3 = new fabric.Text('3#喷头', {
                 fontSize: 15,
-                left:750,
+                left:480,
                 top:120,
                 fill: 'white',
                 originX:  'center',
@@ -62,7 +58,7 @@
 
             var text4 = new fabric.Text('4#喷头', {
                 fontSize: 15,
-                left:950,
+                left:630,
                 top:120,
                 fill: 'white',
                 originX:  'center',
@@ -70,11 +66,28 @@
             });
 
 
+            var text5 = new fabric.Text('5#喷头', {
+                fontSize: 15,
+                left:830,
+                top:120,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
 
+
+            var text6 = new fabric.Text('6#喷头', {
+                fontSize: 15,
+                left:980,
+                top:120,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });
 
 
             // add current_rect_text
-            var injector_current_text1 = new fabric.Text('1号枪喷头电流', {
+            var current_text1 = new fabric.Text('1号直枪工作电流', {
                 fontSize: 15,
                 left:180,
                 top:400,
@@ -83,7 +96,7 @@
                 originY: 'center',
             });     
 
-            var injector_current_text2 = new fabric.Text('2号枪喷头电流', {
+            var current_text2 = new fabric.Text('2号直枪工作电流', {
                 fontSize: 15,
                 left:180,
                 top:436,
@@ -92,7 +105,7 @@
                 originY: 'center',
             });   
 
-            var injector_current_text3 = new fabric.Text('3号枪喷头电流', {
+            var current_text3 = new fabric.Text('3号直枪工作电流', {
                 fontSize: 15,
                 left:180,
                 top:472,
@@ -101,7 +114,7 @@
                 originY: 'center',
             });   
 
-            var injector_current_text4 = new fabric.Text('4号枪喷头电流', {
+            var current_text4 = new fabric.Text('4号直枪工作电流', {
                 fontSize: 15,
                 left:180,
                 top:508,
@@ -110,7 +123,7 @@
                 originY: 'center',
             });   
 
-            var motor_current_text1 = new fabric.Text('1号枪电机电流', {
+            var current_text5 = new fabric.Text('5号旋枪工作电流', {
                 fontSize: 15,
                 left:450,
                 top:400,
@@ -119,7 +132,7 @@
                 originY: 'center',
             });   
 
-            var motor_current_text2 = new fabric.Text('2号枪电机电流', {
+            var current_text6 = new fabric.Text('6号旋枪工作电流', {
                 fontSize: 15,
                 left:450,
                 top:436,
@@ -129,7 +142,7 @@
             });   
 
 
-            var motor_current_text3 = new fabric.Text('3号枪电机电流', {
+            var input_pressure_text = new fabric.Text('输入气源压力', {
                 fontSize: 15,
                 left:450,
                 top:472,
@@ -137,25 +150,6 @@
                 originX:  'center',
                 originY: 'center',
             });  
-
-            var motor_current_text4 = new fabric.Text('4号枪电机电流', {
-                fontSize: 15,
-                left:450,
-                top:508,
-                fill: 'white',
-                originX:  'center',
-                originY: 'center',
-            });  
-
-
-            // var input_pressure_text = new fabric.Text('输入气源压力', {
-            //     fontSize: 15,
-            //     left:450,
-            //     top:472,
-            //     fill: 'white',
-            //     originX:  'center',
-            //     originY: 'center',
-            // });  
 
 
             var material_temperature_text = new fabric.Text('材料温度', {
@@ -198,14 +192,14 @@
             });  
 
 
-            // var unit_bar = new fabric.Text('bar', {
-            //     fontSize: 15,
-            //     left:585,
-            //     top:472,
-            //     fill: 'white',
-            //     originX:  'center',
-            //     originY: 'center',
-            // });  
+            var unit_bar = new fabric.Text('bar', {
+                fontSize: 15,
+                left:585,
+                top:472,
+                fill: 'white',
+                originX:  'center',
+                originY: 'center',
+            });  
 
 
             var unit_h_1 = new fabric.Text('h', {
@@ -287,7 +281,7 @@
             }); 
 
 
-            var group_current_text = new fabric.Group([text1, text2, text3, text4, injector_current_text1, injector_current_text2, injector_current_text3, injector_current_text4, motor_current_text1, motor_current_text2, motor_current_text3, motor_current_text4, material_temperature_text, line_speed_text, current_running_time_text, accumulated_running_time_text, unit_h_1, unit_min_1, unit_s_1, unit_h_2, unit_min_2, unit_s_2, unit_line_speed, unit_degree_celsius], {
+            var group_current_text = new fabric.Group([text1, text2, text3, text4, text5, text6, current_text1, current_text2, current_text3, current_text4, current_text5, current_text6, input_pressure_text, material_temperature_text, line_speed_text, current_running_time_text, accumulated_running_time_text, unit_bar, unit_h_1, unit_min_1, unit_s_1, unit_h_2, unit_min_2, unit_s_2, unit_line_speed, unit_degree_celsius], {
                 left: 650,
                 top: 305,
                 angle: 0,
@@ -363,11 +357,7 @@
                 var accumulated_running_time_s = data['accumulated_running_time']['s'];
                 var current_time = data['current_time'];
 
-                var mantual_auto = data['mantual_auto'];
-
-                var access_control = data['access_control'];
-
-                var injector_1_current_value = new fabric.Text(injector_1_current_value_str, {
+                var current_text_value_1 = new fabric.Text(current_value_1, {
                     fontSize: 15,
                     left:300,
                     top:400,
@@ -376,7 +366,7 @@
                     originY: 'center',
                 }); 
 
-                var injector_2_current_value = new fabric.Text(injector_2_current_value_str, {
+                var current_text_value_2 = new fabric.Text(current_value_2, {
                     fontSize: 15,
                     left:300,
                     top:436,
@@ -385,7 +375,7 @@
                     originY: 'center',
                 }); 
 
-                var injector_3_current_value = new fabric.Text(injector_3_current_value_str, {
+                var current_text_value_3 = new fabric.Text(current_value_3, {
                     fontSize: 15,
                     left:300,
                     top:472,
@@ -394,7 +384,7 @@
                     originY: 'center',
                 }); 
 
-                var injector_4_current_value = new fabric.Text(injector_4_current_value_str, {
+                var current_text_value_4 = new fabric.Text(current_value_4, {
                     fontSize: 15,
                     left:300,
                     top:508,
@@ -403,7 +393,7 @@
                     originY: 'center',
                 }); 
 
-                var motor_1_current_value = new fabric.Text(motor_1_current_value_str, {
+                var current_text_value_5 = new fabric.Text(current_value_5, {
                     fontSize: 15,
                     left:550,
                     top:400,
@@ -412,7 +402,7 @@
                     originY: 'center',
                 }); 
 
-                var motor_2_current_value = new fabric.Text(motor_2_current_value_str, {
+                var current_text_value_6 = new fabric.Text(current_value_6, {
                     fontSize: 15,
                     left:550,
                     top:436,
@@ -421,19 +411,10 @@
                     originY: 'center',
                 }); 
 
-                var motor_3_current_value = new fabric.Text(motor_3_current_value_str, {
+                var input_pressure_value = new fabric.Text(input_pressure, {
                     fontSize: 15,
                     left:550,
                     top:472,
-                    fill: 'white',
-                    originX:  'center',
-                    originY: 'center',
-                }); 
-
-                var motor_4_current_value = new fabric.Text(motor_4_current_value_str, {
-                    fontSize: 15,
-                    left:550,
-                    top:508,
                     fill: 'white',
                     originX:  'center',
                     originY: 'center',
@@ -522,76 +503,7 @@
                     originY: 'center',
                 });
 
-
-                // mantual_auto group
-
-                var mantual_auto_bg = new fabric.Rect(
-                    {  //创建我们的正方形
-                        left:100,
-                        top:100,
-                        fill:mantual_auto == '1'? 'blue':'green',
-                        width:50,
-                        height:20,
-                        originX:  'center',
-                        originY: 'center',
-                    });
-
-                var mantual_auto_text = new fabric.Text(mantual_auto=='1'?'手动':'自动', {
-                        fontSize: 15,
-                        left:100,
-                        top:100,
-                        fill: 'white',
-                        fontWeight:'bold',
-                        originX:  'center',
-                        originY: 'center',
-                });
-
-
-                var mantual_auto_group = new fabric.Group([mantual_auto_bg, mantual_auto_text], {
-                        left: 850,
-                        top: 500,
-                        angle: 0,
-                        originX:  'center',
-                        originY: 'center',
-                })
-                canvas.add(mantual_auto_group);
-
-
-                // access control group
-                var access_control_bg = new fabric.Rect(
-                    {  //创建我们的正方形
-                        left:100,
-                        top:100,
-                        fill:access_control == '1'? 'blue':'green',
-                        width:50,
-                        height:20,
-                        originX:  'center',
-                        originY: 'center',
-                    });
-
-                var access_control_text = new fabric.Text(access_control=='1'?'开':'关', {
-                        fontSize: 15,
-                        left:100,
-                        top:100,
-                        fill: 'white',
-                        fontWeight:'bold',
-                        originX:  'center',
-                        originY: 'center',
-                });
-
-
-                var access_control_group = new fabric.Group([access_control_bg, access_control_text], {
-                        left: 1000,
-                        top: 500,
-                        angle: 0,
-                        originX:  'center',
-                        originY: 'center',
-                })
-
-
-                canvas.add(access_control_group);
-
-                var realtime_value_group = new fabric.Group([injector_1_current_value, injector_2_current_value, injector_3_current_value, injector_4_current_value, motor_1_current_value, motor_2_current_value, motor_3_current_value, motor_4_current_value, material_temprature_value, line_speed_value, current_running_time_h_value, current_running_time_min_value, current_running_time_s_value, accumulated_running_time_h_value, accumulated_running_time_min_value, accumulated_running_time_s_value, canleder_date], {
+                var realtime_value_group = new fabric.Group([current_text_value_1, current_text_value_2, current_text_value_3, current_text_value_4, current_text_value_5, current_text_value_6, input_pressure_value, material_temprature_value, line_speed_value, current_running_time_h_value, current_running_time_min_value, current_running_time_s_value, accumulated_running_time_h_value, accumulated_running_time_min_value, accumulated_running_time_s_value, canleder_date], {
                         left: 652,
                         top: 270,
                         angle: 0,
@@ -609,6 +521,9 @@
                 var work_status_2 = data['work_status']['work_status_2'];
                 var work_status_3 = data['work_status']['work_status_3'];
                 var work_status_4 = data['work_status']['work_status_4'];
+                var work_status_5 = data['work_status']['work_status_5'];
+                var work_status_6 = data['work_status']['work_status_6'];
+
 
                 var get_png_1 = function(status){
                     var x = "";
@@ -646,7 +561,7 @@
 
                 fabric.Image.fromURL(get_png_1(work_status_1), function(oImg) {
                   oImg.set({
-                        left: 250,
+                        left: 50,
                         top: 150,
                         originX:  'center',
                         originY: 'center',
@@ -658,7 +573,7 @@
                     // add pentou2
                     fabric.Image.fromURL(get_png_1(work_status_2), function(oImg) {
                       oImg.set({
-                            left: 450,
+                            left: 200,
                             top: 150,
                             originX:  'center',
                             originY: 'center',
@@ -670,7 +585,7 @@
                         // add pentou3
                         fabric.Image.fromURL(get_png_2(work_status_3), function(oImg) {
                           oImg.set({
-                                left: 750,
+                                left: 350,
                                 top: 150,
                                 originX:  'center',
                                 originY: 'center',
@@ -683,7 +598,7 @@
                             // add pentou4
                             fabric.Image.fromURL(get_png_1(work_status_4), function(oImg) {
                               oImg.set({
-                                    left: 950,
+                                    left: 500,
                                     top: 150,
                                     originX:  'center',
                                     originY: 'center',
@@ -692,14 +607,44 @@
 
                               var pentou_img4 = oImg;
 
-                                var group_pentou = new fabric.Group([pentou_img1, pentou_img2, pentou_img3,pentou_img4], {
-                                        left: 265,
-                                        top: 100,
-                                        angle: 0
-                                    })
 
-                                canvas.add(group_pentou);
+                                // add pentou5
+                                fabric.Image.fromURL(get_png_1(work_status_5), function(oImg) {
+                                  oImg.set({
+                                        left: 700,
+                                        top: 150,
+                                        originX:  'center',
+                                        originY: 'center',
+                                    });
+                                  oImg.scale(0.4);
 
+                                  pentou_img5 = oImg;
+
+
+                                    // add pentou6
+                                    fabric.Image.fromURL(get_png_2(work_status_6), function(oImg) {
+                                      oImg.set({
+                                            left: 850,
+                                            top: 150,
+                                            originX:  'center',
+                                            originY: 'center',
+                                        });
+                                      oImg.scale(0.4);
+
+                                      var pentou_img6 = oImg;
+
+
+                                        var group_pentou = new fabric.Group([pentou_img1, pentou_img2, pentou_img3,pentou_img4, pentou_img5, pentou_img6], {
+                                                left: 200,
+                                                top: 100,
+                                                angle: 0
+                                            })
+
+                                        canvas.add(group_pentou);
+
+                                    });//pentou6 end
+
+                                });//pentou5 end
 
                             });//pentou4 end
 
@@ -935,7 +880,7 @@
 
                     alarm.on('selected', function(){
                         console.log('alarm button touched!');
-                        window.location.href="errorlog";
+                        window.location.href="http://www.smartlinkcloud.com:8008/conf2d/errorlog";
                     });
 
                 });
