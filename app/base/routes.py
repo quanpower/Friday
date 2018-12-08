@@ -11,7 +11,7 @@ from app.models import User
 @blueprint.route('/')
 @login_required
 def route_default():
-    return redirect(url_for('home_blueprint.index3'))
+    return redirect(url_for('home_blueprint.index'))
 
 
 @blueprint.route('/<template>')
