@@ -205,10 +205,10 @@
               </th>
               <th>
                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                  <p class="">Device</p>
+                  <p class="">地域 </p>
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                  <p class="">Progress</p>
+                  <p class="">比例</p>
                 </div>
               </th>
             </tr>
@@ -328,5 +328,8 @@
   <script src="{{ url_for('static', filename='vendors/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
   <!-- easy-pie-chart -->
   <script src="{{ url_for('static', filename='vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js') }}"></script>
+  <!-- ECharts -->
+  <script src="{{ url_for('static', filename='vendors/echarts/dist/echarts.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/echarts/map/js/world.js') }}"></script>
 {% endblock javascripts %}
 
