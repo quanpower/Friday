@@ -70,7 +70,7 @@
       <div class="col-md-4 col-sm-6 col-xs-12">
         <div class="x_panel fixed_height_320">
           <div class="x_title">
-            <h2>产品分布 <small>Products</small></h2>
+            <h2>产品分布 <small>Product</small></h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -89,88 +89,8 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-            <h4>产品分布</h4>
-            <div class="widget_summary">
-              <div class="w_left w_25">
-                <span>4头</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>10</span>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-
-            <div class="widget_summary">
-              <div class="w_left w_25">
-                <span>6头</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>4</span>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-            <div class="widget_summary">
-              <div class="w_left w_25">
-                <span>8头</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>2</span>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-            <div class="widget_summary">
-              <div class="w_left w_25">
-                <span>10头</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>1</span>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-            <div class="widget_summary">
-              <div class="w_left w_25">
-                <span>12头</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>1</span>
-              </div>
-              <div class="clearfix"></div>
-            </div>
+              <div id="products" style="height:300px;"></div>
+            
 
           </div>
         </div>
@@ -198,60 +118,8 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-          <table class="" style="width:100%">
-            <tr>
-              <th style="width:37%;">
-                <p>Top 5</p>
-              </th>
-              <th>
-                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                  <p class="">地域 </p>
-                </div>
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                  <p class="">比例</p>
-                </div>
-              </th>
-            </tr>
-            <tr>
-              <td>
-                <canvas id="canvas1" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>
-              </td>
-              <td>
-                <table class="tile_info">
-                  <tr>
-                    <td>
-                      <p><i class="fa fa-square blue"></i>上海 </p>
-                    </td>
-                    <td>30%</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p><i class="fa fa-square green"></i>杭州 </p>
-                    </td>
-                    <td>10%</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p><i class="fa fa-square purple"></i>北京 </p>
-                    </td>
-                    <td>20%</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p><i class="fa fa-square aero"></i>深圳 </p>
-                    </td>
-                    <td>15%</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p><i class="fa fa-square red"></i>其他 </p>
-                    </td>
-                    <td>30%</td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
+              <div id="region" style="height:300px;"></div>
+
           </div>
         </div>
       </div>
@@ -278,17 +146,8 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-            <div class="dashboard-widget-content">
-              <div class="sidebar-widget">
-                <h4>故障率</h4>
-                <canvas width="150" height="80" id="chart_gauge_01" class="" style="width: 160px; height: 100px;"></canvas>
-                <div class="goal-wrapper">
-                  <span id="gauge-text" class="gauge-value gauge-chart pull-left">0</span>
-                  <span class="gauge-value pull-left">%</span>
-                  <span id="goal-text" class="goal-value pull-right">100%</span>
-                </div>
-              </div>
-            </div>
+              <div id="error" style="height:300px;"></div>
+
           </div>
         </div>
       </div>
@@ -300,6 +159,9 @@
 
 {% block javascripts %}
   {{ super()}}
+
+
+
   <!-- Chart.js -->
   <script src="{{ url_for('static', filename='vendors/Chart.js/dist/Chart.min.js') }}"></script>
   <!-- gauge.js -->
@@ -331,5 +193,108 @@
   <!-- ECharts -->
   <script src="{{ url_for('static', filename='vendors/echarts/dist/echarts.min.js') }}"></script>
   <script src="{{ url_for('static', filename='vendors/echarts/map/js/world.js') }}"></script>
+
+  
+  <script type="text/javascript">
+    // 初始化图表标签
+    var myChart = echarts.init(document.getElementById('products'));
+    var options={
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+
+    series : [
+        {
+            name: '访问来源',
+            type: 'pie',
+            radius : '45%',
+            center: ['50%', '40%'],
+            data:[
+                {value:35, name:'直接访问'},
+                {value:310, name:'邮件营销'},
+                {value:234, name:'联盟广告'},
+                {value:135, name:'视频广告'},
+                {value:148, name:'搜索引擎'}
+            ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+    ]
+};
+    myChart.setOption(options);
+</script>
+
+
+  
+  <script type="text/javascript">
+    // 初始化图表标签
+    var myChart1 = echarts.init(document.getElementById('region'));
+    var options={
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+
+    series : [
+        {
+            name: '访问来源',
+            type: 'pie',
+            radius : '45%',
+            center: ['50%', '40%'],
+            data:[
+                {value:2335, name:'直接访问'},
+                {value:310, name:'邮件营销'},
+                {value:234, name:'联盟广告'},
+                {value:135, name:'视频广告'},
+                {value:1548, name:'搜索引擎'}
+            ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+    ]
+};
+    myChart1.setOption(options);
+</script>
+
+
+
+  <script type="text/javascript">
+    // 初始化图表标签
+    var myChart2 = echarts.init(document.getElementById('error'));
+    var options = {
+    tooltip : {
+        formatter: "{a} <br/>{b} : {c}%"
+    },
+    toolbox: {
+        feature: {
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+    series: [
+        {
+            name: '故障指标',
+            type: 'gauge',
+            radius: '55%',
+            center: ['50%', '40%'],
+            detail: {formatter:'{value}%'},
+            data: [{value: 6, name: ''}]
+        }
+    ]
+};
+    myChart2.setOption(options);
+</script>
+
 {% endblock javascripts %}
 

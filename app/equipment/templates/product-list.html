@@ -1,6 +1,6 @@
 {% extends "base_site.html" %}
 
-{% block title %} Media Gallery {% endblock title %}
+{% block title %} product list {% endblock title %}
 
 {% block stylesheets %}
   {{ super() }}
@@ -56,193 +56,26 @@
 
                 <p>Tips:每一类不同型号作为一款产品</p>
 
-                <div class="col-md-55">
-                  <div class="thumbnail">
-                    <div class="image view view-first">
-                      <img style="width: 100%; display: block;" src="/static/images/media.jpg" alt="image" />
-                      <div class="mask">
-                        <p>Your Text</p>
-                        <div class="tools tools-bottom">
-                          <a href="#"><i class="fa fa-link"></i></a>
-                          <a href="#"><i class="fa fa-pencil"></i></a>
-                          <a href="#"><i class="fa fa-times"></i></a>
+                  {% for product in products %}
+                    <div class="col-md-55">
+                      <div class="thumbnail">
+                        <div class="image view view-first">
+                          <img style="width: 100%; display: block;" src="{{ product.product_pic }}" alt="image" />
+                          <div class="mask">
+                            <p>{{ product.product_name }}</p>
+                            <div class="tools tools-bottom">
+                              <a href="#"><i class="fa fa-link"></i></a>
+                              <a href="#"><i class="fa fa-pencil"></i></a>
+                              <a href="#"><i class="fa fa-times"></i></a>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="caption">
+                          <p>{{ product.product_description }}</p>
                         </div>
                       </div>
                     </div>
-                    <div class="caption">
-                      <p>Snow and Ice Incoming for the South</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-55">
-                  <div class="thumbnail">
-                    <div class="image view view-first">
-                      <img style="width: 100%; display: block;" src="/static/images/media.jpg" alt="image" />
-                      <div class="mask">
-                        <p>Your Text</p>
-                        <div class="tools tools-bottom">
-                          <a href="#"><i class="fa fa-link"></i></a>
-                          <a href="#"><i class="fa fa-pencil"></i></a>
-                          <a href="#"><i class="fa fa-times"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="caption">
-                      <p>Snow and Ice Incoming for the South</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-55">
-                  <div class="thumbnail">
-                    <div class="image view view-first">
-                      <img style="width: 100%; display: block;" src="/static/images/media.jpg" alt="image" />
-                      <div class="mask">
-                        <p>Your Text</p>
-                        <div class="tools tools-bottom">
-                          <a href="#"><i class="fa fa-link"></i></a>
-                          <a href="#"><i class="fa fa-pencil"></i></a>
-                          <a href="#"><i class="fa fa-times"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="caption">
-                      <p>Snow and Ice Incoming for the South</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-55">
-                  <div class="thumbnail">
-                    <div class="image view view-first">
-                      <img style="width: 100%; display: block;" src="/static/images/media.jpg" alt="image" />
-                      <div class="mask">
-                        <p>Your Text</p>
-                        <div class="tools tools-bottom">
-                          <a href="#"><i class="fa fa-link"></i></a>
-                          <a href="#"><i class="fa fa-pencil"></i></a>
-                          <a href="#"><i class="fa fa-times"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="caption">
-                      <p>Snow and Ice Incoming for the South</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-55">
-                  <div class="thumbnail">
-                    <div class="image view view-first">
-                      <img style="width: 100%; display: block;" src="/static/images/media.jpg" alt="image" />
-                      <div class="mask">
-                        <p>Your Text</p>
-                        <div class="tools tools-bottom">
-                          <a href="#"><i class="fa fa-link"></i></a>
-                          <a href="#"><i class="fa fa-pencil"></i></a>
-                          <a href="#"><i class="fa fa-times"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="caption">
-                      <p>Snow and Ice Incoming for the South</p>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="col-md-55">
-                  <div class="thumbnail">
-                    <div class="image view view-first">
-                      <img style="width: 100%; display: block;" src="/static/images/media.jpg" alt="image" />
-                      <div class="mask no-caption">
-                        <div class="tools tools-bottom">
-                          <a href="#"><i class="fa fa-link"></i></a>
-                          <a href="#"><i class="fa fa-pencil"></i></a>
-                          <a href="#"><i class="fa fa-times"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="caption">
-                      <p><strong>Image Name</strong>
-                      </p>
-                      <p>Snow and Ice Incoming</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-55">
-                  <div class="thumbnail">
-                    <div class="image view view-first">
-                      <img style="width: 100%; display: block;" src="/static/images/media.jpg" alt="image" />
-                      <div class="mask no-caption">
-                        <div class="tools tools-bottom">
-                          <a href="#"><i class="fa fa-link"></i></a>
-                          <a href="#"><i class="fa fa-pencil"></i></a>
-                          <a href="#"><i class="fa fa-times"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="caption">
-                      <p><strong>Image Name</strong>
-                      </p>
-                      <p>Snow and Ice Incoming</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-55">
-                  <div class="thumbnail">
-                    <div class="image view view-first">
-                      <img style="width: 100%; display: block;" src="/static/images/media.jpg" alt="image" />
-                      <div class="mask no-caption">
-                        <div class="tools tools-bottom">
-                          <a href="#"><i class="fa fa-link"></i></a>
-                          <a href="#"><i class="fa fa-pencil"></i></a>
-                          <a href="#"><i class="fa fa-times"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="caption">
-                      <p><strong>Image Name</strong>
-                      </p>
-                      <p>Snow and Ice Incoming</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-55">
-                  <div class="thumbnail">
-                    <div class="image view view-first">
-                      <img style="width: 100%; display: block;" src="/static/images/media.jpg" alt="image" />
-                      <div class="mask no-caption">
-                        <div class="tools tools-bottom">
-                          <a href="#"><i class="fa fa-link"></i></a>
-                          <a href="#"><i class="fa fa-pencil"></i></a>
-                          <a href="#"><i class="fa fa-times"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="caption">
-                      <p><strong>Image Name</strong>
-                      </p>
-                      <p>Snow and Ice Incoming</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-55">
-                  <div class="thumbnail">
-                    <div class="image view view-first">
-                      <img style="width: 100%; display: block;" src="/static/images/media.jpg" alt="image" />
-                      <div class="mask no-caption">
-                        <div class="tools tools-bottom">
-                          <a href="#"><i class="fa fa-link"></i></a>
-                          <a href="#"><i class="fa fa-pencil"></i></a>
-                          <a href="#"><i class="fa fa-times"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="caption">
-                      <p><strong>Image Name</strong>
-                      </p>
-                      <p>Snow and Ice Incoming</p>
-                    </div>
-                  </div>
-                </div>
+                  {% endfor %}
               </div>
             </div>
           </div>

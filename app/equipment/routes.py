@@ -16,7 +16,7 @@ def route_template(template):
 
 
 
-@blueprint.route('/products')
+@blueprint.route('/product-list')
 def product_list():
 
 
@@ -32,10 +32,12 @@ def product_list():
     print(products)
     products_list = []
     for product in products:
-        products_list.append()
+        products_list.append(product)
 
+    print(products_list)
+    # return jsonify(products_list)
+    return render_template('product-list.html', products=products_list)
 
-    return jsonify(products_list)
 
 
 @blueprint.route('/devices')
