@@ -238,6 +238,68 @@ class Products(Resource):
 
 
 
+
+class ProductDistribute(Resource):
+    '''
+        get the products.
+
+    '''
+
+    def get(self):
+        productLists = [
+                {'value':35, 'name':'protduct1'},
+                {'value':310, 'name':'protduct2'},
+                {'value':234, 'name':'protduct3'},
+                {'value':135, 'name':'protduct4'},
+                {'value':148, 'name':'protduct5'}
+            ]
+        print(productLists)
+        return jsonify({'product_distribute': productLists}) 
+
+    def post(self):
+        pass
+
+
+    def delete(self):
+        pass
+
+
+    def put(self):
+        pass
+
+
+
+class RegionDistribute(Resource):
+    '''
+        get the products.
+
+    '''
+
+    def get(self):
+        regionLists = [
+                {'value':35, 'name':'city1'},
+                {'value':10, 'name':'city2'},
+                {'value':34, 'name':'city3'},
+                {'value':35, 'name':'city4'},
+                {'value':48, 'name':'city5'}
+            ]
+        print(regionLists)
+        return jsonify({'region_distribute': regionLists}) 
+
+    def post(self):
+        pass
+
+
+    def delete(self):
+        pass
+
+
+    def put(self):
+        pass
+
+
+
+
 class ProductProfile(Resource):
     '''
         get the ProductProfile.

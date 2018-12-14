@@ -164,8 +164,7 @@
 
   <!-- Chart.js -->
   <script src="{{ url_for('static', filename='vendors/Chart.js/dist/Chart.min.js') }}"></script>
-  <!-- gauge.js -->
-  <script src="{{ url_for('static', filename='vendors/gauge.js/dist/gauge.min.js') }}"></script>
+ 
   <!-- Skycons -->
   <script src="{{ url_for('static', filename='vendors/skycons/skycons.js') }}"></script>
   <!-- Flot -->
@@ -180,12 +179,7 @@
   <script src="{{ url_for('static', filename='vendors/flot.curvedlines/curvedLines.js') }}"></script>
   <!-- DateJS -->
   <script src="{{ url_for('static', filename='vendors/DateJS/build/date.js') }}"></script>
-  <!-- JQVMap -->
-  <script src="{{ url_for('static', filename='vendors/jqvmap/dist/jquery.vmap.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>
-  <!-- Chart.js -->
-  <script src="{{ url_for('static', filename='vendors/Chart.js/dist/Chart.min.js') }}"></script>
+ 
   <!-- jQuery Sparklines -->
   <script src="{{ url_for('static', filename='vendors/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
   <!-- easy-pie-chart -->
@@ -206,16 +200,16 @@
 
     series : [
         {
-            name: '访问来源',
+            name: 'protduct',
             type: 'pie',
             radius : '45%',
             center: ['50%', '40%'],
             data:[
-                {value:35, name:'直接访问'},
-                {value:310, name:'邮件营销'},
-                {value:234, name:'联盟广告'},
-                {value:135, name:'视频广告'},
-                {value:148, name:'搜索引擎'}
+                {value:35, name:'protduct1'},
+                {value:310, name:'protduct2'},
+                {value:234, name:'protduct3'},
+                {value:135, name:'protduct4'},
+                {value:148, name:'protduct5'}
             ],
             itemStyle: {
                 emphasis: {
@@ -227,11 +221,25 @@
         }
     ]
 };
-    myChart.setOption(options);
+    myChart.showLoading(); // 显示加载动画
+
+    $.get('/api/distribute/product').done(function (data) {
+        myChart.hideLoading(); // 隐藏加载动画
+
+        // 填入数据
+        myChart.setOption({
+                    series: [{
+                        name: 'protduct',
+                        type: 'pie',
+                        radius : '45%',
+
+                        data: data.product_distribute
+                    }]
+        });
+    });
 </script>
 
 
-  
   <script type="text/javascript">
     // 初始化图表标签
     var myChart1 = echarts.init(document.getElementById('region'));
@@ -243,16 +251,16 @@
 
     series : [
         {
-            name: '访问来源',
+            name: 'region',
             type: 'pie',
             radius : '45%',
             center: ['50%', '40%'],
             data:[
-                {value:2335, name:'直接访问'},
-                {value:310, name:'邮件营销'},
-                {value:234, name:'联盟广告'},
-                {value:135, name:'视频广告'},
-                {value:1548, name:'搜索引擎'}
+                {value:35, name:'protduct1'},
+                {value:310, name:'protduct2'},
+                {value:234, name:'protduct3'},
+                {value:135, name:'protduct4'},
+                {value:148, name:'protduct5'}
             ],
             itemStyle: {
                 emphasis: {
@@ -264,10 +272,43 @@
         }
     ]
 };
-    myChart1.setOption(options);
+    myChart1.showLoading(); // 显示加载动画
+
+    $.get('/api/distribute/region').done(function (data) {
+        myChart1.hideLoading(); // 隐藏加载动画
+
+        // 填入数据
+        myChart1.setOption({
+                    series: [{
+                        name: 'region',
+                        type: 'pie',
+                        radius: ['50%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '30',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data: data.region_distribute
+                    }]
+
+
+        });
+    });
 </script>
-
-
 
   <script type="text/javascript">
     // 初始化图表标签
