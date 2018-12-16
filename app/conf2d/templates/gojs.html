@@ -11,12 +11,12 @@
         <div class="">
           <div class="row">
             <div id="StatusPic"
-             style="width:1000px; height:310px; margin: 50px 0; background-color: #DAE4E4;"></div>
+             style="width:1050px; height:310px; margin: 50px 0; background-color: #DAE4E4;"></div>
           </div>
 
           <div class="row">
             <div id="StatusText"
-             style="width:1000px; height:150px; margin: 1px 0; background-color: #DAE4E4;"></div>
+             style="width:1050px; height:150px; margin: 1px 0; background-color: #DAE4E4;"></div>
          </div>
         </div>
      </div>
@@ -68,7 +68,7 @@
               new go.Binding("text", "name")),
 
             $(go.Picture,
-              { width: 100, height: 150 },
+              { width: 90, height: 150 },
 
               new go.Binding("source")),
 
@@ -87,8 +87,8 @@
                       $(go.TextBlock, "injector_current_value", { stroke: "black", background: "lightgreen" },
                         new go.Binding("text", "injector_current_value")),
                     ),
-                $(go.TextBlock, "A",
-                  { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif", })
+                // $(go.TextBlock, "A",
+                //   { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif", })
             ),
 
             //motor current
@@ -104,8 +104,8 @@
                       $(go.TextBlock, "motor_current_value", { stroke: "black",background: "lightgreen" },
                         new go.Binding("text", "motor_current_value")),
                     ),
-                $(go.TextBlock, "A",
-                  { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif", })
+                // $(go.TextBlock, "A",
+                //   { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif", })
             ),
 
             //injector error
@@ -166,7 +166,11 @@
 
           { name: "7#喷头", color:"orange", source: "{{ url_for('static', filename='images/handsome/1_start.png') }}",svg_source: "{{ url_for('static', filename='images/handsome/svg.svg') }}", injector_current:"喷嘴电流:", motor_current:"电机电流:", injector_current_value:"0.5", motor_current_value:"1.5", bg_source:"{{ url_for('static', filename='images/handsome/bg.png') }}", injector_error:"喷枪息弧:", injector_error_fill:"green", master_error:"主机故障:", master_error_fill:"green", motor_error:"电机故障:", motor_error_fill:"green" },
 
-          { name: "8#喷头", color:"orange", source: "{{ url_for('static', filename='images/handsome/1_start.png') }}",svg_source: "{{ url_for('static', filename='images/handsome/svg.svg') }}", injector_current:"喷嘴电流:", motor_current:"电机电流:", injector_current_value:"0.5", motor_current_value:"1.5", bg_source:"{{ url_for('static', filename='images/handsome/bg.png') }}", injector_error:"喷枪息弧:", injector_error_fill:"green", master_error:"主机故障:", master_error_fill:"green", motor_error:"电机故障:", motor_error_fill:"green" },                              
+          { name: "8#喷头", color:"orange", source: "{{ url_for('static', filename='images/handsome/1_start.png') }}",svg_source: "{{ url_for('static', filename='images/handsome/svg.svg') }}", injector_current:"喷嘴电流:", motor_current:"电机电流:", injector_current_value:"0.5", motor_current_value:"1.5", bg_source:"{{ url_for('static', filename='images/handsome/bg.png') }}", injector_error:"喷枪息弧:", injector_error_fill:"green", master_error:"主机故障:", master_error_fill:"green", motor_error:"电机故障:", motor_error_fill:"green" },    
+
+          { name: "9#喷头", color:"orange", source: "{{ url_for('static', filename='images/handsome/1_start.png') }}",svg_source: "{{ url_for('static', filename='images/handsome/svg.svg') }}", injector_current:"喷嘴电流:", motor_current:"电机电流:", injector_current_value:"0.5", motor_current_value:"1.5", bg_source:"{{ url_for('static', filename='images/handsome/bg.png') }}", injector_error:"喷枪息弧:", injector_error_fill:"green", master_error:"主机故障:", master_error_fill:"green", motor_error:"电机故障:", motor_error_fill:"green" },  
+
+          { name: "10#喷头", color:"orange", source: "{{ url_for('static', filename='images/handsome/1_start.png') }}",svg_source: "{{ url_for('static', filename='images/handsome/svg.svg') }}", injector_current:"喷嘴电流:", motor_current:"电机电流:", injector_current_value:"0.5", motor_current_value:"1.5", bg_source:"{{ url_for('static', filename='images/handsome/bg.png') }}", injector_error:"喷枪息弧:", injector_error_fill:"green", master_error:"主机故障:", master_error_fill:"green", motor_error:"电机故障:", motor_error_fill:"green" },                                                
 
         ];
         statusPicDiagram.model = statusPicDiagramModel;
@@ -183,10 +187,10 @@
                     //sensers
                     $(go.Panel, "Table",
                         { defaultRowSeparatorStroke: "gray",defaultColumnSeparatorStroke: "gray" },
-                        $(go.RowColumnDefinition, { column: 0, width: 240 }),
-                        $(go.RowColumnDefinition, { column: 1, width: 240}),
-                        $(go.RowColumnDefinition, { column: 2, width: 240 }),
-                        $(go.RowColumnDefinition, { column: 3, width: 240 }),
+                        $(go.RowColumnDefinition, { column: 0, width: 250 }),
+                        $(go.RowColumnDefinition, { column: 1, width: 250}),
+                        $(go.RowColumnDefinition, { column: 2, width: 250 }),
+                        $(go.RowColumnDefinition, { column: 3, width: 250 }),
 
                         //temperature
                         $(go.Panel, go.Panel.Table,                  
@@ -283,11 +287,11 @@
                     //errors
                     $(go.Panel, "Table",
                         { defaultRowSeparatorStroke: "gray",defaultColumnSeparatorStroke: "gray" },
-                        $(go.RowColumnDefinition, { column: 0, width: 191 }),
-                        $(go.RowColumnDefinition, { column: 1, width: 191}),
-                        $(go.RowColumnDefinition, { column: 2, width: 191 }),
-                        $(go.RowColumnDefinition, { column: 3, width: 191 }),
-                        $(go.RowColumnDefinition, { column: 4, width: 191 }),
+                        $(go.RowColumnDefinition, { column: 0, width: 200 }),
+                        $(go.RowColumnDefinition, { column: 1, width: 200}),
+                        $(go.RowColumnDefinition, { column: 2, width: 200 }),
+                        $(go.RowColumnDefinition, { column: 3, width: 200 }),
+                        $(go.RowColumnDefinition, { column: 4, width: 200 }),
 
                         //temperature error
                         $(go.Panel, go.Panel.Table,                  
@@ -391,8 +395,8 @@
                     $(go.Panel, "Table",
                         //current_running_time
                         { defaultRowSeparatorStroke: "gray",defaultColumnSeparatorStroke: "gray" },
-                        $(go.RowColumnDefinition, { column: 0, width: 480 }),
-                        $(go.RowColumnDefinition, { column: 1, width: 480}),
+                        $(go.RowColumnDefinition, { column: 0, width: 500 }),
+                        $(go.RowColumnDefinition, { column: 1, width: 500}),
                         $(go.Panel, go.Panel.Table, 
                             { row: 0, column: 0, margin: 2, defaultAlignment: go.Spot.Center },
                             $(go.RowColumnDefinition, { column: 0, width: 100 }),
