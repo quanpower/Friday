@@ -453,6 +453,76 @@ class Devices(Resource):
         pass
 
 
+class DevicesOfProduct(Resource):
+    '''
+        get the devices of some product.
+
+    '''
+
+    def get(self, product_id):
+
+        devices = Device.query.filter_by(product_id=product_id).order_by(
+            Device.gmt_create.desc()).all()
+
+        print('--------devices--------\n' * 3)
+        print(devices)
+        devices_list = []
+        for device in devices:
+            print(device.device_name)
+            devices_list.append(device)
+
+        print(devices_list)
+
+        deviceLists = []
+
+        for device in devices:
+            device_id = device.id
+            owner = device.owner.email
+
+            name = device.name
+            device_name = device.device_name
+            device_secret = device.device_secret
+            gmt_create = device.gmt_create
+            gmt_active = device.gmt_active
+            gmt_online = device.gmt_online
+            status = device.status
+            firmware_version = device.firmware_version
+            ip_address = device.ip_address
+            node_type = device.node_type
+            region = device.region
+
+            deviceLists.append({
+                'id':device_id,
+                'owner':owner,
+                'name':name,
+                'avatar':"http://dummyimage.com/48x48/{0}/757575.png&text={1}".format(index_color(device_id), device_id),
+                'device_name':device_name,
+                'device_secret':device_secret,
+                'gmt_create':gmt_create,
+                'gmt_active':gmt_active,
+                'gmt_online':gmt_online,
+                'status': status,
+                'firmware_version': firmware_version,
+                'ip_address': ip_address,
+                'node_type': node_type,
+                'region': region,
+                })
+
+        print(deviceLists)
+        return jsonify(deviceLists) 
+
+    def post(self):
+        pass
+
+
+    def delete(self):
+        pass
+
+
+    def put(self):
+        pass
+
+
 
 class DeviceProfile(Resource):
     '''
@@ -519,6 +589,67 @@ class DeviceProfile(Resource):
 
         print(deviceLists)
         return jsonify(deviceLists) 
+
+    def post(self):
+        pass
+
+
+    def delete(self):
+        pass
+
+
+    def put(self):
+        pass
+
+
+
+
+class DeviceDetail(Resource):
+    '''
+        get the DeviceDetail.
+
+    '''
+
+    def get(self, device_id):
+
+
+        device = Device.query.filter_by(id=device_id).first()
+
+
+        device_id = device.id
+        owner = device.owner.email
+
+        name = device.name
+        device_name = device.device_name
+        device_secret = device.device_secret
+        gmt_create = device.gmt_create
+        gmt_active = device.gmt_active
+        gmt_online = device.gmt_online
+        status = device.status
+        firmware_version = device.firmware_version
+        ip_address = device.ip_address
+        node_type = device.node_type
+        region = device.region
+
+        deviceDict = {
+            'device_id':device_id,
+            'owner':owner,
+            'name':name,
+            'avatar':"http://dummyimage.com/48x48/{0}/757575.png&text={1}".format(index_color(device_id), device_id),
+            'device_name':device_name,
+            'device_secret':device_secret,
+            'gmt_create':gmt_create,
+            'gmt_active':gmt_active,
+            'gmt_online':gmt_online,
+            'status': status,
+            'firmware_version': firmware_version,
+            'ip_address': ip_address,
+            'node_type': node_type,
+            'region': region,
+            }
+
+        print(deviceDict)
+        return jsonify(deviceDict) 
 
     def post(self):
         pass
@@ -951,3 +1082,95 @@ class DeviceDaqRecord(Resource):
     def put(self):
         pass
 
+
+
+
+class DeviceHistoryRecord(Resource):
+    '''
+        get the device records device_id
+    '''
+
+    def get(self, device_id):
+
+        device_daq_records = Daq.query.filter_by(device_id=device_id).order_by(
+            Daq.gmt_daq.desc()).limit(200).all()
+
+
+        daq_dict_lists = []
+        # for temperatures in temps_records:
+        for i in range(len(device_daq_records)):
+            daqs = device_daq_records[i]
+            daq_datetime = daqs.gmt_daq
+            daq_datetime_str = datetime.datetime.strftime(daq_datetime, "%Y-%m-%d %H:%M:%S")
+            daq_values = daqs.daq_value
+
+            print(daq_values)
+
+            daq_dict = {'key':i, 'datetime':daq_datetime_str, 'daq_values':daq_values}
+
+            # for daq_value in daq_values:
+            #     daq_dict[daq_value[0]] = float('%.3f' % daq_value[1])
+
+            daq_dict_lists.append(daq_dict)
+
+        print('--daq_dict_lists---\n' * 3)
+        print(daq_dict_lists)
+
+        return jsonify(daq_dict_lists) 
+
+    def post(self):
+        pass
+
+    def delete(self):
+        pass
+
+    def put(self):
+        pass
+
+
+
+class DeviceAlarmRecord(Resource):
+    '''
+        get the temp records by the input datetime. %H:%M:S%
+    '''
+
+    def get(self, device_id):
+
+        # daq_records = db.session.query(Daq.gmt_daq, Daq.daq_value).filter(
+        #     Daq.device_id == deviceID).order_by(
+        #     Daq.gmt_daq.desc()).all()
+
+        device_alarm_records = Alarm.query.filter_by(device_id=device_id).order_by(
+            Alarm.gmt_alarm.desc()).limit(20).all()
+
+
+        alarm_dict_lists = []
+        # for temperatures in temps_records:
+        for i in range(len(device_alarm_records)):
+            alarms = device_alarm_records[i]
+            alarm_datetime = alarms.gmt_alarm
+            alarm_datetime_str = datetime.datetime.strftime(alarm_datetime, "%Y-%m-%d %H:%M:%S")
+            alarm_values = alarms.alarm_value
+
+            print(alarm_values)
+
+            alarm_dict = {'key':i, 'datetime':alarm_datetime_str, 'alarm_values':alarm_values}
+
+            # for daq_value in daq_values:
+            #     daq_dict[daq_value[0]] = float('%.3f' % daq_value[1])
+
+            alarm_dict_lists.append(alarm_dict)
+
+        print('--alarm_dict_lists---\n' * 3)
+        print(alarm_dict_lists)
+
+        return jsonify(alarm_dict_lists) 
+
+    def post(self):
+        pass
+
+    def delete(self):
+        pass
+
+    def put(self):
+        pass

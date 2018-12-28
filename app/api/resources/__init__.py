@@ -1,5 +1,7 @@
 from .user import Login, Logout, GetUser, Register, Users
-from .daq import Projects, Products, ProductProfile, Devices, DeviceProfile, DeviceDaqRealtime, DeviceDaqAlarm, DeviceDaqHistory, DeviceDaqRecord, ProductDistribute, RegionDistribute
+from .daq import Projects, Products, ProductProfile, Devices, DeviceProfile, DeviceDaqRealtime,\
+ DeviceDaqAlarm, DeviceDaqHistory, DeviceDaqRecord, ProductDistribute, RegionDistribute, \
+ DevicesOfProduct, DeviceDetail,DeviceHistoryRecord,DeviceAlarmRecord
 
 from .auto_init import AutoInit
 from .add_mannual import AddUser, AddProject, AddProduct, AddDevice
@@ -33,4 +35,8 @@ __all__ = [
     'MaintenanceRecord',
     'ProductDistribute',
     'RegionDistribute',
+    'DevicesOfProduct',
+    'DeviceDetail',
+    'DeviceHistoryRecord',
+    'DeviceAlarmRecord',
 ]
