@@ -164,10 +164,9 @@ class Products(Resource):
 
     '''
 
-    def get(self):
-        userId = 1
+    def get(self, user_id):
 
-        products = Product.query.filter_by(user_id=userId).all()
+        products = Product.query.filter_by(user_id=user_id).all()
 
         # products = db.session.query(Product.id, Product.product_name, Product.product_key, Product.data_format, 
         #     Product.node_type, Product.aliyun_commodity_code, Product.gmt_create, Product.gmt_update, Product.product_description).filter(Product.user_id == userId).order_by(
@@ -393,15 +392,11 @@ class Devices(Resource):
 
     '''
 
-    def get(self):
+    def get(self, user_id):
 
-        userId = 1
 
-        devices = Device.query.filter_by(user_id=userId).all()
-        # devices = db.session.query(Device.id, Device.name, Device.device_name, Device.device_secret, 
-        #     Device.gmt_create, Device.gmt_active, Device.gmt_online, Device.status, Device.firmware_version, 
-        #     Device.ip_address, Device.node_type, Device.region).filter(Device.user_id == userId).order_by(
-        #     Device.id.asc()).all()
+        devices = Device.query.filter_by(user_id=user_id).all()
+
 
         deviceLists = []
 
@@ -436,6 +431,7 @@ class Devices(Resource):
                 'ip_address': ip_address,
                 'node_type': node_type,
                 'region': region,
+                'running_status':'/conf2d/gojs/' + str(device_id)
                 })
 
         print(deviceLists)
@@ -506,6 +502,8 @@ class DevicesOfProduct(Resource):
                 'ip_address': ip_address,
                 'node_type': node_type,
                 'region': region,
+                'running_status':'/conf2d/gojs/' + str(device_id)
+
                 })
 
         print(deviceLists)
@@ -585,6 +583,8 @@ class DeviceProfile(Resource):
                 'ip_address': ip_address,
                 'node_type': node_type,
                 'region': region,
+                'running_status':'/conf2d/gojs/' + str(device_id)
+                
                 })
 
         print(deviceLists)
@@ -1093,7 +1093,7 @@ class DeviceHistoryRecord(Resource):
     def get(self, device_id):
 
         device_daq_records = Daq.query.filter_by(device_id=device_id).order_by(
-            Daq.gmt_daq.desc()).limit(200).all()
+            Daq.gmt_daq.desc()).limit(50).all()
 
 
         daq_dict_lists = []
@@ -1104,12 +1104,19 @@ class DeviceHistoryRecord(Resource):
             daq_datetime_str = datetime.datetime.strftime(daq_datetime, "%Y-%m-%d %H:%M:%S")
             daq_values = daqs.daq_value
 
-            print(daq_values)
+            value_list = []
+            for daq_value in daq_values:
+                value_dict={daq_value[0]:daq_value[1]}
+                # value_dict={daq_value[0]:float('%.2f' % daq_value[1])}
+                # value_dict[daq_value[0]] = float('%.2f' % daq_value[1])
+                value_list.append(value_dict)
 
-            daq_dict = {'key':i, 'datetime':daq_datetime_str, 'daq_values':daq_values}
+            print(value_list)
 
-            # for daq_value in daq_values:
-            #     daq_dict[daq_value[0]] = float('%.3f' % daq_value[1])
+            value_json = json.dumps(value_list)
+            print(value_json)
+
+            daq_dict = {'key':i, 'datetime':daq_datetime_str, 'daq_values':value_json}
 
             daq_dict_lists.append(daq_dict)
 
@@ -1136,9 +1143,6 @@ class DeviceAlarmRecord(Resource):
 
     def get(self, device_id):
 
-        # daq_records = db.session.query(Daq.gmt_daq, Daq.daq_value).filter(
-        #     Daq.device_id == deviceID).order_by(
-        #     Daq.gmt_daq.desc()).all()
 
         device_alarm_records = Alarm.query.filter_by(device_id=device_id).order_by(
             Alarm.gmt_alarm.desc()).limit(20).all()
@@ -1152,12 +1156,23 @@ class DeviceAlarmRecord(Resource):
             alarm_datetime_str = datetime.datetime.strftime(alarm_datetime, "%Y-%m-%d %H:%M:%S")
             alarm_values = alarms.alarm_value
 
+            print('-------alarm_values------')
             print(alarm_values)
 
-            alarm_dict = {'key':i, 'datetime':alarm_datetime_str, 'alarm_values':alarm_values}
+            alarm_list = []
+            for alarm_value in alarm_values:
+                print(alarm_value)
+                print(alarm_value[0])
+                print(alarm_value[1])
+                alarm_dict={alarm_value[0]: alarm_value[1]}
+                alarm_list.append(alarm_dict)
 
-            # for daq_value in daq_values:
-            #     daq_dict[daq_value[0]] = float('%.3f' % daq_value[1])
+            print(alarm_list)
+
+            alarm_json = json.dumps(alarm_list)
+            print(alarm_json)
+
+            alarm_dict = {'key':i, 'datetime':alarm_datetime_str, 'alarm_values':alarm_json}
 
             alarm_dict_lists.append(alarm_dict)
 
@@ -1174,3 +1189,77 @@ class DeviceAlarmRecord(Resource):
 
     def put(self):
         pass
+
+
+
+class DeviceRunningStatus(Resource):
+    '''
+        get the temp records by the input datetime. %H:%M:S%
+    '''
+
+    def get(self, device_id):
+
+
+        dict_1 = { 'name': "1#喷头", 'color':"orange", 'source': "/static/images/handsome/1_error.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"0.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"red" }
+        dict_2 = { 'name': "2#喷头", 'color':"orange", 'source': "/static/images/handsome/1_start.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"black" }
+        dict_3 = { 'name': "3#喷头", 'color':"orange", 'source': "/static/images/handsome/1_start.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_4 = { 'name': "4#喷头", 'color':"orange", 'source': "/static/images/handsome/1_start.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"red", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_5 = { 'name': "5#喷头", 'color':"orange", 'source': "/static/images/handsome/1_start.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_6 = { 'name': "6#喷头", 'color':"orange", 'source': "/static/images/handsome/1_close.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"orange", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_7 = { 'name': "7#喷头", 'color':"orange", 'source': "/static/images/handsome/1_start.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_8 = { 'name': "8#喷头", 'color':"orange", 'source': "/static/images/handsome/2_start.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_9 = { 'name': "9#喷头", 'color':"orange", 'source': "/static/images/handsome/2_close.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_10 = { 'name': "10#喷头", 'color':"orange", 'source': "/static/images/handsome/2_start.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        
+        print('------device_id------')
+        print(device_id)
+        status_pic_list=[]
+        if device_id == '4':
+            status_pic_list.append(dict_1)
+            status_pic_list.append(dict_2)
+            status_pic_list.append(dict_3)
+            status_pic_list.append(dict_4)
+        elif device_id == '6':
+            status_pic_list.append(dict_1)
+            status_pic_list.append(dict_2)
+            status_pic_list.append(dict_3)
+            status_pic_list.append(dict_4)
+            status_pic_list.append(dict_5)
+            status_pic_list.append(dict_6)
+        elif device_id =='8':
+            status_pic_list.append(dict_1)
+            status_pic_list.append(dict_2)
+            status_pic_list.append(dict_3)
+            status_pic_list.append(dict_4)
+            status_pic_list.append(dict_5)
+            status_pic_list.append(dict_6)
+            status_pic_list.append(dict_7)
+            status_pic_list.append(dict_8)
+        elif device_id =='10':
+            status_pic_list.append(dict_1)
+            status_pic_list.append(dict_2)
+            status_pic_list.append(dict_3)
+            status_pic_list.append(dict_4)
+            status_pic_list.append(dict_5)
+            status_pic_list.append(dict_6)
+            status_pic_list.append(dict_7)
+            status_pic_list.append(dict_8)
+            status_pic_list.append(dict_9)
+            status_pic_list.append(dict_10)
+
+        status_text_list=[{ 'pressure': "压强:", 'pressure_value':"7.2", 'velocity':"线速度:",'velocity_value':"1.5", 'voltage':"电压:", 'voltage_value':"220",  'temperature': "温度:", 'temperature_value':"23.1", 'current_running_time':"当前运行时间:", 'current_running_time_h':"111", 'current_running_time_m':"22",'current_running_time_s':"33", 'total_running_time':"累计运行时间:",'total_running_time_h':"444",'total_running_time_m':"55",'total_running_time_s':"16",'temperature_error':"温度异常", 'temperature_error_fill':"green", 'pressure_error':"气压异常", 'pressure_error_fill':"green", 'gate_error':"室门打开", 'gate_error_fill':"green", 'velocity_error':"速度异常", 'velocity_error_fill':"green", 'emergency_error':"急停开关", 'emergency_error_fill':"red" },]
+
+
+        device_running_status={'StatusPic':status_pic_list, 'StatusText':status_text_list}
+        return jsonify(device_running_status) 
+
+    def post(self):
+        pass
+
+    def delete(self):
+        pass
+
+    def put(self):
+        pass
+
+

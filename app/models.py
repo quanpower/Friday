@@ -64,7 +64,6 @@ class Project(db.Model):
     project_description = db.Column(db.String(500))
     devices = db.relationship('Device', backref='project', lazy='dynamic')
 
-
     def __repr__(self):
         return str(self.project_name)     
 

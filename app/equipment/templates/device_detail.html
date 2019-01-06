@@ -1,0 +1,497 @@
+{% extends "base_site.html" %}
+
+{% block title %} 设备详情 {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.2/bootstrap-table.min.css">
+{% endblock stylesheets %}
+
+{% block content %}
+  <div class="right_col" role="main">
+    <div class="">
+      <div class="page-title">
+        <div class="title_left">
+          <h3>设备详情 <small>Device Detail</small></h3>
+        </div>
+
+        <div class="title_right">
+          <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>基础信息<small>simple information</small></h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Settings 1</a>
+                    </li>
+                    <li><a href="#">Settings 2</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <section class="content invoice">
+                <!-- title row -->
+                <div class="row">
+                  <div class="col-xs-12 invoice-header">
+                    <h1>
+                        <i id="device_logo" class="fa fa-globe"></i> <span id="device_id">Invoice.</span>
+                        <small class="pull-right">curren_status:</small>
+                                </h1>
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- info row -->
+                <div class="row invoice-info">
+                  <div class="col-sm-4 invoice-col">
+                    <b>名称</b>
+                    <br>
+                    <br>
+                    <b>name:</b> <span id="name">4F3S8J</span>
+                    <br>
+                    <b>device_name:</b> <span id="device_name">4F3S8J</span>
+                    <br>
+                    <b>device_secret:</b> <span id="device_secret">968-34567</span>
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-4 invoice-col">
+                    <b>时间</b>
+                    <br>
+                    <br>
+                    <b>gmt_create:</b> <span id="gmt_create">2/22/2014</span>
+                    <br>
+                    <b>gmt_active:</b> <span id="gmt_active">2/22/2014</span>
+                    <br>
+                    <b>gmt_online:</b> <span id="gmt_online">2/22/2014</span>
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-4 invoice-col">
+                    <b>状态</b>
+                    <br>
+                    <br>
+                    <b>status:</b> <span id="status">4F3S8J</span>
+                    <br>
+                    <b>firmware_version:</b> <span id="firmware_version">0.0.1</span>
+                    <br>
+                    <b>ip_address:</b> <span id="ip_address">192.168.1.1</span>
+                    <br>
+                    <b>region:</b> <span id="region">968-34567</span>
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>历史记录<small>history record</small></h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Settings 1</a>
+                    </li>
+                    <li><a href="#">Settings 2</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <section class="content invoice">
+
+
+                <!-- Table row -->
+                <div class="row">
+                  <div class="col-xs-12 table">
+					<table id="device_record"></table>
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+
+
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+      
+      <div class="row">
+        <div class="col-md-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>报警记录<small>alarm record</small></h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Settings 1</a>
+                    </li>
+                    <li><a href="#">Settings 2</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <section class="content invoice">
+
+
+                <!-- Table row -->
+                <div class="row">
+                  <div class="col-xs-12 table">
+					<table id="device_alarm_record"></table>
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+
+
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super() }}
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.2/bootstrap-table.min.js"></script>
+
+<!-- Latest compiled and minified Locales -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.2/locale/bootstrap-table-zh-CN.min.js"></script>
+
+
+<script type="text/javascript">
+
+ 
+     //setInterval配合ajax实现实时刷新前台数据的功能
+
+        $(document).ready(function () {
+
+            $.ajax({
+                type: "get",
+                url: "/api/device/detail/" + {{device_id}},
+                success: function (msg) {
+					console.log(msg);
+					$("#device_id").html(msg.device_id);     
+					$("#name").html(msg.name);     
+					$("#device_name").html(msg.device_name);     
+					$("#device_secret").html(msg.device_secret);     
+					$("#gmt_create").html(msg.gmt_create);     
+					$("#gmt_active").html(msg.gmt_active);     
+					$("#gmt_online").html(msg.gmt_online);     
+					$("#status").html(msg.status);     
+					$("#ip_address").html(msg.ip_address);     
+					$("#region").html(msg.region);     
+                },
+
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    console.log("错误信息;" + XmlHttpRequest.status);
+                },
+
+            })
+
+        })
+
+</script>
+
+
+
+<script type="text/javascript">
+  
+  $(function () {
+
+    //1.初始化Table
+    var recordTable = new RecordTableInit();
+    recordTable.Init();
+
+    //2.初始化Button的点击事件
+    var oButtonInit = new ButtonInit();
+    oButtonInit.Init();
+
+  });
+
+
+var RecordTableInit = function () {
+    var recordTableInit = new Object();
+    //初始化Table
+    recordTableInit.Init = function () {
+        $('#device_record').bootstrapTable({
+            url: '/api/device/history_records/' + {{ device_id }},         //请求后台的URL（*）
+            method: 'get',                      //请求方式（*）
+            toolbar: '#toolbar',                //工具按钮用哪个容器
+            striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: true,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            queryParams: recordTableInit.queryParams,//传递参数（*）
+            sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+            // sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber:1,                       //初始化加载第一页，默认第一页
+            pageSize: 10,                       //每页的记录行数（*）
+            pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+            search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: true,                  //是否显示所有的列
+            showRefresh: true,                  //是否显示刷新按钮
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: true,                //是否启用点击选中行
+            height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+            showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                   //是否显示父子表
+            columns: [{
+                checkbox: true,
+                visible: true 
+            }, {
+                field: 'key',
+                title: '序号',
+                sortable: true
+            }, {
+                field: 'datetime',
+                title: '日期时间',
+                sortable: true
+            }, {
+                field: 'daq_values',
+                title: '采集值',
+                sortable: true
+            },
+             ],
+            rowStyle: function (row, index) {
+                 var classesArr = ['success', 'info'];
+                 var strclass = "";
+                 if (index % 2 === 0) {//偶数行
+                     strclass = classesArr[0];
+                 } else {//奇数行
+                     strclass = classesArr[1];
+                 }
+                 return { classes: strclass };
+             },//隔行变色
+        });
+    };
+
+    //得到查询的参数
+    recordTableInit.queryParams = function (params) {
+        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+            limit: params.limit,   //页面大小
+            offset: params.offset,  //页码
+            departmentname: $("#txt_search_departmentname").val(),
+            statu: $("#txt_search_statu").val()
+        };
+        return temp;
+    };
+
+    return recordTableInit;
+};
+
+
+var ButtonInit = function () {
+    var oInit = new Object();
+    var postdata = {};
+
+    oInit.Init = function () {
+        //初始化页面上面的按钮事件
+    };
+
+    return oInit;
+};
+
+
+ //连接字段格式化
+  function linkFormatter(value, row, index) {                
+     return "<a href='" + value + "' title='单击打开连接' target='_blank'>" + value + "</a>";
+  }
+
+
+//操作栏的格式化
+  function actionFormatter(value, row, index) {
+      var id = value;
+      console.log(id);
+      var result = "";
+      result += "<a href='device_detail/1' class='btn btn-xs green'><span class='glyphicon glyphicon-search'></span></a>";
+      result += "<a href='javascript:;' class='btn btn-xs blue' onclick=\"EditViewById('" + id + "')\" title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
+      result += "<a href='javascript:;' class='btn btn-xs red' onclick=\"DeleteByIds('" + id + "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";
+
+      return result;
+  }
+
+</script>
+
+
+
+<script type="text/javascript">
+  
+  $(function () {
+
+    //1.初始化Table
+    var alarmRecordTable = new TableInit();
+    alarmRecordTable.Init();
+
+    //2.初始化Button的点击事件
+    var oButtonInit = new ButtonInit();
+    oButtonInit.Init();
+
+  });
+
+
+var TableInit = function () {
+    var alarmRecordTableInit = new Object();
+    //初始化Table
+    alarmRecordTableInit.Init = function () {
+        $('#device_alarm_record').bootstrapTable({
+            url: '/api/device/alarm_records/' + {{ device_id }},         //请求后台的URL（*）
+            method: 'get',                      //请求方式（*）
+            toolbar: '#toolbar',                //工具按钮用哪个容器
+            striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: true,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            queryParams: alarmRecordTableInit.queryParams,//传递参数（*）
+            sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+            // sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber:1,                       //初始化加载第一页，默认第一页
+            pageSize: 10,                       //每页的记录行数（*）
+            pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+            search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: true,                  //是否显示所有的列
+            showRefresh: true,                  //是否显示刷新按钮
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: true,                //是否启用点击选中行
+            height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+            showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                   //是否显示父子表
+            columns: [{
+                checkbox: true,
+                visible: true 
+            }, {
+                field: 'key',
+                title: '序号',
+                sortable: true
+            }, {
+                field: 'datetime',
+                title: '日期时间',
+                sortable: true
+            }, {
+                field: 'alarm_values',
+                title: '报警值',
+                sortable: true
+            },
+             ],
+            rowStyle: function (row, index) {
+                 var classesArr = ['success', 'info'];
+                 var strclass = "";
+                 if (index % 2 === 0) {//偶数行
+                     strclass = classesArr[0];
+                 } else {//奇数行
+                     strclass = classesArr[1];
+                 }
+                 return { classes: strclass };
+             },//隔行变色
+        });
+    };
+
+    //得到查询的参数
+    alarmRecordTableInit.queryParams = function (params) {
+        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+            limit: params.limit,   //页面大小
+            offset: params.offset,  //页码
+            departmentname: $("#txt_search_departmentname").val(),
+            statu: $("#txt_search_statu").val()
+        };
+        return temp;
+    };
+    return alarmRecordTableInit;
+};
+
+
+var ButtonInit = function () {
+    var oInit = new Object();
+    var postdata = {};
+
+    oInit.Init = function () {
+        //初始化页面上面的按钮事件
+    };
+
+    return oInit;
+};
+
+
+ //连接字段格式化
+  function linkFormatter(value, row, index) {                
+     return "<a href='" + value + "' title='单击打开连接' target='_blank'>" + value + "</a>";
+  }
+
+
+//操作栏的格式化
+  function actionFormatter(value, row, index) {
+      var id = value;
+      console.log(id);
+      var result = "";
+      result += "<a href='device_detail/1' class='btn btn-xs green'><span class='glyphicon glyphicon-search'></span></a>";
+      result += "<a href='javascript:;' class='btn btn-xs blue' onclick=\"EditViewById('" + id + "')\" title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
+      result += "<a href='javascript:;' class='btn btn-xs red' onclick=\"DeleteByIds('" + id + "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";
+
+      return result;
+  }
+
+</script>
+{% endblock javascripts %}

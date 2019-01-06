@@ -7,19 +7,93 @@
 {% endblock stylesheets %}
 
 {% block content %}
-      <div class="right_col" role="main">
-        <div class="">
-          <div class="row">
-            <div id="StatusPic"
-             style="width:1050px; height:310px; margin: 50px 0; background-color: #DAE4E4;"></div>
-          </div>
 
-          <div class="row">
-            <div id="StatusText"
-             style="width:1050px; height:150px; margin: 1px 0; background-color: #DAE4E4;"></div>
-         </div>
+
+
+
+
+  <div class="right_col" role="main">
+    <div class="">
+      <div class="page-title">
+        <div class="title_left">
+          <h3>状态监控</h3>
         </div>
-     </div>
+
+        <div class="title_right">
+          <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="x_panel">
+
+            <div class="x_content">
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                  <label class="control-label col-md-6 col-sm-6 col-xs-12">客户名称</label>
+                  <div class="col-md-9 col-sm-9 col-xs-12">
+                    <select class="form-control">
+                      <option>请选择</option>
+                      <option>客户1</option>
+                      <option>客户2</option>
+                      <option>客户3</option>
+                      <option>客户4</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                  <label class="control-label col-md-6 col-sm-6 col-xs-12">设备名称</label>
+                  <div class="col-md-9 col-sm-9 col-xs-12">
+                    <select id='selectDevice' class="select2_group form-control" autocomplete="off">
+                      <optgroup label="请选择">
+                        <option value="placeholder">请选择</option>
+                      </optgroup>
+                      <optgroup label="4头">
+                        <option value="4">4-1</option>
+                        <option value="4-2">4-2</option>
+                      </optgroup>
+                      <optgroup label="6头">
+                        <option value="6">6-1</option>
+                        <option value="6-2">6-2</option>
+                      </optgroup>
+                      <optgroup label="8头">
+                        <option value="8">8-1</option>
+                        <option value="8-2">8-2</option>
+                      </optgroup>
+                    </select>
+                  </div>
+                </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-xs-12">
+          <div id="StatusPic"
+           style="width:1020px; height:305px; margin: 10px 0; background-color: #DAE4E4;">
+           </div>
+        </div>
+
+        <div class="col-md-12 col-xs-12">
+          <div id="StatusText"
+           style="width:1020px; height:150px; margin: 10px 0; background-color: #DAE4E4;">
+           </div>
+        </div>
+
+      </div>
+
+    </div>
+ </div>
 
 {% endblock content %}
 
@@ -31,6 +105,15 @@
 
     <script type="text/javascript">
      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){  
+      　　　　$('#selectDevice').change(function(){  
+      　　　　　　var p1=$("option:selected",this).val();//这就是selected的值  
+      　　　　　　window.location.href="/conf2d/gojs/"+p1;//页面跳转并传参  
+      　　　　})  
+      })  
     </script>
 
     <script type="text/javascript">
@@ -146,34 +229,6 @@
 
           );
 
-        var statusPicDiagramModel = GO(go.Model);
-
-        statusPicDiagramModel.nodeDataArray =
-        [ // note that each node data object holds whatever properties it needs;
-          // for this app we add the "name" and "source" properties
-          { name: "1#喷头", color:"orange", source: "{{ url_for('static', filename='images/handsome/1_start.png') }}",svg_source: "{{ url_for('static', filename='images/handsome/svg.svg') }}", injector_current:"喷嘴电流:", motor_current:"电机电流:", injector_current_value:"0.5", motor_current_value:"1.5", bg_source:"{{ url_for('static', filename='images/handsome/bg.png') }}", injector_error:"喷枪息弧:", injector_error_fill:"green", master_error:"主机故障:", master_error_fill:"green", motor_error:"电机故障:", motor_error_fill:"green" },
-
-
-          { name: "2#喷头", color:"orange", source: "{{ url_for('static', filename='images/handsome/1_start.png') }}",svg_source: "{{ url_for('static', filename='images/handsome/svg.svg') }}", injector_current:"喷嘴电流:", motor_current:"电机电流:", injector_current_value:"0.5", motor_current_value:"1.5", bg_source:"{{ url_for('static', filename='images/handsome/bg.png') }}", injector_error:"喷枪息弧:", injector_error_fill:"green", master_error:"主机故障:", master_error_fill:"green", motor_error:"电机故障:", motor_error_fill:"red" },
-
-          { name: "3#喷头", color:"orange", source: "{{ url_for('static', filename='images/handsome/1_start.png') }}",svg_source: "{{ url_for('static', filename='images/handsome/svg.svg') }}", injector_current:"喷嘴电流:", motor_current:"电机电流:", injector_current_value:"0.5", motor_current_value:"1.5", bg_source:"{{ url_for('static', filename='images/handsome/bg.png') }}", injector_error:"喷枪息弧:", injector_error_fill:"green", master_error:"主机故障:", master_error_fill:"green", motor_error:"电机故障:", motor_error_fill:"green" },
-
-          { name: "4#喷头", color:"orange", source: "{{ url_for('static', filename='images/handsome/1_start.png') }}",svg_source: "{{ url_for('static', filename='images/handsome/svg.svg') }}", injector_current:"喷嘴电流:", motor_current:"电机电流:", injector_current_value:"0.5", motor_current_value:"1.5", bg_source:"{{ url_for('static', filename='images/handsome/bg.png') }}", injector_error:"喷枪息弧:", injector_error_fill:"green", master_error:"主机故障:", master_error_fill:"green", motor_error:"电机故障:", motor_error_fill:"green" },
-
-          { name: "5#喷头", color:"orange", source: "{{ url_for('static', filename='images/handsome/1_start.png') }}",svg_source: "{{ url_for('static', filename='images/handsome/svg.svg') }}", injector_current:"喷嘴电流:", motor_current:"电机电流:", injector_current_value:"0.5", motor_current_value:"1.5", bg_source:"{{ url_for('static', filename='images/handsome/bg.png') }}", injector_error:"喷枪息弧:", injector_error_fill:"green", master_error:"主机故障:", master_error_fill:"green", motor_error:"电机故障:", motor_error_fill:"red" },
-
-          { name: "6#喷头", color:"orange", source: "{{ url_for('static', filename='images/handsome/1_start.png') }}",svg_source: "{{ url_for('static', filename='images/handsome/svg.svg') }}", injector_current:"喷嘴电流:", motor_current:"电机电流:", injector_current_value:"0.5", motor_current_value:"1.5", bg_source:"{{ url_for('static', filename='images/handsome/bg.png') }}", injector_error:"喷枪息弧:", injector_error_fill:"green", master_error:"主机故障:", master_error_fill:"red", motor_error:"电机故障:", motor_error_fill:"green" },
-
-          { name: "7#喷头", color:"orange", source: "{{ url_for('static', filename='images/handsome/1_start.png') }}",svg_source: "{{ url_for('static', filename='images/handsome/svg.svg') }}", injector_current:"喷嘴电流:", motor_current:"电机电流:", injector_current_value:"0.5", motor_current_value:"1.5", bg_source:"{{ url_for('static', filename='images/handsome/bg.png') }}", injector_error:"喷枪息弧:", injector_error_fill:"green", master_error:"主机故障:", master_error_fill:"green", motor_error:"电机故障:", motor_error_fill:"green" },
-
-          { name: "8#喷头", color:"orange", source: "{{ url_for('static', filename='images/handsome/1_start.png') }}",svg_source: "{{ url_for('static', filename='images/handsome/svg.svg') }}", injector_current:"喷嘴电流:", motor_current:"电机电流:", injector_current_value:"0.5", motor_current_value:"1.5", bg_source:"{{ url_for('static', filename='images/handsome/bg.png') }}", injector_error:"喷枪息弧:", injector_error_fill:"green", master_error:"主机故障:", master_error_fill:"green", motor_error:"电机故障:", motor_error_fill:"green" },    
-
-          { name: "9#喷头", color:"orange", source: "{{ url_for('static', filename='images/handsome/1_start.png') }}",svg_source: "{{ url_for('static', filename='images/handsome/svg.svg') }}", injector_current:"喷嘴电流:", motor_current:"电机电流:", injector_current_value:"0.5", motor_current_value:"1.5", bg_source:"{{ url_for('static', filename='images/handsome/bg.png') }}", injector_error:"喷枪息弧:", injector_error_fill:"green", master_error:"主机故障:", master_error_fill:"green", motor_error:"电机故障:", motor_error_fill:"green" },  
-
-          { name: "10#喷头", color:"orange", source: "{{ url_for('static', filename='images/handsome/1_start.png') }}",svg_source: "{{ url_for('static', filename='images/handsome/svg.svg') }}", injector_current:"喷嘴电流:", motor_current:"电机电流:", injector_current_value:"0.5", motor_current_value:"1.5", bg_source:"{{ url_for('static', filename='images/handsome/bg.png') }}", injector_error:"喷枪息弧:", injector_error_fill:"green", master_error:"主机故障:", master_error_fill:"green", motor_error:"电机故障:", motor_error_fill:"green" },                                                
-
-        ];
-        statusPicDiagram.model = statusPicDiagramModel;
 
         statusTextDiagram.nodeTemplate =           
             GO(go.Part, "Vertical",
@@ -485,18 +540,137 @@
                     ),                    
                 ),
 
+
+                //maintenance
+                GO(go.Panel, "Auto",
+                    GO(go.Shape, { fill:"white", stroke: "gray", strokeWidth: 3 }),
+
+                    GO(go.Panel, "Table",
+                        //current_running_time
+                        { defaultRowSeparatorStroke: "gray",defaultColumnSeparatorStroke: "gray" },
+                        GO(go.RowColumnDefinition, { column: 0, width: 500 }),
+                        GO(go.RowColumnDefinition, { column: 1, width: 500}),
+                        GO(go.Panel, go.Panel.Table, 
+                            { row: 0, column: 0, margin: 2, defaultAlignment: go.Spot.Center },
+                            GO(go.RowColumnDefinition, { column: 0, width: 100 }),
+                            GO(go.RowColumnDefinition, { column: 1, width: 50}),
+                            GO(go.RowColumnDefinition, { column: 2, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 3, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 4, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 5, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 6, width: 30}),
+                          
+                            GO(go.TextBlock, "Default Text",
+                              { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif" },
+                              new go.Binding("text", "current_running_time")),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 1, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "current_running_time_h", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "current_running_time_h")),
+                                ),
+                            GO(go.TextBlock, "小时",
+                              { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif" }),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 3, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "current_running_time_m", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "current_running_time_m")),
+                                ),
+                            GO(go.TextBlock, "分钟",
+                              { row: 0, column: 4, margin: 2, stroke: "black", font: "bold 12px sans-serif" }),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 5, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "current_running_time_s", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "current_running_time_s")),
+                                ),
+                            GO(go.TextBlock, "秒",
+                              { row: 0, column: 6, margin: 2, stroke: "black", font: "bold 12px sans-serif" }),                          
+                        ),   
+
+                        //total_running_time
+                        GO(go.Panel, go.Panel.Table, 
+                            { row: 0, column: 1, margin: 2, defaultAlignment: go.Spot.Center },
+                            GO(go.RowColumnDefinition, { column: 0, width: 100 }),
+                            GO(go.RowColumnDefinition, { column: 1, width: 40}),
+                            GO(go.RowColumnDefinition, { column: 2, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 3, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 4, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 5, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 6, width: 30}),
+                                                             
+                            GO(go.TextBlock, "Default Text",
+                              { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif", },
+                              new go.Binding("text", "total_running_time")),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 1, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "total_running_time_h", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "total_running_time_h")),
+                                ),
+                            GO(go.TextBlock, "小时",
+                              { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif", }),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 3, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "total_running_time_m", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "total_running_time_m")),
+                                ),
+                            GO(go.TextBlock, "分钟",
+                              { row: 0, column: 4, margin: 2, stroke: "black", font: "bold 12px sans-serif", }),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 5, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "total_running_time_s", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "total_running_time_s")),
+                                ),
+                            GO(go.TextBlock, "秒",
+                              { row: 0, column: 6, margin: 2, stroke: "black", font: "bold 12px sans-serif", }),                          
+                        ),
+
+                    ),                    
+                ),
             //close template
             );
 
+
+
+        var statusPicDiagramModel = GO(go.Model);
+
         var statusTextDiagramModel = GO(go.Model);
 
-        statusTextDiagramModel.nodeDataArray =
-        [ // note that each node data object holds whatever properties it needs;
-          // for this app we add the "name" and "source" properties
-          { pressure: "压强:", pressure_value:"7.2", velocity:"线速度:",velocity_value:"1.5", voltage:"电压:", voltage_value:"220",  temperature: "温度:", temperature_value:"23.1", current_running_time:"当前运行时间:", current_running_time_h:"111", current_running_time_m:"22",current_running_time_s:"33", total_running_time:"累计运行时间:",total_running_time_h:"444",total_running_time_m:"55",total_running_time_s:"16",temperature_error:"温度异常", temperature_error_fill:"green", pressure_error:"气压异常", pressure_error_fill:"green", gate_error:"室门打开", gate_error_fill:"green", velocity_error:"速度异常", velocity_error_fill:"green", emergency_error:"急停开关", emergency_error_fill:"red" },
-        ];
 
-        statusTextDiagram.model = statusTextDiagramModel;
+
+        setInterval(function () {
+
+            $.ajax({
+                type: "get",
+                url: "/api/device/running_status/" + {{ device_id }},
+                success: function (msg) {
+
+                    console.log(msg);
+                    statusPicDiagramModel.nodeDataArray = msg.StatusPic;
+                    statusTextDiagramModel.nodeDataArray = msg.StatusText;
+                    statusPicDiagram.model = statusPicDiagramModel;
+                    statusTextDiagram.model = statusTextDiagramModel;
+                    
+                },
+
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    console.log("错误信息;" + XmlHttpRequest.status);
+                }
+
+            })
+
+        }
+, 1000)
 
     </script>
 

@@ -7,7 +7,7 @@ from flask_restful import Api
 from app.api.resources import Login, Logout, GetUser, Register, Users, Projects, Products, ProductProfile, Devices, DeviceProfile, \
 DeviceDaqRealtime, DeviceDaqAlarm, DeviceDaqHistory, DeviceDaqRecord, AutoInit, FakeNotices, ChangeLog, TodoList, \
 AddUser, AddProject, AddProduct, AddDevice, MaintenanceRecord, Counter, ProductDistribute, RegionDistribute,  DevicesOfProduct, DeviceDetail, \
-DeviceHistoryRecord,DeviceAlarmRecord
+DeviceHistoryRecord,DeviceAlarmRecord, DeviceRunningStatus
 
 
 api_resource = Api(api)
@@ -21,18 +21,19 @@ api_resource.add_resource(Users, '/users', endpoint='users')
 
 api_resource.add_resource(Projects, '/projects', endpoint='projects')
 
-api_resource.add_resource(Products, '/products', endpoint='products')
+api_resource.add_resource(Products, '/products/<user_id>', endpoint='products')
 api_resource.add_resource(ProductProfile, '/product/profile', endpoint='product_profile')
 
 api_resource.add_resource(ProductDistribute, '/distribute/product', endpoint='product_distribute')
 api_resource.add_resource(RegionDistribute, '/distribute/region', endpoint='region_distribute')
 
-api_resource.add_resource(Devices, '/devices', endpoint='devices')
+api_resource.add_resource(Devices, '/devices/<user_id>', endpoint='devices')
 api_resource.add_resource(DeviceProfile, '/device/profile', endpoint='device_profile')
 api_resource.add_resource(DevicesOfProduct, '/device/device_of_product/<product_id>', endpoint='device_of_product')
 api_resource.add_resource(DeviceDetail, '/device/detail/<device_id>', endpoint='device_detail')
-api_resource.add_resource(DeviceHistoryRecord, '/device/history_records/<device_id>', endpoint='device_detail')
-api_resource.add_resource(DeviceAlarmRecord, '/device/alarm_records/<device_id>', endpoint='device_detail')
+api_resource.add_resource(DeviceHistoryRecord, '/device/history_records/<device_id>', endpoint='history_records')
+api_resource.add_resource(DeviceAlarmRecord, '/device/alarm_records/<device_id>', endpoint='alarm_records')
+api_resource.add_resource(DeviceRunningStatus, '/device/running_status/<device_id>', endpoint='running_status')
 
 api_resource.add_resource(DeviceDaqRealtime, '/device/daq/realtime', endpoint='device_daq_realtime')
 api_resource.add_resource(DeviceDaqHistory, '/device/daq/history', endpoint='device_daq_history')
@@ -44,7 +45,6 @@ api_resource.add_resource(AddUser, '/add/user', endpoint='addUser')
 api_resource.add_resource(AddProject, '/add/project', endpoint='addProject')
 api_resource.add_resource(AddProduct, '/add/product', endpoint='addProduct')
 api_resource.add_resource(AddDevice, '/add/device', endpoint='addDevice')
-
 
 api_resource.add_resource(FakeNotices, '/project/notice', endpoint='projectNotice')
 api_resource.add_resource(FakeNotices, '/notices', endpoint='notices')

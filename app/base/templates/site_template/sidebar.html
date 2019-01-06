@@ -33,15 +33,15 @@
         <li><a><i class="fa fa-gear"></i> 设备管理 <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
 
-            <li><a href="/equipment/product_list">产品列表</a></li>
-            <li><a href="/equipment/device_list">设备列表</a></li>
+            <li><a href="{{"/equipment/product_list/" ~ current_user.id }}">产品列表</a></li>
+            <li><a href="{{"/equipment/device_list/" ~ current_user.id }}">设备列表</a></li>
           </ul>
         </li>
 
         <li><a><i class="fa fa-dashboard"></i> 状态监控 <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
 
-            <li><a href="/conf2d/gojs">运行状态</a></li>
+            <li><a href="/conf2d/gojs/4">运行状态</a></li>
           </ul>
         </li>
 
@@ -58,6 +58,7 @@
         <li><a><i class="fa fa-area-chart"></i> 数据分析 <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="/data/echarts">分析图表</a></li>
+            <li><a href="/data/map">分布地图</a></li>
           </ul>
         </li>
 

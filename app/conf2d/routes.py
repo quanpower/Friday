@@ -15,6 +15,12 @@ def route_template(template):
     return render_template(template + '.html')
 
 
+@blueprint.route('/gojs/<device_id>')
+def gojs(device_id):
+
+
+    return render_template('gojs.html', device_id=device_id)
+
 
 @blueprint.route('/device_status')
 def device_status():
@@ -75,9 +81,6 @@ def device_status():
     # }
 
     return jsonify(daq_values)
-
-
-
 
 
 @blueprint.route('/error_log')

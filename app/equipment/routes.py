@@ -15,10 +15,10 @@ def route_template(template):
     return render_template(template + '.html')
 
 
-@blueprint.route('/product_list')
-def product_list():
+@blueprint.route('/product_list/<int:user_id>')
+def product_list(user_id):
 
-    products = Product.query.filter_by(user_id=1).order_by(
+    products = Product.query.filter_by(user_id=user_id).order_by(
         Product.gmt_create.desc()).all()
 
     print('--------products--------\n' * 3)
@@ -31,6 +31,14 @@ def product_list():
     print(products_list)
     # return jsonify(products_list)
     return render_template('product_list.html', products=products_list)
+
+
+
+
+@blueprint.route('/device_list/<int:user_id>')
+def device_list(user_id):
+
+    return render_template('device_list.html', user_id=user_id)
 
 
 @blueprint.route('/device_of_product/<int:product_id>')
