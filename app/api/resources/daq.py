@@ -1219,58 +1219,6 @@ class DeviceRunningStatus(Resource):
         print(gmt_daq_str)
 
 
-        # daq_dict_list = []
-        # for daq_value in daq_values:
-        #     daq_dict[daq_value[0]] = daq_value[1]
-        # daq_dict_list.append(daq_dict)
-
-        # print(daq_dict_list)
-
-        # current_time = gmt_daq.strftime("%Y-%m-%d %H:%M:%S")
-
-
-# data = {
-#         'injector_current_value':{    
-#             'injector_1_current_value_str': injector_1_current_value_str,
-#             'injector_2_current_value_str': injector_2_current_value_str,
-#             'injector_3_current_value_str': injector_3_current_value_str,
-#             'injector_4_current_value_str': injector_4_current_value_str,
-#         },
-
-#         'motor_current_value':{    
-#             'motor_1_current_value_str': motor_1_current_value_str,
-#             'motor_2_current_value_str': motor_2_current_value_str,
-#             'motor_3_current_value_str': motor_3_current_value_str,
-#             'motor_4_current_value_str': motor_4_current_value_str,
-#         },
-
-#         'work_status':{
-#             'work_status_1':work_status_1,
-#             'work_status_2':work_status_2,
-#             'work_status_3':work_status_3,
-#             'work_status_4':work_status_4,
-#         },
-
-#         'input_pressure':input_pressure_value_str,
-#         'material_temprature':material_temprature_value_str,
-#         'line_speed':line_speed_value_str,
-
-#         'current_running_time':{
-#             'h':current_running_time_h_str,
-#             'min':current_running_time_min_str,
-#             's':'00',
-#         },
-#         'accumulated_running_time':{
-#             'h':total_running_time_h_str,
-#             'min':'00',
-#             's':'00',
-#         },
-#         'current_time':datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-#         'mantual_auto':mantual_auto_str,
-#         'access_control': access_control_str,
-#         'emergency_button':emergency_button_str,
-#         'pressure_detect':pressure_detect_str,
-#     }
 
         injector_1_current_value_str = daq_values['injector_current_value']['injector_1_current_value_str']
         injector_2_current_value_str = daq_values['injector_current_value']['injector_2_current_value_str']
@@ -1305,6 +1253,12 @@ class DeviceRunningStatus(Resource):
         emergency_button=daq_values['emergency_button']
         pressure_detect=daq_values['pressure_detect']
 
+
+        injector_1_current_alarm_str = daq_values['injector_current_alarm']['injector_1_current_alarm_str']
+        injector_2_current_alarm_str = daq_values['injector_current_alarm']['injector_2_current_alarm_str']
+        injector_3_current_alarm_str = daq_values['injector_current_alarm']['injector_3_current_alarm_str']
+        injector_4_current_alarm_str = daq_values['injector_current_alarm']['injector_4_current_alarm_str']
+
         def work_status_2_pic(work_status):
             if work_status == '1':
                 return "/static/images/handsome/1_start.png"
@@ -1315,11 +1269,16 @@ class DeviceRunningStatus(Resource):
             else:
                 return "/static/images/handsome/2_start.png"
 
+        def alarm_2_color(injector_1_current_alarm_str):
+            if injector_1_current_alarm_str == '1':
+                return "red"
+            else:
+                return "green"
 
-        dict_1 = { 'name': "1#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_1), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_1_current_value_str, 'motor_current_value':motor_1_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
-        dict_2 = { 'name': "2#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_2), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_2_current_value_str, 'motor_current_value':motor_2_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
-        dict_3 = { 'name': "3#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_3), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_3_current_value_str, 'motor_current_value':motor_3_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
-        dict_4 = { 'name': "4#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_4), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_4_current_value_str, 'motor_current_value':motor_4_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_1 = { 'name': "1#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_1), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_1_current_value_str, 'motor_current_value':motor_1_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_1_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_2 = { 'name': "2#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_2), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_2_current_value_str, 'motor_current_value':motor_2_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_2_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_3 = { 'name': "3#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_3), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_3_current_value_str, 'motor_current_value':motor_3_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_3_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_4 = { 'name': "4#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_4), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_4_current_value_str, 'motor_current_value':motor_4_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_4_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
         dict_5 = { 'name': "5#喷头", 'color':"orange", 'source': "/static/images/handsome/1_start.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
         dict_6 = { 'name': "6#喷头", 'color':"orange", 'source': "/static/images/handsome/1_close.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"orange", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
         dict_7 = { 'name': "7#喷头", 'color':"orange", 'source': "/static/images/handsome/1_start.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
@@ -1365,9 +1324,8 @@ class DeviceRunningStatus(Resource):
 
 
         pressure_error_fill = "green" if pressure_detect == '1' else "red"
-        gate_error_fill = "green" if access_control == '1' else "red"
+        gate_error_fill = "red" if access_control == '1' else "green"
         emergency_error_fill = "green" if emergency_button == '1' else "red"
-        pressure_error_fill = "green" if pressure_detect == '1' else "red"
 
 
         status_text_list=[{ 'pressure': "压强:", 'pressure_value':input_pressure, 'velocity':"线速度:",'velocity_value':line_speed, \

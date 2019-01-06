@@ -240,6 +240,28 @@ def plc_unpacking(packet_data):
     emergency_button_str = str(struct.unpack('i', emergency_button)[0])
     pressure_detect_str = str(struct.unpack('i', pressure_detect)[0])
 
+    current_1_low_alarm_str = str(struct.unpack('i', current_1_low_alarm)[0])
+    current_2_low_alarm_str = str(struct.unpack('i', current_2_low_alarm)[0])
+    current_3_low_alarm_str = str(struct.unpack('i', current_3_low_alarm)[0])
+    current_4_low_alarm_str = str(struct.unpack('i', current_4_low_alarm)[0])
+
+    current_1_high_alarm_str = str(struct.unpack('i', current_1_high_alarm)[0])
+    current_2_high_alarm_str = str(struct.unpack('i', current_2_high_alarm)[0])
+    current_3_high_alarm_str = str(struct.unpack('i', current_3_high_alarm)[0])
+    current_4_high_alarm_str = str(struct.unpack('i', current_4_high_alarm)[0])
+
+
+    print('-------current_1_low_alarm_str--------')
+    print(current_1_low_alarm_str)
+    print(current_2_low_alarm_str)
+    print(current_3_low_alarm_str)
+    print(current_4_low_alarm_str)
+    print(current_1_high_alarm_str)
+    print(current_2_high_alarm_str)
+    print(current_3_high_alarm_str)
+    print(current_4_high_alarm_str)
+
+
     mantual_auto_str = str(struct.unpack('i', mantual_auto)[0])
 
 
@@ -321,6 +343,28 @@ def plc_unpacking(packet_data):
     current_running_time_h_str = str(current_running_time_int//60)
     current_running_time_min_str = str(current_running_time_int%60)
 
+    if current_1_low_alarm_str == '1' or current_1_high_alarm_str == '1':
+        injector_1_current_alarm_str = '1'
+    else:
+        injector_1_current_alarm_str = '0'
+
+
+    if current_2_low_alarm_str == '1' or current_2_high_alarm_str == '1':
+        injector_2_current_alarm_str = '1'
+    else:
+        injector_2_current_alarm_str = '0'
+
+
+    if current_3_low_alarm_str == '1' or current_3_high_alarm_str == '1':
+        injector_3_current_alarm_str = '1'
+    else:
+        injector_3_current_alarm_str = '0'
+
+
+    if current_4_low_alarm_str == '1' or current_4_high_alarm_str == '1':
+        injector_4_current_alarm_str = '1'
+    else:
+        injector_4_current_alarm_str = '0'
 
 
     data = {
@@ -329,6 +373,13 @@ def plc_unpacking(packet_data):
             'injector_2_current_value_str': injector_2_current_value_str,
             'injector_3_current_value_str': injector_3_current_value_str,
             'injector_4_current_value_str': injector_4_current_value_str,
+        },
+
+        'injector_current_alarm':{
+            'injector_1_current_alarm_str': injector_1_current_alarm_str,
+            'injector_2_current_alarm_str': injector_2_current_alarm_str,
+            'injector_3_current_alarm_str': injector_3_current_alarm_str,
+            'injector_4_current_alarm_str': injector_4_current_alarm_str,
         },
 
         'motor_current_value':{    
