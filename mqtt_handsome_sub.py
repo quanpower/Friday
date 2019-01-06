@@ -81,7 +81,6 @@ user = os.environ.get('PYMYSQL_USER')
 password = os.environ.get('PYMYSQL_PASSWORD')
 
 
-
 db= pymysql.connect(host=host,user=user,
     password=password,db=db)
 cursor = db.cursor()
@@ -121,7 +120,6 @@ def on_message(mqttc, obj, msg):
 
     json_data = plc_unpacking(msg.payload)
     update_current(json_data)
-
 
 
 def on_exec(strcmd):
@@ -191,18 +189,21 @@ def plc_unpacking(packet_data):
     motor_2_current = packet_data[168:172]
     motor_3_current = packet_data[172:176]
     motor_4_current = packet_data[176:180]
+
     line_speed = packet_data[180:184]
 
     current_1_low_limit = packet_data[184:188]
     current_2_low_limit = packet_data[188:192]
     current_3_low_limit = packet_data[192:196]
     current_4_low_limit = packet_data[196:200]
+
     line_speed_low_limit = packet_data[200:204]
 
     current_1_high_limit = packet_data[204:208]
     current_2_high_limit = packet_data[208:212]
     current_3_high_limit = packet_data[212:216]
     current_4_high_limit = packet_data[216:220]
+
     line_speed_high_limit = packet_data[220:224]
 
     total_running_time = packet_data[224:228]
@@ -275,96 +276,46 @@ def plc_unpacking(packet_data):
     print(abnormal_alarm_str)
     print(normal_operation_str)
 
-
-    print('--------error_1_str,error_2_strerror_3_str,error_4_str-----------')
-
-    print(struct.unpack('i', error_1)[0])
-    print(struct.unpack('i', error_2)[0])
-    print(struct.unpack('i', error_3)[0])
-    print(struct.unpack('i', error_4)[0])
-
-
-    access_control_str = str(struct.unpack('i', error_1)[0])
+    access_control_str = str(struct.unpack('i', access_control)[0])
     print('----access_control_str----')
     print(access_control_str)
 
 
+    def get_work_status(control_button):
 
-    error_1_str = str(struct.unpack('i', error_1)[0])
-    control_button_1_str = str(struct.unpack('i', control_button_1)[0])
+        control_button_str = str(struct.unpack('i', control_button)[0])
+        
 
-    if error_1_str == '1':
-        work_status_1 = '-1'
-    else:
-        if control_button_1_str == '1':
-            work_status_1 = '1'
+        if control_button_str == '1':
+            work_status = '1'
         else :
-            work_status_1 = '0'
+            work_status = '0'
+        return work_status
 
 
-    error_2_str = str(struct.unpack('i', error_2)[0])
-    control_button_2_str = str(struct.unpack('i', control_button_2)[0])
-    
-    if error_2_str == '1':
-        work_status_2 = '-1'
-    else:
-        if control_button_2_str == '1':
-            work_status_2 = '1'
-        else :
-            work_status_2 = '0'
+    def error_2_str(error):
+        return str(struct.unpack('i', error)[0])
 
 
-    error_3_str = str(struct.unpack('i', error_3)[0])
-    control_button_3_str = str(struct.unpack('i', control_button_3)[0])
-    
-    if error_3_str == '1':
-        work_status_3 = '-1'
-    else:
-        if control_button_3_str == '1':
-            work_status_3 = '1'
-        else :
-            work_status_3 = '0'
+    def injector_current_alarm_str(current_1_low_alarm_str, current_1_high_alarm_str):
+        if current_1_low_alarm_str == '1' or current_1_high_alarm_str == '1':
+            injector_1_current_alarm_str = '1'
+        else:
+            injector_1_current_alarm_str = '0'
+        return injector_1_current_alarm_str
 
+    print('--------error_1_str,error_2_strerror_3_str,error_4_str-----------')
 
-    error_4_str = str(struct.unpack('i', error_4)[0])
-    control_button_4_str = str(struct.unpack('i', control_button_4)[0])
-    
-    if error_4_str == '1':
-        work_status_4 = '-1'
-    else:
-        if control_button_4_str == '1':
-            work_status_4 = '1'
-        else :
-            work_status_4 = '0'
+    print(error_2_str(error_1))
+    print(error_2_str(error_2))
+    print(error_2_str(error_3))
+    print(error_2_str(error_4))
 
 
     total_running_time_h_str = str(struct.unpack('i', total_running_time)[0])
     current_running_time_int = struct.unpack('i', current_running_time)[0]
     current_running_time_h_str = str(current_running_time_int//60)
     current_running_time_min_str = str(current_running_time_int%60)
-
-    if current_1_low_alarm_str == '1' or current_1_high_alarm_str == '1':
-        injector_1_current_alarm_str = '1'
-    else:
-        injector_1_current_alarm_str = '0'
-
-
-    if current_2_low_alarm_str == '1' or current_2_high_alarm_str == '1':
-        injector_2_current_alarm_str = '1'
-    else:
-        injector_2_current_alarm_str = '0'
-
-
-    if current_3_low_alarm_str == '1' or current_3_high_alarm_str == '1':
-        injector_3_current_alarm_str = '1'
-    else:
-        injector_3_current_alarm_str = '0'
-
-
-    if current_4_low_alarm_str == '1' or current_4_high_alarm_str == '1':
-        injector_4_current_alarm_str = '1'
-    else:
-        injector_4_current_alarm_str = '0'
 
 
     data = {
@@ -375,11 +326,18 @@ def plc_unpacking(packet_data):
             'injector_4_current_value_str': injector_4_current_value_str,
         },
 
+        'master_error':{
+            'master_1_error_str':error_2_str(error_1),
+            'master_2_error_str':error_2_str(error_2),
+            'master_3_error_str':error_2_str(error_3),
+            'master_4_error_str':error_2_str(error_4),
+        },
+
         'injector_current_alarm':{
-            'injector_1_current_alarm_str': injector_1_current_alarm_str,
-            'injector_2_current_alarm_str': injector_2_current_alarm_str,
-            'injector_3_current_alarm_str': injector_3_current_alarm_str,
-            'injector_4_current_alarm_str': injector_4_current_alarm_str,
+            'injector_1_current_alarm_str': injector_current_alarm_str(current_1_low_alarm_str, current_1_high_alarm_str),
+            'injector_2_current_alarm_str': injector_current_alarm_str(current_2_low_alarm_str, current_2_high_alarm_str),
+            'injector_3_current_alarm_str': injector_current_alarm_str(current_3_low_alarm_str, current_3_high_alarm_str),
+            'injector_4_current_alarm_str': injector_current_alarm_str(current_4_low_alarm_str, current_4_high_alarm_str),
         },
 
         'motor_current_value':{    
@@ -390,10 +348,10 @@ def plc_unpacking(packet_data):
         },
 
         'work_status':{
-            'work_status_1':work_status_1,
-            'work_status_2':work_status_2,
-            'work_status_3':work_status_3,
-            'work_status_4':work_status_4,
+            'work_status_1':get_work_status(control_button_1),
+            'work_status_2':get_work_status(control_button_2),
+            'work_status_3':get_work_status(control_button_3),
+            'work_status_4':get_work_status(control_button_4),
         },
 
         'input_pressure':input_pressure_value_str,

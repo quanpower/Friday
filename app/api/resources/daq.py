@@ -1259,26 +1259,38 @@ class DeviceRunningStatus(Resource):
         injector_3_current_alarm_str = daq_values['injector_current_alarm']['injector_3_current_alarm_str']
         injector_4_current_alarm_str = daq_values['injector_current_alarm']['injector_4_current_alarm_str']
 
-        def work_status_2_pic(work_status):
-            if work_status == '1':
+
+        master_1_error_alarm_str = daq_values['master_error']['master_1_error_str']
+        master_2_error_alarm_str = daq_values['master_error']['master_2_error_str']
+        master_3_error_alarm_str = daq_values['master_error']['master_3_error_str']
+        master_4_error_alarm_str = daq_values['master_error']['master_4_error_str']
+
+
+        # master_1_error_alarm_str = '1'
+        # master_2_error_alarm_str = '1'
+        # master_3_error_alarm_str = '1'
+        # master_4_error_alarm_str = '1'
+
+        def work_status_2_pic(work_status, injector_current_alarm_str, master_error_alarm_str):
+            if master_error_alarm_str == '1' or injector_current_alarm_str == '1':
+                return "/static/images/handsome/1_error.png"            
+            elif work_status == '1':
                 return "/static/images/handsome/1_start.png"
             elif work_status == '0':
                 return "/static/images/handsome/1_close.png"
-            elif work_status == '-1':
-                return "/static/images/handsome/1_error.png"
             else:
                 return "/static/images/handsome/2_start.png"
 
-        def alarm_2_color(injector_1_current_alarm_str):
-            if injector_1_current_alarm_str == '1':
+        def alarm_2_color(alarm_str):
+            if alarm_str == '1':
                 return "red"
             else:
                 return "green"
 
-        dict_1 = { 'name': "1#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_1), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_1_current_value_str, 'motor_current_value':motor_1_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_1_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
-        dict_2 = { 'name': "2#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_2), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_2_current_value_str, 'motor_current_value':motor_2_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_2_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
-        dict_3 = { 'name': "3#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_3), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_3_current_value_str, 'motor_current_value':motor_3_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_3_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
-        dict_4 = { 'name': "4#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_4), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_4_current_value_str, 'motor_current_value':motor_4_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_4_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_1 = { 'name': "1#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_1, injector_1_current_alarm_str, master_1_error_alarm_str), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_1_current_value_str, 'motor_current_value':motor_1_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_1_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':alarm_2_color(master_1_error_alarm_str), 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_2 = { 'name': "2#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_2, injector_2_current_alarm_str, master_2_error_alarm_str), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_2_current_value_str, 'motor_current_value':motor_2_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_2_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':alarm_2_color(master_2_error_alarm_str), 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_3 = { 'name': "3#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_3, injector_3_current_alarm_str, master_3_error_alarm_str), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_3_current_value_str, 'motor_current_value':motor_3_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_3_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':alarm_2_color(master_3_error_alarm_str), 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_4 = { 'name': "4#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_4, injector_4_current_alarm_str, master_4_error_alarm_str), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_4_current_value_str, 'motor_current_value':motor_4_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_4_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':alarm_2_color(master_4_error_alarm_str), 'motor_error':"电机故障:", 'motor_error_fill':"green" }
         dict_5 = { 'name': "5#喷头", 'color':"orange", 'source': "/static/images/handsome/1_start.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
         dict_6 = { 'name': "6#喷头", 'color':"orange", 'source': "/static/images/handsome/1_close.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"orange", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
         dict_7 = { 'name': "7#喷头", 'color':"orange", 'source': "/static/images/handsome/1_start.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
