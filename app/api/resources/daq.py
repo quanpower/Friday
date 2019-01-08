@@ -1104,16 +1104,22 @@ class DeviceHistoryRecord(Resource):
             daq_datetime_str = datetime.datetime.strftime(daq_datetime, "%Y-%m-%d %H:%M:%S")
             daq_values = daqs.daq_value
 
-            value_list = []
-            for daq_value in daq_values:
-                value_dict={daq_value[0]:daq_value[1]}
-                # value_dict={daq_value[0]:float('%.2f' % daq_value[1])}
-                # value_dict[daq_value[0]] = float('%.2f' % daq_value[1])
-                value_list.append(value_dict)
+            print('-----daq_values----')
+            print(daq_values)
 
-            print(value_list)
+            # value_list = []
+            # for daq_value in daq_values:
+            #     print(daq_value)
+            #     value_dict={daq_value[0]:daq_value[1]}
+            #     print('---value_dict---')
+            #     print(value_dict)
+            #     # value_dict={daq_value[0]:float('%.2f' % daq_value[1])}
+            #     # value_dict[daq_value[0]] = float('%.2f' % daq_value[1])
+            #     value_list.append(value_dict)
 
-            value_json = json.dumps(value_list)
+            # print(value_list)
+
+            value_json = json.dumps(daq_values)
             print(value_json)
 
             daq_dict = {'key':i, 'datetime':daq_datetime_str, 'daq_values':value_json}
@@ -1265,11 +1271,6 @@ class DeviceRunningStatus(Resource):
         master_3_error_alarm_str = daq_values['master_error']['master_3_error_str']
         master_4_error_alarm_str = daq_values['master_error']['master_4_error_str']
 
-
-        # master_1_error_alarm_str = '1'
-        # master_2_error_alarm_str = '1'
-        # master_3_error_alarm_str = '1'
-        # master_4_error_alarm_str = '1'
 
         def work_status_2_pic(work_status, injector_current_alarm_str, master_error_alarm_str):
             if master_error_alarm_str == '1' or injector_current_alarm_str == '1':
