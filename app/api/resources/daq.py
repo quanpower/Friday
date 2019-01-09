@@ -1153,7 +1153,6 @@ class DeviceAlarmRecord(Resource):
         device_alarm_records = Alarm.query.filter_by(device_id=device_id).order_by(
             Alarm.gmt_alarm.desc()).limit(20).all()
 
-
         alarm_dict_lists = []
         # for temperatures in temps_records:
         for i in range(len(device_alarm_records)):
@@ -1197,7 +1196,6 @@ class DeviceAlarmRecord(Resource):
         pass
 
 
-
 class DeviceRunningStatus(Resource):
     '''
         get the temp records by the input datetime. %H:%M:S%
@@ -1208,12 +1206,6 @@ class DeviceRunningStatus(Resource):
         device_daq_realtime = Daq.query.filter_by(device_id=device_id).order_by(
             Daq.gmt_daq.desc()).first()
 
-        # device_daq_realtime = db.session.query(Daq.gmt_daq, Daq.daq_value).filter(
-        #     Daq.device_id == deviceID).order_by(
-        #     Daq.gmt_daq.desc()).first()
-
-
-
         print('--------device_daq_realtime--------\n' * 3)
         print(device_daq_realtime)
 
@@ -1223,8 +1215,6 @@ class DeviceRunningStatus(Resource):
         gmt_daq = device_daq_realtime.gmt_daq
         gmt_daq_str = datetime.datetime.strftime(gmt_daq, "%Y-%m-%d %H:%M:%S")
         print(gmt_daq_str)
-
-
 
         injector_1_current_value_str = daq_values['injector_current_value']['injector_1_current_value_str']
         injector_2_current_value_str = daq_values['injector_current_value']['injector_2_current_value_str']
@@ -1258,7 +1248,6 @@ class DeviceRunningStatus(Resource):
         access_control=daq_values['access_control']
         emergency_button=daq_values['emergency_button']
         pressure_detect=daq_values['pressure_detect']
-
 
         injector_1_current_alarm_str = daq_values['injector_current_alarm']['injector_1_current_alarm_str']
         injector_2_current_alarm_str = daq_values['injector_current_alarm']['injector_2_current_alarm_str']
@@ -1361,5 +1350,3 @@ class DeviceRunningStatus(Resource):
 
     def put(self):
         pass
-
-
