@@ -1350,3 +1350,46 @@ class DeviceRunningStatus(Resource):
 
     def put(self):
         pass
+
+
+
+class AlarmRecord(Resource):
+    '''
+        get the latest alarm.
+    '''
+
+    def get(self, user_id):
+
+        devices = Device.query.filter_by(user_id=user_id).all()
+        alarm_records = []
+        for device in devices:
+            print('---device---')
+            print(device)
+            print(device.alarm)
+            device_name = device.name
+
+            for alarm in device.alarm:
+                print(alarm.id)
+                print(alarm.device_id)
+                print(alarm.gmt_alarm)
+                print(alarm.alarm_value)
+
+                alarm_datetime= alarm.gmt_alarm
+                alarm_datetime_str = datetime.datetime.strftime(alarm_datetime, "%Y-%m-%d %H:%M:%S")
+                print(alarm_datetime_str)
+
+                alarm_dict = {'device_id': alarm.device_id, 'device_name':device_name, 'alarm_datetime_str': alarm_datetime_str, 'alarm_value':alarm.alarm_value}
+
+                alarm_records.append(alarm_dict)
+
+        return jsonify(alarm_records) 
+
+
+    def post(self):
+        pass
+
+    def delete(self):
+        pass
+
+    def put(self):
+        pass
