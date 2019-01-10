@@ -25,7 +25,6 @@ def alarm_records(user_id):
     return render_template('alarm_records.html', user_id=user_id)
 
 
-
 @blueprint.route('/device_status')
 def device_status():
 

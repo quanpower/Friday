@@ -1,0 +1,677 @@
+{% extends "base_site.html" %}
+
+{% block title %} Fabric {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+{% endblock stylesheets %}
+
+{% block content %}
+
+
+
+
+
+  <div class="right_col" role="main">
+    <div class="">
+      <div class="page-title">
+        <div class="title_left">
+          <h3>状态监控</h3>
+        </div>
+
+        <div class="title_right">
+          <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="x_panel">
+
+            <div class="x_content">
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                  <label class="control-label col-md-6 col-sm-6 col-xs-12">客户名称</label>
+                  <div class="col-md-9 col-sm-9 col-xs-12">
+                    <select class="form-control">
+                      <option>请选择</option>
+                      <option>客户1</option>
+                      <option>客户2</option>
+                      <option>客户3</option>
+                      <option>客户4</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                  <label class="control-label col-md-6 col-sm-6 col-xs-12">设备名称</label>
+                  <div class="col-md-9 col-sm-9 col-xs-12">
+                    <select id='selectDevice' class="select2_group form-control" autocomplete="off">
+                      <optgroup label="请选择">
+                        <option value="placeholder">请选择</option>
+                      </optgroup>
+                      <optgroup label="4头">
+                        <option value="4">4-1</option>
+                        <option value="4-2">4-2</option>
+                      </optgroup>
+                      <optgroup label="6头">
+                        <option value="6">6-1</option>
+                        <option value="6-2">6-2</option>
+                      </optgroup>
+                      <optgroup label="8头">
+                        <option value="8">8-1</option>
+                        <option value="8-2">8-2</option>
+                      </optgroup>
+                    </select>
+                  </div>
+                </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-xs-12">
+          <div id="StatusPic"
+           style="width:1020px; height:305px; margin: 10px 0; background-color: #DAE4E4;">
+           </div>
+        </div>
+
+        <div class="col-md-12 col-xs-12">
+          <div id="StatusText"
+           style="width:1020px; height:150px; margin: 10px 0; background-color: #DAE4E4;">
+           </div>
+        </div>
+
+      </div>
+
+    </div>
+ </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super() }}
+
+    <!-- go.js -->
+    <script src="{{ url_for('static', filename='vendors/go.js/release/go-debug.js') }}"></script>
+
+    <script type="text/javascript">
+     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){  
+      　　　　$('#selectDevice').change(function(){  
+      　　　　　　var p1=$("option:selected",this).val();//这就是selected的值  
+      　　　　　　window.location.href="/conf2d/gojs/"+p1;//页面跳转并传参  
+      　　　　})  
+      })  
+    </script>
+
+    <script type="text/javascript">
+        var GO = go.GraphObject.make;
+        var statusPicDiagram =
+          GO(go.Diagram, "StatusPic",
+            {
+              "undoManager.isEnabled": true // enable Ctrl-Z to undo and Ctrl-Y to redo
+            },
+            {
+              layout: GO(go.GridLayout,
+                        { comparer: go.GridLayout.smartComparer })
+                        // other properties are set by the layout function, defined below
+                });
+
+        var statusTextDiagram =
+          GO(go.Diagram, "StatusText",
+            {
+              "undoManager.isEnabled": true // enable Ctrl-Z to undo and Ctrl-Y to redo
+            });
+
+        // statusPicDiagram.grid.visible = true;
+
+        // define a simple Node template
+
+        statusPicDiagram.nodeTemplate =
+          GO(go.Part, "Vertical",
+          // GO(go.Node, "Auto",
+            // the entire node will have a light-blue background
+            { background: "#44CCFF" },
+
+            GO(go.TextBlock,
+              "Default Text",  // the initial value for TextBlock.text
+              { margin: 2, stroke: "white", font: "bold 16px sans-serif" },
+              new go.Binding("text", "name")),
+
+            GO(go.Picture,
+              { width: 90, height: 150 },
+
+              new go.Binding("source")),
+
+
+            //injector current
+            GO(go.Panel, go.Panel.Table,
+                {alignment: go.Spot.Left},
+
+                GO(go.TextBlock, "Default Text",
+                  { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif", },
+                  new go.Binding("text", "injector_current")),
+
+                GO(go.Panel, "Auto",
+                      { row: 0, column: 1, margin: 2},
+                      GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                      GO(go.TextBlock, "injector_current_value", { stroke: "black", background: "lightgreen" },
+                        new go.Binding("text", "injector_current_value")),
+                    ),
+                // GO(go.TextBlock, "A",
+                //   { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif", })
+            ),
+
+            //motor current
+            GO(go.Panel, go.Panel.Table,
+                {alignment: go.Spot.Left},
+                GO(go.TextBlock, "Default Text",
+                  { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif",  },
+                  new go.Binding("text", "motor_current")),
+
+                GO(go.Panel, "Auto",
+                      { row: 0, column: 1, margin: 2, background: "lightgray" },
+                      GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                      GO(go.TextBlock, "motor_current_value", { stroke: "black",background: "lightgreen" },
+                        new go.Binding("text", "motor_current_value")),
+                    ),
+                // GO(go.TextBlock, "A",
+                //   { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif", })
+            ),
+
+            //injector error
+            GO(go.Panel, go.Panel.Table,
+                {alignment: go.Spot.Left},
+
+                GO(go.TextBlock, "Default Text",
+                  { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif",  },
+                  new go.Binding("text", "injector_error")),
+
+                GO(go.Shape, "RoundedRectangle", { row: 0, column: 1, margin: 2, width: 20, height: 20, fill: "green" },
+                    new go.Binding("fill", "injector_error_fill")),
+            ),
+
+            //master error
+            GO(go.Panel, go.Panel.Table,
+                {alignment: go.Spot.Left},
+
+                GO(go.TextBlock, "Default Text",
+                  { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif",  },
+                  new go.Binding("text", "master_error")),
+
+                GO(go.Shape, "RoundedRectangle", { row: 0, column: 1, margin: 2, width: 20, height: 20, fill: "green" },
+                    new go.Binding("fill", "master_error_fill")),
+            ),
+
+            //motor error
+            GO(go.Panel, go.Panel.Table,
+                {alignment: go.Spot.Left},
+
+                GO(go.TextBlock, "Default Text",
+                  { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif",  },
+                  new go.Binding("text", "motor_error")),
+
+                GO(go.Shape, "RoundedRectangle", { row: 0, column: 1, margin: 2, width: 20, height: 20, fill: "green" },
+                    new go.Binding("fill", "motor_error_fill")),
+            ),
+
+          );
+
+
+        statusTextDiagram.nodeTemplate =           
+            GO(go.Part, "Vertical",
+
+                { background: "#44CCFF" },
+
+                //sensers
+                GO(go.Panel, "Auto",
+                    GO(go.Shape, { fill:"white", stroke: "gray", strokeWidth: 3 }),
+
+                    //sensers
+                    GO(go.Panel, "Table",
+                        { defaultRowSeparatorStroke: "gray",defaultColumnSeparatorStroke: "gray" },
+                        GO(go.RowColumnDefinition, { column: 0, width: 250 }),
+                        GO(go.RowColumnDefinition, { column: 1, width: 250}),
+                        GO(go.RowColumnDefinition, { column: 2, width: 250 }),
+                        GO(go.RowColumnDefinition, { column: 3, width: 250 }),
+
+                        //temperature
+                        GO(go.Panel, go.Panel.Table,                  
+                            { row: 0, column: 0},
+                            
+                            GO(go.RowColumnDefinition, { column: 0, width: 40 }),
+                            GO(go.RowColumnDefinition, { column: 1, width: 40}),
+                            GO(go.RowColumnDefinition, { column: 2, width: 40 }),
+
+                            GO(go.TextBlock, "Default Text",
+                              { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif", },
+                              new go.Binding("text", "temperature")),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 1, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "temperature_value", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "temperature_value")),
+                                ),
+                            GO(go.TextBlock, "℃",
+                              { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif", })
+                        ),
+
+                        //pressure
+                        GO(go.Panel, go.Panel.Table,
+                            { row: 0, column: 1},
+                            { defaultAlignment: go.Spot.Center },
+                            GO(go.RowColumnDefinition, { column: 0, width: 40 }),
+                            GO(go.RowColumnDefinition, { column: 1, width: 40}),
+                            GO(go.RowColumnDefinition, { column: 2, width: 40 }),
+                            GO(go.TextBlock, "Default Text",
+                              { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif",  },
+                              new go.Binding("text", "pressure")),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 1, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "pressure_value", { stroke: "black",background: "lightgreen" },
+                                    new go.Binding("text", "pressure_value")),
+                                ),
+                            GO(go.TextBlock, "Bar",
+                              { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif", })
+                        ),
+
+                        //velocity
+                        GO(go.Panel, go.Panel.Table,
+                            { row: 0, column: 2},
+                            { defaultAlignment: go.Spot.Center },
+                            GO(go.RowColumnDefinition, { column: 0, width: 40 }),
+                            GO(go.RowColumnDefinition, { column: 1, width: 40}),
+                            GO(go.RowColumnDefinition, { column: 2, width: 40 }),
+                            GO(go.TextBlock, "Default Text",
+                              { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif", },
+                              new go.Binding("text", "velocity")),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 1, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "velocity_value", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "velocity_value")),
+                                ),
+                            GO(go.TextBlock, "m/s",
+                              { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif", })
+                        ),
+
+                        //voltage
+                        GO(go.Panel, go.Panel.Table,
+                            { row: 0, column: 3},
+                            { defaultAlignment: go.Spot.Center },
+                            GO(go.RowColumnDefinition, { column: 0, width: 40 }),
+                            GO(go.RowColumnDefinition, { column: 1, width: 40}),
+                            GO(go.RowColumnDefinition, { column: 2, width: 40 }),
+
+                            GO(go.TextBlock, "Default Text",
+                              { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif", },
+                              new go.Binding("text", "voltage")),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 1, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "injector_current_value", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "voltage_value")),
+                                ),
+                            GO(go.TextBlock, "V",
+                              { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif", })
+                        ),
+                    ),
+                ),
+
+                //errors
+                GO(go.Panel, "Auto",
+                    GO(go.Shape, { fill:"white", stroke: "gray", strokeWidth: 3 }),
+
+                    //errors
+                    GO(go.Panel, "Table",
+                        { defaultRowSeparatorStroke: "gray",defaultColumnSeparatorStroke: "gray" },
+                        GO(go.RowColumnDefinition, { column: 0, width: 200 }),
+                        GO(go.RowColumnDefinition, { column: 1, width: 200}),
+                        GO(go.RowColumnDefinition, { column: 2, width: 200 }),
+                        GO(go.RowColumnDefinition, { column: 3, width: 200 }),
+                        GO(go.RowColumnDefinition, { column: 4, width: 200 }),
+
+                        //temperature error
+                        GO(go.Panel, go.Panel.Table,                  
+                            { row: 0, column: 0},
+                            
+                            GO(go.RowColumnDefinition, { column: 0, width: 100 }),
+                            GO(go.RowColumnDefinition, { column: 1, width: 50}),
+
+
+                            {alignment: go.Spot.Left},
+
+                            GO(go.TextBlock, "temperature_error",
+                              { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif",  },
+                              new go.Binding("text", "temperature_error")),
+
+                            GO(go.Shape, "RoundedRectangle", { row: 0, column: 1, margin: 2, width: 20, height: 20, fill: "green" },
+                                new go.Binding("fill", "temperature_error_fill")),
+                        ),
+
+
+                        //pressure error
+                        GO(go.Panel, go.Panel.Table,                  
+                            { row: 0, column: 1},
+                            
+                            GO(go.RowColumnDefinition, { column: 0, width: 100 }),
+                            GO(go.RowColumnDefinition, { column: 1, width: 50}),
+
+
+                            {alignment: go.Spot.Left},
+
+                            GO(go.TextBlock, "Default Text",
+                              { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif",  },
+                              new go.Binding("text", "pressure_error")),
+
+                            GO(go.Shape, "RoundedRectangle", { row: 0, column: 1, margin: 2, width: 20, height: 20, fill: "green" },
+                                new go.Binding("fill", "pressure_error_fill")),
+                        ),
+
+                        //gate error
+                        GO(go.Panel, go.Panel.Table,                  
+                            { row: 0, column: 2},
+                            
+                            GO(go.RowColumnDefinition, { column: 0, width: 100 }),
+                            GO(go.RowColumnDefinition, { column: 1, width: 50}),
+
+
+                            {alignment: go.Spot.Left},
+
+                            GO(go.TextBlock, "gate_error",
+                              { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif",  },
+                              new go.Binding("text", "gate_error")),
+
+                            GO(go.Shape, "RoundedRectangle", { row: 0, column: 1, margin: 2, width: 20, height: 20, fill: "green" },
+                                new go.Binding("fill", "gate_error_fill")),
+                        ),
+
+
+                        //velocity error
+                        GO(go.Panel, go.Panel.Table,                  
+                            { row: 0, column: 3},
+                            
+                            GO(go.RowColumnDefinition, { column: 0, width: 100 }),
+                            GO(go.RowColumnDefinition, { column: 1, width: 50}),
+
+                            {alignment: go.Spot.Left},
+
+                            GO(go.TextBlock, "velocity error",
+                              { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif",  },
+                              new go.Binding("text", "velocity_error")),
+
+                            GO(go.Shape, "RoundedRectangle", { row: 0, column: 1, margin: 2, width: 20, height: 20, fill: "green" },
+                                new go.Binding("fill", "velocity_error_fill")),
+                        ),
+
+
+                        //emergency  error
+                        GO(go.Panel, go.Panel.Table,                  
+                            { row: 0, column: 4},
+                            
+                            GO(go.RowColumnDefinition, { column: 0, width: 100 }),
+                            GO(go.RowColumnDefinition, { column: 1, width: 50}),
+
+
+                            {alignment: go.Spot.Left},
+
+                            GO(go.TextBlock, "Default Text",
+                              { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif",  },
+                              new go.Binding("text", "emergency_error")),
+
+                            GO(go.Shape, "RoundedRectangle", { row: 0, column: 1, margin: 2, width: 20, height: 20, fill: "green" },
+                                new go.Binding("fill", "emergency_error_fill")),
+                        ),                                                                                           
+                    ),
+
+                ),
+
+                //time
+                GO(go.Panel, "Auto",
+                    GO(go.Shape, { fill:"white", stroke: "gray", strokeWidth: 3 }),
+
+                    GO(go.Panel, "Table",
+                        //current_running_time
+                        { defaultRowSeparatorStroke: "gray",defaultColumnSeparatorStroke: "gray" },
+                        GO(go.RowColumnDefinition, { column: 0, width: 500 }),
+                        GO(go.RowColumnDefinition, { column: 1, width: 500}),
+                        GO(go.Panel, go.Panel.Table, 
+                            { row: 0, column: 0, margin: 2, defaultAlignment: go.Spot.Center },
+                            GO(go.RowColumnDefinition, { column: 0, width: 100 }),
+                            GO(go.RowColumnDefinition, { column: 1, width: 50}),
+                            GO(go.RowColumnDefinition, { column: 2, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 3, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 4, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 5, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 6, width: 30}),
+                          
+                            GO(go.TextBlock, "Default Text",
+                              { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif" },
+                              new go.Binding("text", "current_running_time")),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 1, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "current_running_time_h", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "current_running_time_h")),
+                                ),
+                            GO(go.TextBlock, "小时",
+                              { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif" }),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 3, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "current_running_time_m", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "current_running_time_m")),
+                                ),
+                            GO(go.TextBlock, "分钟",
+                              { row: 0, column: 4, margin: 2, stroke: "black", font: "bold 12px sans-serif" }),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 5, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "current_running_time_s", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "current_running_time_s")),
+                                ),
+                            GO(go.TextBlock, "秒",
+                              { row: 0, column: 6, margin: 2, stroke: "black", font: "bold 12px sans-serif" }),                          
+                        ),   
+
+                        //total_running_time
+                        GO(go.Panel, go.Panel.Table, 
+                            { row: 0, column: 1, margin: 2, defaultAlignment: go.Spot.Center },
+                            GO(go.RowColumnDefinition, { column: 0, width: 100 }),
+                            GO(go.RowColumnDefinition, { column: 1, width: 40}),
+                            GO(go.RowColumnDefinition, { column: 2, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 3, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 4, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 5, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 6, width: 30}),
+                                                             
+                            GO(go.TextBlock, "Default Text",
+                              { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif", },
+                              new go.Binding("text", "total_running_time")),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 1, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "total_running_time_h", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "total_running_time_h")),
+                                ),
+                            GO(go.TextBlock, "小时",
+                              { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif", }),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 3, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "total_running_time_m", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "total_running_time_m")),
+                                ),
+                            GO(go.TextBlock, "分钟",
+                              { row: 0, column: 4, margin: 2, stroke: "black", font: "bold 12px sans-serif", }),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 5, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "total_running_time_s", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "total_running_time_s")),
+                                ),
+                            GO(go.TextBlock, "秒",
+                              { row: 0, column: 6, margin: 2, stroke: "black", font: "bold 12px sans-serif", }),                          
+                        ),
+
+                    ),                    
+                ),
+
+
+                //maintenance
+                GO(go.Panel, "Auto",
+                    GO(go.Shape, { fill:"white", stroke: "gray", strokeWidth: 3 }),
+
+                    GO(go.Panel, "Table",
+                        //current_running_time
+                        { defaultRowSeparatorStroke: "gray",defaultColumnSeparatorStroke: "gray" },
+                        GO(go.RowColumnDefinition, { column: 0, width: 500 }),
+                        GO(go.RowColumnDefinition, { column: 1, width: 500}),
+                        GO(go.Panel, go.Panel.Table, 
+                            { row: 0, column: 0, margin: 2, defaultAlignment: go.Spot.Center },
+                            GO(go.RowColumnDefinition, { column: 0, width: 100 }),
+                            GO(go.RowColumnDefinition, { column: 1, width: 50}),
+                            GO(go.RowColumnDefinition, { column: 2, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 3, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 4, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 5, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 6, width: 30}),
+                          
+                            GO(go.TextBlock, "Default Text",
+                              { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif" },
+                              new go.Binding("text", "current_running_time")),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 1, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "current_running_time_h", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "current_running_time_h")),
+                                ),
+                            GO(go.TextBlock, "小时",
+                              { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif" }),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 3, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "current_running_time_m", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "current_running_time_m")),
+                                ),
+                            GO(go.TextBlock, "分钟",
+                              { row: 0, column: 4, margin: 2, stroke: "black", font: "bold 12px sans-serif" }),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 5, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "current_running_time_s", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "current_running_time_s")),
+                                ),
+                            GO(go.TextBlock, "秒",
+                              { row: 0, column: 6, margin: 2, stroke: "black", font: "bold 12px sans-serif" }),                          
+                        ),   
+
+                        //total_running_time
+                        GO(go.Panel, go.Panel.Table, 
+                            { row: 0, column: 1, margin: 2, defaultAlignment: go.Spot.Center },
+                            GO(go.RowColumnDefinition, { column: 0, width: 100 }),
+                            GO(go.RowColumnDefinition, { column: 1, width: 40}),
+                            GO(go.RowColumnDefinition, { column: 2, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 3, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 4, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 5, width: 30}),
+                            GO(go.RowColumnDefinition, { column: 6, width: 30}),
+                                                             
+                            GO(go.TextBlock, "Default Text",
+                              { row: 0, column: 0, margin: 2, stroke: "black", font: "bold 12px sans-serif", },
+                              new go.Binding("text", "total_running_time")),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 1, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "total_running_time_h", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "total_running_time_h")),
+                                ),
+                            GO(go.TextBlock, "小时",
+                              { row: 0, column: 2, margin: 2, stroke: "black", font: "bold 12px sans-serif", }),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 3, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "total_running_time_m", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "total_running_time_m")),
+                                ),
+                            GO(go.TextBlock, "分钟",
+                              { row: 0, column: 4, margin: 2, stroke: "black", font: "bold 12px sans-serif", }),
+
+                            GO(go.Panel, "Auto",
+                                  { row: 0, column: 5, margin: 2, background: "lightgray" },
+                                  GO(go.Shape, "RoundedRectangle", { fill: "lightgreen" }),
+                                  GO(go.TextBlock, "total_running_time_s", { stroke: "black", background: "lightgreen" },
+                                    new go.Binding("text", "total_running_time_s")),
+                                ),
+                            GO(go.TextBlock, "秒",
+                              { row: 0, column: 6, margin: 2, stroke: "black", font: "bold 12px sans-serif", }),                          
+                        ),
+
+                    ),                    
+                ),
+            //close template
+            );
+
+
+
+        var statusPicDiagramModel = GO(go.Model);
+
+        var statusTextDiagramModel = GO(go.Model);
+
+
+
+        setInterval(function () {
+
+            $.ajax({
+                type: "get",
+                url: "/api/device/running_status/" + {{ device_id }},
+                success: function (msg) {
+
+                    console.log(msg);
+                    statusPicDiagramModel.nodeDataArray = msg.StatusPic;
+                    statusTextDiagramModel.nodeDataArray = msg.StatusText;
+                    statusPicDiagram.model = statusPicDiagramModel;
+                    statusTextDiagram.model = statusTextDiagramModel;
+                    
+                },
+
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    console.log("错误信息;" + XmlHttpRequest.status);
+                }
+
+            })
+
+        }
+, 1000)
+
+    </script>
+
+{% endblock javascripts %}
