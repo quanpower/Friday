@@ -1393,3 +1393,26 @@ class AlarmRecord(Resource):
 
     def put(self):
         pass
+
+
+
+class DeviceOnLine(Resource):
+    '''
+        get the devices number on line.
+    '''
+
+    def get(self, user_id):
+        L = range(7)
+        devices_on_line = list(map(lambda x: x * 2 + 10, L))
+        print(devices_on_line)
+        return jsonify(devices_on_line) 
+
+
+    def post(self):
+        pass
+
+    def delete(self):
+        pass
+
+    def put(self):
+        pass

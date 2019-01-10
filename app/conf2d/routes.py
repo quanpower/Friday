@@ -45,22 +45,4 @@ def device_status():
     return jsonify(daq_values)
 
 
-# @blueprint.route('/error_log')
-# def error_log():
 
-
-#     device_daq_realtime = Daq.query.filter_by(device_id=4).order_by(
-#         Daq.gmt_daq.desc()).first()
-
-#     print('--------device_daq_realtime--------\n' * 3)
-#     print(device_daq_realtime)
-
-#     daq_values = device_daq_realtime.daq_value
-#     # daq_values = json.loads(device_daq_realtime.daq_value)
-#     gmt_daq = device_daq_realtime.gmt_daq
-#     gmt_daq_str = datetime.datetime.strftime(gmt_daq, "%H-%M-%S")
-    
-
-#     print(daq_values)
-
-#     return jsonify(daq_values)

@@ -7,7 +7,7 @@ from flask_restful import Api
 from app.api.resources import Login, Logout, GetUser, Register, Users, Projects, Products, ProductProfile, Devices, DeviceProfile, \
 DeviceDaqRealtime, DeviceDaqAlarm, DeviceDaqHistory, DeviceDaqRecord, AutoInit, FakeNotices, ChangeLog, TodoList, \
 AddUser, AddProject, AddProduct, AddDevice, MaintenanceRecord, Counter, ProductDistribute, RegionDistribute,  DevicesOfProduct, DeviceDetail, \
-DeviceHistoryRecord,DeviceAlarmRecord, DeviceRunningStatus, AlarmRecord
+DeviceHistoryRecord,DeviceAlarmRecord, DeviceRunningStatus, AlarmRecord, DeviceOnLine
 
 
 api_resource = Api(api)
@@ -35,6 +35,7 @@ api_resource.add_resource(DeviceDetail, '/device/detail/<device_id>', endpoint='
 api_resource.add_resource(DeviceHistoryRecord, '/device/history_records/<device_id>', endpoint='history_records')
 api_resource.add_resource(DeviceAlarmRecord, '/device/alarm_records/<device_id>', endpoint='device_alarm_records')
 api_resource.add_resource(DeviceRunningStatus, '/device/running_status/<device_id>', endpoint='running_status')
+api_resource.add_resource(DeviceOnLine, '/device/online/<user_id>', endpoint='device_online')
 
 api_resource.add_resource(DeviceDaqRealtime, '/device/daq/realtime', endpoint='device_daq_realtime')
 api_resource.add_resource(DeviceDaqHistory, '/device/daq/history', endpoint='device_daq_history')

@@ -8,40 +8,40 @@
 
 {% block content %}
   <div class="right_col" role="main">
-  <div class="">
-
-    <div class="row top_tiles" style="margin: 10px 0;">
-      <div class="col-md-3 tile">
-        <span>产品型号</span>
-        <h2>5</h2>
-        <span class="sparkline_three" style="height: 160px;">
-                      <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                  </span>
+      <!-- top tiles -->
+    <div class="row tile_count">
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-user"></i> 用户总数</span>
+        <div class="count green">15</div>
+        <span class="count_bottom"><i class="green">4% </i> From last Week</span>
       </div>
-      <div class="col-md-3 tile">
-        <span>设备总数</span>
-        <h2>8</h2>
-        <span class="sparkline_three" style="height: 160px;">
-                      <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                  </span>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-tags"></i> 产品型号</span>
+        <div class="count green">6</div>
+        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
       </div>
-      <div class="col-md-3 tile">
-        <span>在线总数</span>
-        <h2>6</h2>
-        <span class="sparkline_two" style="height: 160px;">
-                      <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                  </span>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-cog"></i> 设备总数</span>
+        <div class="count green">212</div>
+        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
       </div>
-      <div class="col-md-3 tile">
-        <span>故障总数</span>
-        <h2>2</h2>
-        <span class="sparkline_two" style="height: 160px;">
-                      <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                  </span>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-bar-chart"></i> 在线总数</span>
+        <div class="count green">45</div>
+        <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-newspaper-o"></i> 记录条数</span>
+        <div class="count green">56,315</div>
+        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+      </div>
+      <div id='error_number' class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-exclamation-circle"></i> 故障总数</span>
+        <div class="count red">7</div>
+        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
       </div>
     </div>
-
-    <br />
+    <!-- /top tiles -->
 
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
@@ -59,7 +59,7 @@
           </div>
           <div class="x_content">
             <div class="demo-container" style="height:250px">
-              <div id="chart_plot_03" class="demo-placeholder"></div>
+              <div id="device_online" class="demo-placeholder"></div>
             </div>
           </div>
         </div>
@@ -145,9 +145,8 @@
             </ul>
             <div class="clearfix"></div>
           </div>
-          <div class="x_content">
+          <div id='error_rate' class="x_content">
               <div id="error" style="height:300px;"></div>
-
           </div>
         </div>
       </div>
@@ -161,33 +160,50 @@
   {{ super()}}
 
 
-
-  <!-- Chart.js -->
-  <script src="{{ url_for('static', filename='vendors/Chart.js/dist/Chart.min.js') }}"></script>
- 
-  <!-- Skycons -->
-  <script src="{{ url_for('static', filename='vendors/skycons/skycons.js') }}"></script>
-  <!-- Flot -->
-  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.pie.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.time.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.stack.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.resize.js') }}"></script>
-  <!-- Flot plugins -->
-  <script src="{{ url_for('static', filename='vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendors/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendors/flot.curvedlines/curvedLines.js') }}"></script>
-  <!-- DateJS -->
-  <script src="{{ url_for('static', filename='vendors/DateJS/build/date.js') }}"></script>
- 
-  <!-- jQuery Sparklines -->
-  <script src="{{ url_for('static', filename='vendors/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
-  <!-- easy-pie-chart -->
-  <script src="{{ url_for('static', filename='vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js') }}"></script>
   <!-- ECharts -->
   <script src="{{ url_for('static', filename='vendors/echarts/dist/echarts.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendors/echarts/map/js/world.js') }}"></script>
 
+ 
+  <script type="text/javascript">
+    // 初始化图表标签
+    var device_online_chart = echarts.init(document.getElementById('device_online'));
+    var option = {
+    xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [{
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: 'line',
+        smooth: true
+    }]
+    };
+    device_online_chart.showLoading(); // 显示加载动画
+
+    $.get('/api/device/online/' + {{ current_user.id }}).done(function (data) {
+        device_online_chart.hideLoading(); // 隐藏加载动画
+
+        // 填入数据
+        console.log(data);
+        device_online_chart.setOption({
+          xAxis: {
+              type: 'category',
+              data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          },
+          yAxis: {
+              type: 'value'
+          },
+          series: [{
+              type: 'line',
+              smooth: true,
+              data: data
+          }]
+        });
+    });
+  </script>
   
   <script type="text/javascript">
     // 初始化图表标签
@@ -229,10 +245,29 @@
         // 填入数据
         myChart.setOption({
                     series: [{
-                        name: 'protduct',
+                        name: 'region',
                         type: 'pie',
-                        radius : '45%',
-
+                        radius: ['50%', '70%'],
+                        center: ['50%', '40%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '30',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
                         data: data.product_distribute
                     }]
         });
@@ -282,7 +317,8 @@
                     series: [{
                         name: 'region',
                         type: 'pie',
-                        radius: ['50%', '70%'],
+                        radius: ['40%', '70%'],
+                        center: ['50%', '40%'],
                         avoidLabelOverlap: false,
                         label: {
                             normal: {
@@ -327,7 +363,7 @@
         {
             name: '故障指标',
             type: 'gauge',
-            radius: '55%',
+            radius: '75%',
             center: ['50%', '40%'],
             detail: {formatter:'{value}%'},
             data: [{value: 6, name: ''}]
@@ -336,6 +372,20 @@
 };
     myChart2.setOption(options);
 </script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#error_number").click(function(){
+        console.log('clicked error!')
+          location.href='../conf2d/alarm_records/' + {{ current_user.id }};
+      });
+
+      $("#error_rate").click(function(){
+        console.log('clicked error!')
+          location.href='../conf2d/alarm_records/' + {{ current_user.id }};
+      });
+    });
+  </script>
 
 {% endblock javascripts %}
 
