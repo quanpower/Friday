@@ -27,7 +27,7 @@ api_resource.add_resource(ProductProfile, '/product/profile', endpoint='product_
 api_resource.add_resource(ProductDistribute, '/distribute/product', endpoint='product_distribute')
 api_resource.add_resource(RegionDistribute, '/distribute/region', endpoint='region_distribute')
 
-api_resource.add_resource(Devices, '/devices/<user_id>', endpoint='devices')
+api_resource.add_resource(Devices, '/devices', endpoint='devices')
 api_resource.add_resource(AlarmRecord, '/alarm_records/<user_id>', endpoint='alarm_records')
 api_resource.add_resource(DeviceProfile, '/device/profile', endpoint='device_profile')
 api_resource.add_resource(DevicesOfProduct, '/device/device_of_product/<product_id>', endpoint='device_of_product')

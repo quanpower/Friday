@@ -12,6 +12,7 @@ from flask_babelex import Babel
 from flask_security import SQLAlchemyUserDatastore, Security, UserMixin, RoleMixin, login_required
 from importlib import import_module
 from logging import basicConfig, DEBUG, getLogger, StreamHandler
+from flask_cors import *
 
 import os.path as op
 
@@ -48,6 +49,9 @@ flas_admin.add_view(FileAdmin(path, '/static/', name='Static Files'))
 
 def create_app(config_name):
     app = Flask(__name__)
+    # for cors
+    CORS(app, supports_credentials=True)
+
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
     # bable config for i18n

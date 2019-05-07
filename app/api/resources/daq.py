@@ -392,8 +392,24 @@ class Devices(Resource):
 
     '''
 
-    def get(self, user_id):
+    def get(self):
 
+        parser = reqparse.RequestParser()
+        parser.add_argument('user_id', type=str)
+        parser.add_argument('page', type=str)
+        parser.add_argument('limit', type=str)
+        parser.add_argument('sort', type=str)
+        args = parser.parse_args()
+
+        print('--------device_list-------', args)
+
+        user_id = args['user_id']
+        page = args['page']
+        limit = args['limit']
+        sort = args['sort']
+
+        print('----user_id---' * 5)
+        print(user_id)
 
         devices = Device.query.filter_by(user_id=user_id).all()
 
@@ -416,26 +432,51 @@ class Devices(Resource):
             node_type = device.node_type
             region = device.region
 
+
+            # deviceLists.append({
+            #     'id':device_id,
+            #     'owner':owner,
+            #     'name':name,
+            #     'avatar':"http://dummyimage.com/48x48/{0}/757575.png&text={1}".format(index_color(device_id), device_id),
+            #     'device_name':device_name,
+            #     'device_secret':device_secret,
+            #     'gmt_create':gmt_create,
+            #     'gmt_active':gmt_active,
+            #     'gmt_online':gmt_online,
+            #     'status': status,
+            #     'firmware_version': firmware_version,
+            #     'ip_address': ip_address,
+            #     'node_type': node_type,
+            #     'region': region,
+            #     'running_status':'/conf2d/gojs/' + str(device_id)
+            #     })
+
+
             deviceLists.append({
                 'id':device_id,
-                'owner':owner,
-                'name':name,
+                'author':owner,
+                'title':name,
                 'avatar':"http://dummyimage.com/48x48/{0}/757575.png&text={1}".format(index_color(device_id), device_id),
                 'device_name':device_name,
                 'device_secret':device_secret,
                 'gmt_create':gmt_create,
                 'gmt_active':gmt_active,
                 'gmt_online':gmt_online,
-                'status': status,
+                # 'status': status,
                 'firmware_version': firmware_version,
                 'ip_address': ip_address,
                 'node_type': node_type,
                 'region': region,
-                'running_status':'/conf2d/gojs/' + str(device_id)
+                'running_status':'/conf2d/gojs/' + str(device_id),
+                'timestamp': 1552306734,
+                'status': 'published',
+                'pageviews': 'zwq',
+                'reviewer': 'qqq',
+                'importance':3,
                 })
 
         print(deviceLists)
-        return jsonify(deviceLists) 
+        return jsonify({'total':2,'items': deviceLists}) 
 
     def post(self):
         pass
@@ -1277,10 +1318,11 @@ class DeviceRunningStatus(Resource):
             else:
                 return "green"
 
-        dict_1 = { 'name': "1#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_1, injector_1_current_alarm_str, master_1_error_alarm_str), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_1_current_value_str, 'motor_current_value':motor_1_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_1_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':alarm_2_color(master_1_error_alarm_str), 'motor_error':"电机故障:", 'motor_error_fill':"green" }
-        dict_2 = { 'name': "2#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_2, injector_2_current_alarm_str, master_2_error_alarm_str), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_2_current_value_str, 'motor_current_value':motor_2_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_2_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':alarm_2_color(master_2_error_alarm_str), 'motor_error':"电机故障:", 'motor_error_fill':"green" }
-        dict_3 = { 'name': "3#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_3, injector_3_current_alarm_str, master_3_error_alarm_str), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_3_current_value_str, 'motor_current_value':motor_3_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_3_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':alarm_2_color(master_3_error_alarm_str), 'motor_error':"电机故障:", 'motor_error_fill':"green" }
-        dict_4 = { 'name': "4#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_4, injector_4_current_alarm_str, master_4_error_alarm_str), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_4_current_value_str, 'motor_current_value':motor_4_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_4_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':alarm_2_color(master_4_error_alarm_str), 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        # dict_1 = { 'name': "1#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_1, injector_1_current_alarm_str, master_1_error_alarm_str), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_1_current_value_str, 'motor_current_value':motor_1_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_1_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':alarm_2_color(master_1_error_alarm_str), 'motor_error':"电机故障:", 'motor_error_fill':"green" }
+        dict_1 = { 'name': "1#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_1, injector_1_current_alarm_str, master_1_error_alarm_str), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':str(random.random()), 'motor_current_value':motor_1_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_1_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':alarm_2_color(master_1_error_alarm_str), 'motor_error':"电机故障:", 'motor_error_fill':random.choice(["red", "green","orange","yellow"]) }
+        dict_2 = { 'name': "2#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_2, injector_2_current_alarm_str, master_2_error_alarm_str), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_2_current_value_str, 'motor_current_value':motor_2_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_2_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':alarm_2_color(master_2_error_alarm_str), 'motor_error':"电机故障:", 'motor_error_fill':random.choice(["red", "green","orange","yellow"]) }
+        dict_3 = { 'name': "3#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_3, injector_3_current_alarm_str, master_3_error_alarm_str), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_3_current_value_str, 'motor_current_value':motor_3_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_3_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':alarm_2_color(master_3_error_alarm_str), 'motor_error':"电机故障:", 'motor_error_fill':random.choice(["red", "green","orange","yellow"]) }
+        dict_4 = { 'name': "4#喷头", 'color':"orange", 'source': work_status_2_pic(work_status_4, injector_4_current_alarm_str, master_4_error_alarm_str), 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':injector_4_current_value_str, 'motor_current_value':motor_4_current_value_str, 'injector_error':"喷枪息弧:", 'injector_error_fill':alarm_2_color(injector_4_current_alarm_str), 'master_error':"主机故障:", 'master_error_fill':alarm_2_color(master_4_error_alarm_str), 'motor_error':"电机故障:", 'motor_error_fill':random.choice(["red", "green","orange","yellow"]) }
         dict_5 = { 'name': "5#喷头", 'color':"orange", 'source': "/static/images/handsome/1_start.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
         dict_6 = { 'name': "6#喷头", 'color':"orange", 'source': "/static/images/handsome/1_close.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"orange", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
         dict_7 = { 'name': "7#喷头", 'color':"orange", 'source': "/static/images/handsome/1_start.png", 'injector_current':"喷嘴电流:", 'motor_current':"电机电流:", 'injector_current_value':"0.5", 'motor_current_value':"1.5", 'injector_error':"喷枪息弧:", 'injector_error_fill':"green", 'master_error':"主机故障:", 'master_error_fill':"green", 'motor_error':"电机故障:", 'motor_error_fill':"green" }
@@ -1340,6 +1382,7 @@ class DeviceRunningStatus(Resource):
 
 
         device_running_status={'StatusPic':status_pic_list, 'StatusText':status_text_list}
+        print(device_running_status)
         return jsonify(device_running_status) 
 
     def post(self):
