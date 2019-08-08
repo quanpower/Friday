@@ -122,7 +122,6 @@ class UnixConfig(ProductionConfig):
         app.logger.addHandler(syslog_handler)
 
 
-
 config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
