@@ -121,28 +121,3 @@ log
 
 
 # For Frontend
-# >>>>>>>>>>>>
-
-
-# dependencies
-frontend/node_modules
-# roadhog-api-doc ignore
-frontend/src/utils/request-temp.js
-frontend/_roadhog-api-doc
-
-# production
-frontend/vscode
-
-# misc
-frontend/.DS_Store
-frontend/npm-debug.log*
-frontend/yarn-error.log
-
-frontend/coverage
-frontend/.idea
-frontend/yarn.lock
-frontend/package-lock.json
-frontend/*bak
-frontend/jsconfig.json
-
-#<<<<<<<<<<<<<<<
