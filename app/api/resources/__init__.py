@@ -1,4 +1,4 @@
-from .user import Login, Logout, GetUser, Register, Users
+from .user import Login, Logout, GetUser, Register, Users, UserInfo
 from .daq import Projects, Products, ProductProfile, Devices, DeviceProfile, DeviceDaqRealtime,\
  DeviceDaqAlarm, DeviceDaqHistory, DeviceDaqRecord, ProductDistribute, RegionDistribute, \
  DevicesOfProduct, DeviceDetail,DeviceHistoryRecord,DeviceAlarmRecord,DeviceRunningStatus, \
@@ -15,6 +15,7 @@ __all__ = [
     'Logout',
     'GetUser',
     'Users',
+    'UserInfo',
     'Projects',
     'Products',
     'ProductProfile',

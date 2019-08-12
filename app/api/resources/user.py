@@ -7,6 +7,33 @@ from app.models import User
 from app import db
 
 
+tokens = {
+  'admin': {
+    'token': 'admin-token'
+  },
+  'editor': {
+    'token': 'editor-token'
+  }
+}
+
+
+users = {
+  'admin-token': {
+    'roles': ['admin'],
+    'introduction': 'I am a super administrator',
+    'avatar': 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    'name': 'Super Admin',
+    'flicketToken': '4eJD8FYiehXS0jXZMcoDhLW3bdMOY1Pv'
+  },
+  'editor-token': {
+    'roles': ['editor'],
+    'introduction': 'I am an editor',
+    'avatar': 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    'name': 'Normal Editor',
+    'flicketToken': '4eJD8FYiehXS0jXZMcoDhLW3bdMOY1Pv'
+  }
+}
+
 
 class Register(Resource):
 
@@ -44,22 +71,20 @@ class Register(Resource):
         pass
 
 
+
 class Login(Resource):
 
     def get(self):
         pass
 
     def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('userName', type=str)
-        parser.add_argument('password', type=str)
-        parser.add_argument('type', type=str)
+        data = request.get_data()
+        json_data = json.loads(data)
+        print(json_data)
+        username = json_data.get('username')
 
-        args = parser.parse_args()
-
-        username = args['userName']
-        password = args['password']
-        post_type = args['type']
+        print(username)
+        # post_type = args['type']
 
         # user = User.query.filter_by(email=username).first()
         # if user is not None and user.verify_password(password):
@@ -72,22 +97,19 @@ class Login(Resource):
 
             if username == 'admin':
                 return jsonify({
-                            'status': 'ok',
-                            'type': post_type,
-                            'currentAuthority': 'admin',
-                        })
+                    'code': 20000,
+                    'data': tokens['admin']['token']
+                  })
             else:
                 return jsonify({
-                            'status': 'ok',
-                            'type': post_type,
-                            'currentAuthority': 'user',
-                        })
+                    'code': 20000,
+                    'data': tokens['editor']['token']
+                  })
         else:
             return jsonify({
-                            'status': 'error',
-                            'type': post_type,
-                            'currentAuthority': 'guest',
-                        })
+              code: 60204,
+              message: 'Account and password are incorrect.'
+            })
 
     def delete(self):
         pass
@@ -147,6 +169,47 @@ class GetUser(Resource):
                       'userid': '00000001',
                       'notifyCount': 12,
                   })
+
+    def post(self):
+        pass
+
+    def delete(self):
+        pass
+
+    def put(self):
+        pass
+
+
+class UserInfo(Resource):
+    def get(self):
+
+        parser = reqparse.RequestParser()
+        parser.add_argument('token', type=str)
+        # parser.add_argument('type', type=str)
+
+        args = parser.parse_args()
+
+        token = args['token']
+
+        print(token)
+
+        # info = users[token]
+        info = users['admin-token']
+
+        print('----info-----')
+        print(info)
+
+        if(not info):
+            return jsonify({
+            'code': 50008,
+            'message': 'Login failed, unable to get user details.'
+            })
+        else:
+            return jsonify({
+                    'code': 20000,
+                    'data': info
+            })
+
 
     def post(self):
         pass

@@ -4,7 +4,7 @@ api = Blueprint('api', __name__)
 # from . import authentication, posts, users, comments, errors
 
 from flask_restful import Api
-from app.api.resources import Login, Logout, GetUser, Register, Users, Projects, Products, ProductProfile, Devices, DeviceProfile, \
+from app.api.resources import Login, Logout, GetUser, Register, Users, UserInfo, Projects, Products, ProductProfile, Devices, DeviceProfile, \
 DeviceDaqRealtime, DeviceDaqAlarm, DeviceDaqHistory, DeviceDaqRecord, AutoInit, FakeNotices, ChangeLog, TodoList, \
 AddUser, AddProject, AddProduct, AddDevice, MaintenanceRecord, Counter, ProductDistribute, RegionDistribute,  DevicesOfProduct, DeviceDetail, \
 DeviceHistoryRecord,DeviceAlarmRecord, DeviceRunningStatus, AlarmRecord, DeviceOnLine
@@ -13,11 +13,12 @@ DeviceHistoryRecord,DeviceAlarmRecord, DeviceRunningStatus, AlarmRecord, DeviceO
 api_resource = Api(api)
 
 
-api_resource.add_resource(Register, '/register', endpoint='register')
-api_resource.add_resource(Login, '/login/account', endpoint='login')
-api_resource.add_resource(Logout, '/logout', endpoint='logout')
-api_resource.add_resource(GetUser, '/currentUser', endpoint='getUser')
-api_resource.add_resource(Users, '/users', endpoint='users')
+api_resource.add_resource(Register, '/user/register', endpoint='register')
+api_resource.add_resource(Login, '/user/login', endpoint='login')
+api_resource.add_resource(UserInfo, '/user/info', endpoint='info')
+api_resource.add_resource(Logout, '/user/logout', endpoint='logout')
+api_resource.add_resource(GetUser, '/user/currentUser', endpoint='getUser')
+api_resource.add_resource(Users, '/user/users', endpoint='users')
 
 api_resource.add_resource(Projects, '/projects', endpoint='projects')
 
