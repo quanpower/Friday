@@ -70,7 +70,7 @@ python-dateutil==2.7.3
 python-dotenv==0.8.2
 python-editor==1.0.3
 pytz==2018.5
-PyYAML==3.13
+PyYAML==5.4
 redis==2.10.6
 requests==2.19.1
 rq==0.12.0
